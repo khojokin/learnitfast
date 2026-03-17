@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -23,9 +23,20 @@
       overflow-x:hidden;
     }
 
+    img{
+      max-width:100%;
+      display:block;
+    }
+
     a{
       text-decoration:none;
+      transition:0.3s;
       color:inherit;
+    }
+
+    input,
+    button{
+      font-family:Arial, Helvetica, sans-serif;
       transition:0.3s;
     }
 
@@ -47,10 +58,28 @@
     }
 
     .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
       font-size:28px;
       font-weight:800;
       color:#2563eb;
       letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
     }
 
     .menu-toggle{
@@ -94,6 +123,34 @@
       gap:16px;
       flex:1;
       justify-content:flex-end;
+    }
+
+    .search-box{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:220px;
+      max-width:260px;
+      width:100%;
+    }
+
+    .search-box span{
+      color:#6b7280;
+      font-size:14px;
+      flex-shrink:0;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:11px 10px;
+      font-size:14px;
+      color:#111827;
     }
 
     nav{
@@ -156,7 +213,7 @@
     .hero{
       padding:84px 6% 40px;
       background:
-        linear-gradient(rgba(15,23,42,0.80), rgba(30,41,59,0.78)),
+        linear-gradient(rgba(15,23,42,0.78), rgba(30,41,59,0.76)),
         url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       color:#fff;
     }
@@ -270,16 +327,16 @@
       box-shadow:0 0 0 3px rgba(37,99,235,0.08);
     }
 
-    .form-row{
+    .row-between{
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:14px;
-      margin:8px 0 16px;
+      gap:12px;
+      margin:10px 0 18px;
       flex-wrap:wrap;
     }
 
-    .remember-wrap{
+    .checkbox-row{
       display:flex;
       align-items:center;
       gap:10px;
@@ -287,9 +344,13 @@
       font-size:14px;
     }
 
+    .checkbox-row input{
+      margin:0;
+    }
+
     .forgot-link{
       color:#2563eb;
-      font-weight:800;
+      font-weight:700;
       font-size:14px;
     }
 
@@ -310,54 +371,6 @@
       background:#1d4ed8;
     }
 
-    .divider{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin:20px 0;
-      color:#9ca3af;
-      font-size:13px;
-      font-weight:700;
-      text-transform:uppercase;
-    }
-
-    .divider::before,
-    .divider::after{
-      content:"";
-      flex:1;
-      height:1px;
-      background:#e5e7eb;
-    }
-
-    .social-btn{
-      width:100%;
-      padding:14px 18px;
-      border:1px solid #d1d5db;
-      border-radius:999px;
-      background:#fff;
-      color:#111827;
-      font-weight:800;
-      font-size:15px;
-      cursor:pointer;
-      margin-bottom:12px;
-    }
-
-    .social-btn:hover{
-      background:#f8fafc;
-    }
-
-    .form-footer{
-      margin-top:18px;
-      text-align:center;
-      color:#6b7280;
-      font-size:14px;
-    }
-
-    .form-footer a{
-      color:#2563eb;
-      font-weight:800;
-    }
-
     .success-message{
       display:none;
       margin-top:16px;
@@ -372,6 +385,18 @@
 
     .success-message.show{
       display:block;
+    }
+
+    .form-footer{
+      margin-top:18px;
+      text-align:center;
+      color:#6b7280;
+      font-size:14px;
+    }
+
+    .form-footer a{
+      color:#2563eb;
+      font-weight:800;
     }
 
     .benefit-list{
@@ -426,6 +451,26 @@
       font-size:18px;
     }
 
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
     .footer-col a{
       display:block;
       color:#9ca3af;
@@ -444,6 +489,13 @@
       border-top:1px solid rgba(255,255,255,0.06);
       padding-top:26px;
       font-size:14px;
+    }
+
+    @media (max-width:1100px){
+      .search-box{
+        min-width:180px;
+        max-width:220px;
+      }
     }
 
     @media (max-width:1024px){
@@ -482,6 +534,11 @@
 
       .nav-area.open{
         display:flex;
+      }
+
+      .search-box{
+        width:100%;
+        max-width:none;
       }
 
       nav{
@@ -529,13 +586,21 @@
 <body>
   <header>
     <div class="header-inner">
-      <a href="index.html" class="logo">LearnITFast</a>
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
 
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
 
       <div class="nav-area" id="navArea">
+        <div class="search-box">
+          <span>🔎</span>
+          <input type="text" id="searchInput" placeholder="Search pages..." />
+        </div>
+
         <nav>
           <a href="index.html">Home</a>
           <a href="quiz.html">Quiz</a>
@@ -546,8 +611,8 @@
         </nav>
 
         <div class="nav-actions">
-          <a href="login.html" class="btn btn-primary active">Log In</a>
-          <a href="signup.html" class="btn-login">Sign Up</a>
+          <a href="login.html" class="btn-login active">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
         </div>
       </div>
     </div>
@@ -557,20 +622,20 @@
     <div class="hero-inner">
       <div class="hero-text">
         <h1>Welcome back to LearnITFast.</h1>
-        <p>Log in to continue your revision, return to your study flow, and prepare for future features like saved progress, premium tools, and stronger personalized learning.</p>
+        <p>Log in to continue your study journey and get ready for saved progress, flashcard activity, quizzes, and more as the platform keeps growing.</p>
 
         <div class="hero-points">
           <div class="hero-point">
-            <strong>Continue learning</strong>
-            <span>Get back to quizzes, flashcards, and topic study without losing momentum.</span>
+            <strong>Pick up where you left off</strong>
+            <span>Return to your study flow faster and stay focused.</span>
           </div>
           <div class="hero-point">
-            <strong>Future-ready account</strong>
-            <span>Your login flow is ready to grow into real authentication later.</span>
+            <strong>Built for future progress</strong>
+            <span>Your account can later connect to saved scores, card tracking, and premium access.</span>
           </div>
           <div class="hero-point">
-            <strong>Clean access</strong>
-            <span>Simple sign in now, stronger account tools later.</span>
+            <strong>Clean and simple</strong>
+            <span>Log in with a layout that matches the rest of your platform.</span>
           </div>
         </div>
       </div>
@@ -583,7 +648,7 @@
     <div class="login-layout">
       <div class="login-card">
         <h2>Log in to your account</h2>
-        <p>Enter your details below to sign in.</p>
+        <p>Enter your details below to access your LearnITFast account.</p>
 
         <form id="loginForm">
           <div class="field">
@@ -593,14 +658,14 @@
 
           <div class="field">
             <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter password" required>
           </div>
 
-          <div class="form-row">
-            <label class="remember-wrap">
+          <div class="row-between">
+            <div class="checkbox-row">
               <input type="checkbox" id="rememberMe">
-              <span>Remember me</span>
-            </label>
+              <label for="rememberMe">Remember me</label>
+            </div>
 
             <a href="#" class="forgot-link">Forgot password?</a>
           </div>
@@ -608,43 +673,38 @@
           <button type="submit" class="submit-btn">Log In</button>
 
           <div class="success-message" id="successMessage">
-            Login form submitted successfully. This front-end version shows confirmation only until you connect real authentication.
+            Login form submitted successfully. This front-end version shows confirmation only until you connect a real authentication system.
           </div>
         </form>
 
-        <div class="divider">or continue with</div>
-
-        <button class="social-btn" type="button">Continue with Google</button>
-        <button class="social-btn" type="button">Continue with Microsoft</button>
-
         <div class="form-footer">
-          Don’t have an account? <a href="signup.html">Create one here</a>
+          Don’t have an account? <a href="signup.html">Sign up here</a>
         </div>
       </div>
 
       <div class="side-card">
         <h3>Why log in?</h3>
-        <p>Your account makes the platform more useful as it grows.</p>
+        <p>Your account helps turn LearnITFast into a more personal study space over time.</p>
 
         <div class="benefit-list">
           <div class="benefit-item">
-            <strong>Return to your study flow</strong>
-            <span>Pick up where you left off with quizzes, flashcards, and topics.</span>
+            <strong>Access your study space</strong>
+            <span>Future features can connect your account to saved scores, card sessions, and topic progress.</span>
           </div>
 
           <div class="benefit-item">
-            <strong>Prepare for progress tracking</strong>
-            <span>This login flow can later connect to saved scores, flashcard history, and premium access.</span>
+            <strong>Stay organized</strong>
+            <span>Logging in makes it easier to build a consistent revision routine as the site expands.</span>
           </div>
 
           <div class="benefit-item">
-            <strong>Unlock future premium tools</strong>
-            <span>As LearnITFast grows, your account can power deeper revision features and memberships.</span>
+            <strong>Be ready for premium tools</strong>
+            <span>Your account can later unlock mock exams, saved decks, and deeper revision packs.</span>
           </div>
         </div>
 
         <div class="note-box">
-          This is a styled front-end login page. To make it work for real, connect it later to Firebase, Supabase, or your own backend authentication system.
+          Right now this is a styled front-end login form. To make it work with real users, connect it later to Firebase, Supabase, or your own backend.
         </div>
       </div>
     </div>
@@ -653,8 +713,11 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-col">
-        <h3>LearnITFast</h3>
-        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
       </div>
 
       <div class="footer-col">
@@ -675,7 +738,7 @@
         <h3>Support</h3>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <a href="admin.html">Admin</a>
+        <a href="signup.html">Sign Up</a>
       </div>
     </div>
 
@@ -695,9 +758,44 @@
       navArea.classList.toggle("open");
     });
 
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main", "landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "questions", "test", "practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "cards", "revision"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics", "subjects", "study"] },
+      { name: "About", url: "about.html", keywords: ["about", "story", "mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact", "support", "help"] },
+      { name: "Sign Up", url: "signup.html", keywords: ["signup", "register", "create account"] },
+      { name: "Log In", url: "login.html", keywords: ["login", "sign in", "account"] },
+      { name: "Hardware", url: "hardware.html", keywords: ["hardware", "computer parts"] },
+      { name: "Networking", url: "networking.html", keywords: ["networking", "dns", "router"] },
+      { name: "Security", url: "security.html", keywords: ["security", "cybersecurity"] },
+      { name: "Cloud", url: "cloud.html", keywords: ["cloud", "aws", "azure"] },
+      { name: "Troubleshooting", url: "troubleshooting.html", keywords: ["troubleshooting", "fix", "problems"] }
+    ];
+
+    document.getElementById("searchInput").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet.");
+        }
+      }
+    });
+
     loginForm.addEventListener("submit", function(e){
       e.preventDefault();
       successMessage.classList.add("show");
+
       loginForm.reset();
 
       setTimeout(() => {

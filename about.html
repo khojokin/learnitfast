@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -31,6 +31,10 @@
     a{
       text-decoration:none;
       transition:0.3s;
+    }
+
+    input{
+      font-family:Arial, Helvetica, sans-serif;
     }
 
     header{
@@ -116,6 +120,34 @@
       gap:16px;
       flex:1;
       justify-content:flex-end;
+    }
+
+    .search-box{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:220px;
+      max-width:260px;
+      width:100%;
+    }
+
+    .search-box span{
+      color:#6b7280;
+      font-size:14px;
+      flex-shrink:0;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:11px 10px;
+      font-size:14px;
+      color:#111827;
     }
 
     nav{
@@ -478,6 +510,13 @@
       font-size:14px;
     }
 
+    @media (max-width:1100px){
+      .search-box{
+        min-width:180px;
+        max-width:220px;
+      }
+    }
+
     @media (max-width:950px){
       .hero-inner,
       .about-grid,
@@ -519,6 +558,11 @@
 
       .nav-area.open{
         display:flex;
+      }
+
+      .search-box{
+        width:100%;
+        max-width:none;
       }
 
       nav{
@@ -598,6 +642,11 @@
       </button>
 
       <div class="nav-area" id="navArea">
+        <div class="search-box">
+          <span>🔎</span>
+          <input type="text" id="searchInput" placeholder="Search pages..." />
+        </div>
+
         <nav id="mainNav">
           <a href="index.html">Home</a>
           <a href="quiz.html">Quiz</a>
@@ -746,6 +795,38 @@
     menuToggle.addEventListener("click", () => {
       menuToggle.classList.toggle("active");
       navArea.classList.toggle("open");
+    });
+
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main", "landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "questions", "test", "practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "cards", "revision"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics", "subjects", "study"] },
+      { name: "About", url: "about.html", keywords: ["about", "story", "mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact", "support", "help"] },
+      { name: "Hardware", url: "hardware.html", keywords: ["hardware", "computer parts"] },
+      { name: "Networking", url: "networking.html", keywords: ["networking", "dns", "router"] },
+      { name: "Security", url: "security.html", keywords: ["security", "cybersecurity"] },
+      { name: "Cloud", url: "cloud.html", keywords: ["cloud", "aws", "azure"] },
+      { name: "Troubleshooting", url: "troubleshooting.html", keywords: ["troubleshooting", "fix", "problems"] }
+    ];
+
+    document.getElementById("searchInput").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet.");
+        }
+      }
     });
 
     const defaultAboutData = {

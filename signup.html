@@ -23,10 +23,21 @@
       overflow-x:hidden;
     }
 
+    img{
+      max-width:100%;
+      display:block;
+    }
+
     a{
       text-decoration:none;
       transition:0.3s;
       color:inherit;
+    }
+
+    input,
+    select,
+    button{
+      font-family:Arial, Helvetica, sans-serif;
     }
 
     header{
@@ -47,10 +58,28 @@
     }
 
     .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
       font-size:28px;
       font-weight:800;
       color:#2563eb;
       letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
     }
 
     .menu-toggle{
@@ -94,6 +123,34 @@
       gap:16px;
       flex:1;
       justify-content:flex-end;
+    }
+
+    .search-box{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:220px;
+      max-width:260px;
+      width:100%;
+    }
+
+    .search-box span{
+      color:#6b7280;
+      font-size:14px;
+      flex-shrink:0;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:11px 10px;
+      font-size:14px;
+      color:#111827;
     }
 
     nav{
@@ -287,6 +344,7 @@
 
     .checkbox-row input{
       margin-top:4px;
+      accent-color:#2563eb;
     }
 
     .checkbox-row label{
@@ -316,18 +374,6 @@
       background:#1d4ed8;
     }
 
-    .form-footer{
-      margin-top:18px;
-      text-align:center;
-      color:#6b7280;
-      font-size:14px;
-    }
-
-    .form-footer a{
-      color:#2563eb;
-      font-weight:800;
-    }
-
     .success-message{
       display:none;
       margin-top:16px;
@@ -342,6 +388,18 @@
 
     .success-message.show{
       display:block;
+    }
+
+    .form-footer{
+      margin-top:18px;
+      text-align:center;
+      color:#6b7280;
+      font-size:14px;
+    }
+
+    .form-footer a{
+      color:#2563eb;
+      font-weight:800;
     }
 
     .benefit-list{
@@ -396,6 +454,26 @@
       font-size:18px;
     }
 
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
     .footer-col a{
       display:block;
       color:#9ca3af;
@@ -414,6 +492,13 @@
       border-top:1px solid rgba(255,255,255,0.06);
       padding-top:26px;
       font-size:14px;
+    }
+
+    @media (max-width:1100px){
+      .search-box{
+        min-width:180px;
+        max-width:220px;
+      }
     }
 
     @media (max-width:1024px){
@@ -452,6 +537,11 @@
 
       .nav-area.open{
         display:flex;
+      }
+
+      .search-box{
+        width:100%;
+        max-width:none;
       }
 
       nav{
@@ -497,19 +587,37 @@
       .side-card{
         padding:22px;
       }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text,
+      .footer-brand-text{
+        font-size:22px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <a href="index.html" class="logo">LearnITFast</a>
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
 
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
       </button>
 
       <div class="nav-area" id="navArea">
+        <div class="search-box">
+          <span>🔎</span>
+          <input type="text" id="searchInput" placeholder="Search pages..." />
+        </div>
+
         <nav>
           <a href="index.html">Home</a>
           <a href="quiz.html">Quiz</a>
@@ -530,21 +638,21 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <h1>Create your LearnITFast account and start revising smarter.</h1>
-        <p>Sign up to organize your study journey, prepare for future features, and get ready for quizzes, flashcards, topic tracking, and premium upgrades later.</p>
+        <h1>Create your LearnITFast account and start studying smarter.</h1>
+        <p>Sign up to organise your study journey, prepare for future saved progress, and unlock a cleaner way to learn through quizzes, flashcards, and topic-based revision.</p>
 
         <div class="hero-points">
           <div class="hero-point">
             <strong>Study in one place</strong>
-            <span>Keep your quizzes, flashcards, and topic practice together.</span>
+            <span>Keep your quizzes, flashcards, and revision flow connected as the platform grows.</span>
           </div>
           <div class="hero-point">
-            <strong>Built to grow</strong>
-            <span>Your account can later connect to progress tracking, saved results, and premium content.</span>
+            <strong>Built for future progress</strong>
+            <span>Your account can later connect to score history, saved decks, and deeper study tools.</span>
           </div>
           <div class="hero-point">
             <strong>Simple start</strong>
-            <span>Sign up now and keep the learning flow clean and easy.</span>
+            <span>Create your account now and keep the learning journey organised from day one.</span>
           </div>
         </div>
       </div>
@@ -593,13 +701,18 @@
             <label for="studyFocus">Main Study Focus</label>
             <select id="studyFocus" name="studyFocus" required>
               <option value="">Choose a focus</option>
-              <option value="networking">Networking</option>
               <option value="hardware">Hardware</option>
-              <option value="security">Security</option>
-              <option value="cloud">Cloud</option>
-              <option value="operating-systems">Operating Systems</option>
-              <option value="troubleshooting">Troubleshooting</option>
-              <option value="general-it">General IT</option>
+              <option value="networking">Networking</option>
+              <option value="programming">Software Development / Programming</option>
+              <option value="webdev">Web Development</option>
+              <option value="databases">Databases</option>
+              <option value="security">Cybersecurity / Information Security</option>
+              <option value="cloud">Cloud Computing</option>
+              <option value="os">Operating Systems</option>
+              <option value="devops">DevOps & Deployment</option>
+              <option value="itsupport">IT Support / Systems Administration</option>
+              <option value="analytics">Data Analytics & Business Intelligence</option>
+              <option value="ai">Artificial Intelligence / Machine Learning</option>
             </select>
           </div>
 
@@ -610,13 +723,13 @@
 
           <div class="checkbox-row">
             <input type="checkbox" id="studyUpdates">
-            <label for="studyUpdates">Send me useful updates about new quizzes, flashcards, and study topics.</label>
+            <label for="studyUpdates">Send me updates about new quizzes, flashcards, and study topics.</label>
           </div>
 
           <button type="submit" class="submit-btn">Create Account</button>
 
           <div class="success-message" id="successMessage">
-            Account form submitted successfully. This front-end version shows confirmation only until you connect a real backend or authentication service.
+            Account form submitted successfully. This front-end version shows confirmation only until you connect a real backend or authentication system.
           </div>
         </form>
 
@@ -627,22 +740,22 @@
 
       <div class="side-card">
         <h3>Why sign up?</h3>
-        <p>Your account helps turn the platform into a more useful study space over time.</p>
+        <p>Your account helps turn LearnITFast into a more useful personal study platform over time.</p>
 
         <div class="benefit-list">
           <div class="benefit-item">
-            <strong>Save your progress later</strong>
-            <span>This structure is ready for future score history and saved study activity.</span>
+            <strong>Save progress later</strong>
+            <span>This structure is ready for future score history, saved flashcards, and tracked revision activity.</span>
           </div>
 
           <div class="benefit-item">
-            <strong>Access better revision tools</strong>
-            <span>Future features can include saved flashcards, topic progress, and premium mock tests.</span>
+            <strong>Access better study tools</strong>
+            <span>Future features can include saved decks, topic progress, mock tests, and premium revision packs.</span>
           </div>
 
           <div class="benefit-item">
-            <strong>Keep learning organized</strong>
-            <span>Your account makes it easier to build a personal study flow as the site grows.</span>
+            <strong>Keep learning organised</strong>
+            <span>Your account makes it easier to build a personal learning path as the platform expands.</span>
           </div>
         </div>
 
@@ -656,8 +769,11 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-col">
-        <h3>LearnITFast</h3>
-        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
       </div>
 
       <div class="footer-col">
@@ -669,16 +785,17 @@
 
       <div class="footer-col">
         <h3>Core Topics</h3>
-        <a href="networking.html">Networking</a>
         <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
         <a href="security.html">Security</a>
+        <a href="cloud.html">Cloud</a>
       </div>
 
       <div class="footer-col">
         <h3>Support</h3>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <a href="admin.html">Admin</a>
+        <a href="signup.html">Sign Up</a>
       </div>
     </div>
 
@@ -696,6 +813,47 @@
     menuToggle.addEventListener("click", () => {
       menuToggle.classList.toggle("active");
       navArea.classList.toggle("open");
+    });
+
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main", "landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "questions", "test", "practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "cards", "revision"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics", "subjects", "study"] },
+      { name: "About", url: "about.html", keywords: ["about", "story", "mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact", "support", "help"] },
+      { name: "Sign Up", url: "signup.html", keywords: ["signup", "register", "create account"] },
+      { name: "Log In", url: "login.html", keywords: ["login", "sign in", "account"] },
+      { name: "Hardware", url: "hardware.html", keywords: ["hardware", "computer parts"] },
+      { name: "Networking", url: "networking.html", keywords: ["networking", "dns", "router"] },
+      { name: "Programming", url: "programming.html", keywords: ["programming", "coding", "software development"] },
+      { name: "Web Development", url: "webdev.html", keywords: ["web development", "frontend", "backend", "web"] },
+      { name: "Databases", url: "databases.html", keywords: ["databases", "sql", "mysql", "postgresql"] },
+      { name: "Security", url: "security.html", keywords: ["security", "cybersecurity"] },
+      { name: "Cloud", url: "cloud.html", keywords: ["cloud", "aws", "azure"] },
+      { name: "Operating Systems", url: "os.html", keywords: ["operating systems", "windows", "linux"] },
+      { name: "DevOps", url: "devops.html", keywords: ["devops", "deployment", "docker", "kubernetes"] },
+      { name: "IT Support", url: "itsupport.html", keywords: ["it support", "systems administration"] },
+      { name: "Analytics", url: "analytics.html", keywords: ["analytics", "business intelligence", "data"] },
+      { name: "AI", url: "ai.html", keywords: ["ai", "artificial intelligence", "machine learning"] }
+    ];
+
+    document.getElementById("searchInput").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet.");
+        }
+      }
     });
 
     signupForm.addEventListener("submit", function(e){

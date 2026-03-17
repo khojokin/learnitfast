@@ -33,6 +33,11 @@
       transition:0.3s;
     }
 
+    input,
+    button{
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
     header{
       padding:14px 6%;
       border-bottom:1px solid #e5e7eb;
@@ -116,6 +121,34 @@
       gap:16px;
       flex:1;
       justify-content:flex-end;
+    }
+
+    .search-box{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:220px;
+      max-width:260px;
+      width:100%;
+    }
+
+    .search-box span{
+      color:#6b7280;
+      font-size:14px;
+      flex-shrink:0;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:11px 10px;
+      font-size:14px;
+      color:#111827;
     }
 
     nav{
@@ -203,7 +236,7 @@
       font-size:17px;
       color:#dbeafe;
       margin-bottom:26px;
-      max-width:670px;
+      max-width:700px;
     }
 
     .hero-btns{
@@ -276,7 +309,7 @@
 
     .section-header p{
       color:#6b7280;
-      max-width:760px;
+      max-width:820px;
       margin:0 auto;
     }
 
@@ -294,6 +327,7 @@
       box-shadow:0 10px 28px rgba(0,0,0,0.04);
       display:flex;
       flex-direction:column;
+      min-height:100%;
     }
 
     .topic-card:hover{
@@ -324,6 +358,13 @@
       font-size:15px;
       margin-bottom:18px;
       flex:1;
+    }
+
+    .topic-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:auto;
     }
 
     .topic-link{
@@ -475,6 +516,13 @@
       font-size:14px;
     }
 
+    @media (max-width:1100px){
+      .search-box{
+        min-width:180px;
+        max-width:220px;
+      }
+    }
+
     @media (max-width:950px){
       .hero-inner,
       .feature-wrap,
@@ -516,6 +564,11 @@
 
       .nav-area.open{
         display:flex;
+      }
+
+      .search-box{
+        width:100%;
+        max-width:none;
       }
 
       nav{
@@ -595,6 +648,11 @@
       </button>
 
       <div class="nav-area" id="navArea">
+        <div class="search-box">
+          <span>🔎</span>
+          <input type="text" id="searchInput" placeholder="Search pages or topics..." />
+        </div>
+
         <nav id="mainNav">
           <a href="index.html">Home</a>
           <a href="quiz.html">Quiz</a>
@@ -615,8 +673,8 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <h1 id="heroTitle">Explore IT topics in a simple way and build your confidence one subject at a time.</h1>
-        <p id="heroText">Learn the foundations of networking, hardware, security, cloud, operating systems, and troubleshooting with clean topic pages designed for easy study and revision.</p>
+        <h1 id="heroTitle">Explore 12 IT and tech topics in one clean place.</h1>
+        <p id="heroText">LearnITFast helps you study the biggest areas in technology step by step, from hardware and networking to AI, cloud, DevOps, and data analytics.</p>
         <div class="hero-btns">
           <a href="signup.html" class="btn btn-primary" id="heroBtnOne">Sign Up Free</a>
           <a href="#topicsSection" class="btn hero-btn-secondary" id="heroBtnTwo">Browse Topics</a>
@@ -624,23 +682,23 @@
       </div>
 
       <div class="hero-card">
-        <h3 id="heroCardTitle">Learning Areas</h3>
+        <h3 id="heroCardTitle">Topics Dashboard</h3>
         <div class="hero-stats">
           <div class="hero-stat">
-            <strong id="statOneValue">6</strong>
+            <strong id="statOneValue">12</strong>
             <span id="statOneLabel">Core Topics</span>
           </div>
           <div class="hero-stat">
-            <strong id="statTwoValue">Beginner</strong>
-            <span id="statTwoLabel">Friendly</span>
+            <strong id="statTwoValue">Structured</strong>
+            <span id="statTwoLabel">Learning</span>
           </div>
           <div class="hero-stat">
-            <strong id="statThreeValue">Step-by-Step</strong>
-            <span id="statThreeLabel">Learning</span>
+            <strong id="statThreeValue">Beginner+</strong>
+            <span id="statThreeLabel">Friendly</span>
           </div>
           <div class="hero-stat">
             <strong id="statFourValue">24/7</strong>
-            <span id="statFourLabel">Study Access</span>
+            <span id="statFourLabel">Access</span>
           </div>
         </div>
       </div>
@@ -650,7 +708,7 @@
   <section class="section" id="topicsSection">
     <div class="section-header">
       <h2 id="topicsHeading">Main Study Topics</h2>
-      <p id="topicsText">These are the key IT subjects you can start with right now. Each one helps build a stronger foundation for practice quizzes, flashcards, and deeper revision later.</p>
+      <p id="topicsText">These are the 12 major areas you gave for the platform. Each one is grouped clearly so users can move through tech learning in a more organised way.</p>
     </div>
 
     <div class="topics-grid" id="topicsGrid"></div>
@@ -658,20 +716,20 @@
 
   <section class="section">
     <div class="section-header">
-      <h2 id="featuresHeading">Why these topics matter</h2>
-      <p id="featuresText">A strong IT foundation comes from understanding the basics clearly. These topic sections help learners focus on the important ideas without feeling overwhelmed.</p>
+      <h2 id="featuresHeading">Why these 12 topics matter</h2>
+      <p id="featuresText">Together, these subject groups cover the biggest areas of modern IT and digital technology. They give learners a much stronger map of the field instead of only seeing a few narrow sections.</p>
     </div>
 
     <div class="feature-wrap">
       <div class="feature-box">
-        <h3 id="featureBoxOneTitle">Core Knowledge</h3>
-        <p id="featureBoxOneText">Master the essential concepts first so the harder questions and technical ideas make more sense later.</p>
+        <h3 id="featureBoxOneTitle">Stronger Foundations</h3>
+        <p id="featureBoxOneText">These topic groups help learners understand how different areas of tech connect, from systems and infrastructure to coding, analytics, security, and AI.</p>
         <div class="feature-list" id="featureListOne"></div>
       </div>
 
       <div class="feature-box">
-        <h3 id="featureBoxTwoTitle">Study Progress</h3>
-        <p id="featureBoxTwoText">Move topic by topic, revise at your own pace, and build confidence as your understanding grows.</p>
+        <h3 id="featureBoxTwoTitle">Better Learning Flow</h3>
+        <p id="featureBoxTwoText">Instead of mixing everything together, the platform becomes easier to study when users can choose one clear domain at a time and build up gradually.</p>
         <div class="feature-list" id="featureListTwo"></div>
       </div>
     </div>
@@ -680,8 +738,8 @@
   <section class="cta">
     <div class="cta-inner">
       <div>
-        <h2 id="ctaTitle">Start learning with the right topics from day one.</h2>
-        <p id="ctaText">Sign up to explore more lessons, quizzes, flashcards, and future premium revision resources built to make IT study easier.</p>
+        <h2 id="ctaTitle">Start learning with a bigger picture of tech.</h2>
+        <p id="ctaText">Create a free account and unlock your path into hardware, networking, programming, cybersecurity, cloud, AI, and more.</p>
         <a href="signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
       </div>
 
@@ -707,11 +765,11 @@
       </div>
 
       <div class="footer-col">
-        <h3>Core Topics</h3>
-        <a href="networking.html">Networking</a>
+        <h3>Main Areas</h3>
         <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
         <a href="security.html">Security</a>
-        <a href="troubleshooting.html">Troubleshooting</a>
+        <a href="cloud.html">Cloud</a>
       </div>
 
       <div class="footer-col">
@@ -736,89 +794,172 @@
       navArea.classList.toggle("open");
     });
 
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main", "landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "questions", "test", "practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "cards", "revision"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics", "subjects", "study"] },
+      { name: "About", url: "about.html", keywords: ["about", "story", "mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact", "support", "help"] },
+      { name: "Sign Up", url: "signup.html", keywords: ["signup", "register", "create account"] },
+      { name: "Log In", url: "login.html", keywords: ["login", "sign in", "account"] },
+      { name: "Hardware", url: "hardware.html", keywords: ["hardware", "computer parts"] },
+      { name: "Networking", url: "networking.html", keywords: ["networking", "dns", "router"] },
+      { name: "Programming", url: "programming.html", keywords: ["programming", "coding", "software development"] },
+      { name: "Web Development", url: "webdev.html", keywords: ["web development", "frontend", "backend", "web"] },
+      { name: "Databases", url: "databases.html", keywords: ["database", "databases", "sql", "mysql", "postgresql"] },
+      { name: "Security", url: "security.html", keywords: ["security", "cybersecurity", "infosec"] },
+      { name: "Cloud", url: "cloud.html", keywords: ["cloud", "aws", "azure", "google cloud"] },
+      { name: "Operating Systems", url: "os.html", keywords: ["operating systems", "windows", "linux", "macos"] },
+      { name: "DevOps", url: "devops.html", keywords: ["devops", "deployment", "docker", "kubernetes"] },
+      { name: "IT Support", url: "itsupport.html", keywords: ["it support", "systems administration", "support"] },
+      { name: "Analytics", url: "analytics.html", keywords: ["analytics", "business intelligence", "data analytics"] },
+      { name: "AI", url: "ai.html", keywords: ["ai", "artificial intelligence", "machine learning"] }
+    ];
+
+    document.getElementById("searchInput").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet.");
+        }
+      }
+    });
+
     const defaultTopicsData = {
       siteLogo: "LearnITFast",
       siteLogoImage: "logo.png",
-      heroTitle: "Explore IT topics in a simple way and build your confidence one subject at a time.",
-      heroText: "Learn the foundations of networking, hardware, security, cloud, operating systems, and troubleshooting with clean topic pages designed for easy study and revision.",
+      heroTitle: "Explore 12 IT and tech topics in one clean place.",
+      heroText: "LearnITFast helps you study the biggest areas in technology step by step, from hardware and networking to AI, cloud, DevOps, and data analytics.",
       heroBtnOne: "Sign Up Free",
       heroBtnTwo: "Browse Topics",
-      heroCardTitle: "Learning Areas",
+      heroCardTitle: "Topics Dashboard",
       stats: [
-        { value: "6", label: "Core Topics" },
-        { value: "Beginner", label: "Friendly" },
-        { value: "Step-by-Step", label: "Learning" },
-        { value: "24/7", label: "Study Access" }
+        { value: "12", label: "Core Topics" },
+        { value: "Structured", label: "Learning" },
+        { value: "Beginner+", label: "Friendly" },
+        { value: "24/7", label: "Access" }
       ],
       topicsHeading: "Main Study Topics",
-      topicsText: "These are the key IT subjects you can start with right now. Each one helps build a stronger foundation for practice quizzes, flashcards, and deeper revision later.",
+      topicsText: "These are the 12 major areas you gave for the platform. Each one is grouped clearly so users can move through tech learning in a more organised way.",
       topics: [
-        {
-          icon: "🌐",
-          title: "Networking",
-          text: "Learn about IP addresses, ports, routers, switches, Wi-Fi, protocols, and how networks communicate.",
-          link: "networking.html",
-          linkText: "Explore Networking →"
-        },
         {
           icon: "🖥️",
           title: "Hardware",
-          text: "Study internal computer parts, storage, memory, displays, connectors, and physical device basics.",
+          text: "The physical devices like computers, servers, storage drives, and networking equipment that form the foundation of all computing systems.",
           link: "hardware.html",
           linkText: "Explore Hardware →"
         },
         {
+          icon: "🌐",
+          title: "Networking",
+          text: "The technologies and infrastructure like routers, switches, cables, TCP/IP, DNS, and Wi-Fi that allow devices to communicate and share data.",
+          link: "networking.html",
+          linkText: "Explore Networking →"
+        },
+        {
+          icon: "⌨️",
+          title: "Software Development / Programming",
+          text: "The process of writing, testing, and maintaining code in languages such as Python, JavaScript, Java, or C# to create systems and applications.",
+          link: "programming.html",
+          linkText: "Explore Programming →"
+        },
+        {
+          icon: "🌍",
+          title: "Web Development",
+          text: "A specialized area of software development focused on building websites and web applications using front-end, back-end, and full-stack technologies.",
+          link: "webdev.html",
+          linkText: "Explore Web Development →"
+        },
+        {
+          icon: "🗄️",
+          title: "Databases",
+          text: "Systems for storing, organizing, retrieving, and managing data efficiently, using tools like MySQL, PostgreSQL, MongoDB, and cloud database services.",
+          link: "databases.html",
+          linkText: "Explore Databases →"
+        },
+        {
           icon: "🔐",
-          title: "Security",
-          text: "Understand passwords, authentication, malware, encryption, access control, and safe computing habits.",
+          title: "Cybersecurity / Information Security",
+          text: "The practices, tools, and measures like encryption, firewalls, authentication, and penetration testing used to protect systems and data.",
           link: "security.html",
           linkText: "Explore Security →"
         },
         {
           icon: "☁️",
-          title: "Cloud",
-          text: "Explore cloud models like SaaS, PaaS, and IaaS, plus virtualization and shared responsibility.",
+          title: "Cloud Computing",
+          text: "The delivery of servers, storage, databases, software, and other computing services over the internet through providers like AWS, Azure, and Google Cloud.",
           link: "cloud.html",
           linkText: "Explore Cloud →"
         },
         {
           icon: "💻",
           title: "Operating Systems",
-          text: "Learn Windows, Linux, user accounts, commands, updates, drivers, and common OS tasks.",
+          text: "The core software such as Windows, Linux, and macOS that manages hardware resources, runs applications, and connects users to the machine.",
           link: "os.html",
           linkText: "Explore Operating Systems →"
         },
         {
+          icon: "⚙️",
+          title: "DevOps & Deployment",
+          text: "The combination of practices, tools, and automation like Git, CI/CD, Docker, and Kubernetes that helps teams build and release software efficiently.",
+          link: "devops.html",
+          linkText: "Explore DevOps →"
+        },
+        {
           icon: "🛠️",
-          title: "Troubleshooting",
-          text: "Build skill in finding and solving hardware, software, startup, and network issues step by step.",
-          link: "troubleshooting.html",
-          linkText: "Explore Troubleshooting →"
+          title: "IT Support / Systems Administration",
+          text: "The ongoing management, troubleshooting, patching, backups, maintenance, and user support needed to keep IT systems running properly.",
+          link: "itsupport.html",
+          linkText: "Explore IT Support →"
+        },
+        {
+          icon: "📊",
+          title: "Data Analytics & Business Intelligence",
+          text: "The tools and processes used to collect, process, analyze, and visualize data so organizations can find insights and make better decisions.",
+          link: "analytics.html",
+          linkText: "Explore Data Analytics →"
+        },
+        {
+          icon: "🤖",
+          title: "Artificial Intelligence / Machine Learning",
+          text: "The development of systems and algorithms that enable computers to perform tasks involving learning, reasoning, prediction, and pattern recognition.",
+          link: "ai.html",
+          linkText: "Explore AI / ML →"
         }
       ],
-      featuresHeading: "Why these topics matter",
-      featuresText: "A strong IT foundation comes from understanding the basics clearly. These topic sections help learners focus on the important ideas without feeling overwhelmed.",
-      featureBoxOneTitle: "Core Knowledge",
-      featureBoxOneText: "Master the essential concepts first so the harder questions and technical ideas make more sense later.",
+      featuresHeading: "Why these 12 topics matter",
+      featuresText: "Together, these subject groups cover the biggest areas of modern IT and digital technology. They give learners a much stronger map of the field instead of only seeing a few narrow sections.",
+      featureBoxOneTitle: "Stronger Foundations",
+      featureBoxOneText: "These topic groups help learners understand how different areas of tech connect, from systems and infrastructure to coding, analytics, security, and AI.",
       featureListOne: [
-        { title: "Better understanding", text: "Learn the main ideas before moving into harder technical details." },
-        { title: "Stronger revision", text: "Topic-focused learning makes it easier to remember and review later." },
-        { title: "Useful for exams", text: "These same foundations often appear in tests, interviews, and certification study." }
+        { title: "Broader understanding", text: "Users can see the main domains in tech instead of only learning one small area." },
+        { title: "Real-world relevance", text: "These are the same categories people meet in jobs, certifications, projects, and interviews." },
+        { title: "Better direction", text: "Learners can discover what areas interest them most and go deeper later." }
       ],
-      featureBoxTwoTitle: "Study Progress",
-      featureBoxTwoText: "Move topic by topic, revise at your own pace, and build confidence as your understanding grows.",
+      featureBoxTwoTitle: "Better Learning Flow",
+      featureBoxTwoText: "Instead of mixing everything together, the platform becomes easier to study when users can choose one clear domain at a time and build up gradually.",
       featureListTwo: [
-        { title: "Learn step by step", text: "Focus on one subject at a time instead of trying to learn everything together." },
-        { title: "Mix with quizzes", text: "Read the topic first, then test yourself to improve memory and confidence." },
-        { title: "Grow with the platform", text: "These sections can later connect to more premium lessons and revision tools." }
+        { title: "Topic-by-topic study", text: "Each section can later connect to its own flashcards, quizzes, notes, and premium lessons." },
+        { title: "Cleaner navigation", text: "Users can move through the platform in a way that feels more organised and less overwhelming." },
+        { title: "Built to scale", text: "This structure is much better for growing into a larger learning platform later." }
       ],
-      ctaTitle: "Start learning with the right topics from day one.",
-      ctaText: "Sign up to explore more lessons, quizzes, flashcards, and future premium revision resources built to make IT study easier.",
+      ctaTitle: "Start learning with a bigger picture of tech.",
+      ctaText: "Create a free account and unlock your path into hardware, networking, programming, cybersecurity, cloud, AI, and more.",
       ctaBtn: "Create Free Account",
       ctaPoints: [
-        { title: "Simple learning", text: "Clear topic pages made for easier study." },
-        { title: "Stronger basics", text: "Build a solid foundation before advanced material." },
-        { title: "Ready to grow", text: "Perfect structure for quizzes, flashcards, and more later." }
+        { title: "12 clear domains", text: "A stronger structure for learning across the tech field." },
+        { title: "Future-ready layout", text: "Perfect for linking quizzes, flashcards, and lessons later." },
+        { title: "Cleaner growth path", text: "Users can build knowledge one area at a time." }
       ],
       footerBrand: "LearnITFast",
       footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
@@ -858,7 +999,9 @@
           <div class="topic-icon">${topic.icon}</div>
           <h3>${topic.title}</h3>
           <p>${topic.text}</p>
-          <a href="${topic.link}" class="topic-link">${topic.linkText}</a>
+          <div class="topic-actions">
+            <a href="${topic.link}" class="topic-link">${topic.linkText}</a>
+          </div>
         `;
         grid.appendChild(card);
       });

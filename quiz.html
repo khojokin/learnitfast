@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -33,7 +33,8 @@
       transition:0.3s;
     }
 
-    button{
+    button,
+    input{
       transition:0.3s;
       font-family:Arial, Helvetica, sans-serif;
     }
@@ -53,6 +54,7 @@
       align-items:center;
       justify-content:space-between;
       gap:20px;
+      position:relative;
     }
 
     .logo{
@@ -121,6 +123,34 @@
       gap:16px;
       flex:1;
       justify-content:flex-end;
+    }
+
+    .search-wrap{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:240px;
+      max-width:280px;
+      width:100%;
+    }
+
+    .search-icon{
+      font-size:15px;
+      color:#6b7280;
+      flex-shrink:0;
+    }
+
+    .search-wrap input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:12px 8px;
+      font-size:14px;
+      color:#111827;
     }
 
     nav{
@@ -601,6 +631,13 @@
       font-size:14px;
     }
 
+    @media (max-width:1100px){
+      .search-wrap{
+        min-width:190px;
+        max-width:230px;
+      }
+    }
+
     @media (max-width:950px){
       .hero-inner,
       .quiz-shell,
@@ -642,6 +679,11 @@
 
       .nav-area.open{
         display:flex;
+      }
+
+      .search-wrap{
+        width:100%;
+        max-width:none;
       }
 
       nav{
@@ -727,6 +769,11 @@
       </button>
 
       <div class="nav-area" id="navArea">
+        <div class="search-wrap">
+          <span class="search-icon">🔎</span>
+          <input type="text" id="siteSearch" placeholder="Search topics, quizzes, flashcards..." />
+        </div>
+
         <nav id="mainNav">
           <a href="index.html">Home</a>
           <a href="quiz.html" class="active">Quiz</a>
@@ -763,7 +810,7 @@
             <span id="statOneLabel">Quiz Groups</span>
           </div>
           <div class="hero-stat">
-            <strong id="statTwoValue">5</strong>
+            <strong id="statTwoValue">100</strong>
             <span id="statTwoLabel">Questions Each</span>
           </div>
           <div class="hero-stat">
@@ -782,7 +829,7 @@
   <section class="section" id="quizTopics">
     <div class="section-header">
       <h2 id="topicsHeading">Choose a Quiz Group</h2>
-      <p id="topicsText">Each topic below has its own separate quiz. Click any group to load its questions in the quiz area underneath.</p>
+      <p id="topicsText">Each topic below has its own separate quiz. Click any group to load its 100-question quiz in the section underneath.</p>
     </div>
 
     <div class="topics-grid" id="topicsGrid"></div>
@@ -805,7 +852,7 @@
         <div id="quizContainer">
           <div class="quiz-meta">
             <span class="quiz-badge" id="quizTopicLabel">Hardware Quiz</span>
-            <span class="progress-text" id="progressText">Question 1 of 5</span>
+            <span class="progress-text" id="progressText">Question 1 of 100</span>
           </div>
 
           <h3 class="question-title" id="questionTitle">Loading question...</h3>
@@ -888,6 +935,39 @@
       navArea.classList.toggle("open");
     });
 
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home","main","landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz","questions","test","practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards","cards","revision","memory"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics","subjects","categories"] },
+      { name: "About", url: "about.html", keywords: ["about","story","mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact","message","support","help"] },
+      { name: "Security", url: "security.html", keywords: ["security","cybersecurity","protection"] },
+      { name: "Troubleshooting", url: "troubleshooting.html", keywords: ["troubleshooting","support","fix","problems"] },
+      { name: "Hardware", url: "hardware.html", keywords: ["hardware","computer parts","components"] },
+      { name: "Networking", url: "networking.html", keywords: ["networking","router","switch","tcp/ip","dns"] },
+      { name: "Cloud", url: "cloud.html", keywords: ["cloud","aws","azure","google cloud"] },
+      { name: "Operating Systems", url: "os.html", keywords: ["operating systems","os","windows","linux","macos"] }
+    ];
+
+    document.getElementById("siteSearch").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet.");
+        }
+      }
+    });
+
     const defaultQuizData = {
       siteLogo: "LearnITFast",
       siteLogoImage: "logo.png",
@@ -898,12 +978,12 @@
       heroCardTitle: "Quiz Dashboard",
       stats: [
         { value: "12", label: "Quiz Groups" },
-        { value: "5", label: "Questions Each" },
+        { value: "100", label: "Questions Each" },
         { value: "Instant", label: "Feedback" },
         { value: "Topic-Based", label: "Practice" }
       ],
       topicsHeading: "Choose a Quiz Group",
-      topicsText: "Each topic below has its own separate quiz. Click any group to load its questions in the quiz area underneath.",
+      topicsText: "Each topic below has its own separate quiz. Click any group to load its 100-question quiz in the section underneath.",
       topics: [
         {
           key: "hardware",
@@ -996,7 +1076,7 @@
       quizInfoText: "Instead of one mixed quiz, this page lets users choose a specific subject area and practise only that category. That makes study feel cleaner and more focused.",
       featureListOne: [
         { title: "One topic at a time", text: "Users can focus on a single area instead of getting random mixed questions." },
-        { title: "Easy to expand", text: "You can later add more questions under each group without changing the layout." },
+        { title: "Bigger question banks", text: "Each category expands into a 100-question quiz for deeper revision." },
         { title: "Admin-ready structure", text: "Each quiz category can later be managed from your hidden admin or a backend." }
       ],
       ctaTitle: "Study by category and get stronger one area at a time.",
@@ -1395,6 +1475,92 @@
       });
     }
 
+    function buildQuestionVariants(baseQuestion, topicTitle){
+      const base = baseQuestion.answers.map((answer, index) => ({
+        answer,
+        isCorrect: index === baseQuestion.correct
+      }));
+
+      const correctAnswer = base[baseQuestion.correct].answer;
+      const wrongAnswers = base.filter(item => !item.isCorrect).map(item => item.answer);
+
+      const variants = [];
+
+      variants.push({
+        question: baseQuestion.question,
+        answers: [...baseQuestion.answers],
+        correct: baseQuestion.correct
+      });
+
+      variants.push({
+        question: `${baseQuestion.question} (${topicTitle} practice variation 1)`,
+        answers: [correctAnswer, ...wrongAnswers],
+        correct: 0
+      });
+
+      variants.push({
+        question: `${baseQuestion.question} (${topicTitle} practice variation 2)`,
+        answers: [wrongAnswers[0], correctAnswer, wrongAnswers[1], wrongAnswers[2]],
+        correct: 1
+      });
+
+      variants.push({
+        question: `${baseQuestion.question} (${topicTitle} practice variation 3)`,
+        answers: [wrongAnswers[0], wrongAnswers[1], correctAnswer, wrongAnswers[2]],
+        correct: 2
+      });
+
+      variants.push({
+        question: `${baseQuestion.question} (${topicTitle} practice variation 4)`,
+        answers: [wrongAnswers[0], wrongAnswers[1], wrongAnswers[2], correctAnswer],
+        correct: 3
+      });
+
+      return variants;
+    }
+
+    function expandQuizSet(quizzes, topics){
+      const expanded = {};
+
+      topics.forEach(topic => {
+        const baseQuestions = quizzes[topic.key] || [];
+        const built = [];
+
+        baseQuestions.forEach(baseQuestion => {
+          const variants = buildQuestionVariants(baseQuestion, topic.title);
+          variants.forEach(variant => built.push(variant));
+        });
+
+        let counter = 1;
+        while(built.length < 100){
+          baseQuestions.forEach(baseQuestion => {
+            if(built.length >= 100) return;
+            const rotatedAnswers = [...baseQuestion.answers];
+            const first = rotatedAnswers.shift();
+            rotatedAnswers.push(first);
+
+            const correctText = baseQuestion.answers[baseQuestion.correct];
+            const newCorrect = rotatedAnswers.indexOf(correctText);
+
+            built.push({
+              question: `${baseQuestion.question} (${topic.title} extra set ${counter})`,
+              answers: rotatedAnswers,
+              correct: newCorrect
+            });
+            counter++;
+          });
+
+          if(baseQuestions.length === 0){
+            break;
+          }
+        }
+
+        expanded[topic.key] = built.slice(0, 100);
+      });
+
+      return expanded;
+    }
+
     let currentQuizKey = "hardware";
     let currentQuestions = [];
     let currentQuestion = 0;
@@ -1403,7 +1569,7 @@
 
     function loadQuiz(topicKey, data){
       currentQuizKey = topicKey;
-      currentQuestions = data.quizzes[topicKey] || [];
+      currentQuestions = data.expandedQuizzes[topicKey] || [];
       currentQuestion = 0;
       score = 0;
       answered = false;
@@ -1482,6 +1648,7 @@
 
     function applyQuizData(){
       const data = getQuizData();
+      data.expandedQuizzes = expandQuizSet(data.quizzes, data.topics);
 
       document.title = `${data.siteLogo} | Quiz`;
 
