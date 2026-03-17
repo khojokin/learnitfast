@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Studying | LearnITFast</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+      color:inherit;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:84px 6% 60px;
+      background:
+        linear-gradient(rgba(15,23,42,0.78), rgba(30,41,59,0.76)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:38px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(36px,5vw,58px);
+      line-height:1.05;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      max-width:680px;
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:22px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+      backdrop-filter:blur(6px);
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:24px;
+      color:#93c5fd;
+      margin-bottom:6px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      max-width:1240px;
+      margin:0 auto;
+      padding:80px 6%;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .path-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:22px;
+    }
+
+    .path-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+      min-height:270px;
+      transition:0.25s;
+    }
+
+    .path-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+    }
+
+    .path-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .path-card h3{
+      font-size:24px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .path-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:18px;
+      flex:1;
+    }
+
+    .path-link{
+      display:inline-block;
+      width:fit-content;
+      padding:10px 16px;
+      border-radius:999px;
+      background:#2563eb;
+      color:#fff;
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .study-layout{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:26px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+    }
+
+    .card h3{
+      font-size:28px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .card p{
+      color:#6b7280;
+      margin-bottom:16px;
+      font-size:15px;
+    }
+
+    .step-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .step-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .step-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .topic-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .topic-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+    }
+
+    .topic-card h4{
+      font-size:22px;
+      margin-bottom:8px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:14px;
+    }
+
+    .topic-card a{
+      color:#1d4ed8;
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .cta{
+      padding:0 6% 80px;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:42px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+      margin-top:20px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:1024px){
+      .hero-inner,
+      .study-layout,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">LearnITFast</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="start-studying.html" class="btn btn-primary active">Start Studying</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Start studying the smart way, not the stressful way.</h1>
+        <p>Choose how you want to learn today — take a quiz, revise with flashcards, or go topic by topic through networking, hardware, security, cloud, operating systems, and troubleshooting.</p>
+        <div class="hero-btns">
+          <a href="quiz.html" class="btn btn-primary">Start Quiz</a>
+          <a href="flashcards.html" class="btn hero-btn-secondary">Open Flashcards</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Study Dashboard</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>Quiz</strong>
+            <span>Practice Fast</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Cards</strong>
+            <span>Revise Smart</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Topics</strong>
+            <span>Learn Clearly</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Repeat</strong>
+            <span>Improve Daily</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Choose your study path</h2>
+      <p>Start with the method that matches your mood. You can switch between quiz practice, flashcards, and topic pages anytime.</p>
+    </div>
+
+    <div class="path-grid">
+      <div class="path-card">
+        <div class="path-icon">📝</div>
+        <h3>Practice Quiz</h3>
+        <p>Answer multiple-choice questions, check correct answers, and build confidence with realistic IT revision.</p>
+        <a href="quiz.html" class="path-link">Go To Quiz</a>
+      </div>
+
+      <div class="path-card">
+        <div class="path-icon">🃏</div>
+        <h3>Flashcards</h3>
+        <p>Flip cards and reinforce key facts like ports, protocols, commands, devices, and definitions faster.</p>
+        <a href="flashcards.html" class="path-link">Open Flashcards</a>
+      </div>
+
+      <div class="path-card">
+        <div class="path-icon">📚</div>
+        <h3>Study Topics</h3>
+        <p>Browse the full topic directory and focus on one branch at a time like networking, cloud, or security.</p>
+        <a href="topics.html" class="path-link">Browse Topics</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="study-layout">
+      <div class="card">
+        <h3>Best way to use the site</h3>
+        <p>If you want stronger revision, use the platform in a simple order instead of jumping around randomly.</p>
+
+        <div class="step-list">
+          <div class="step-item">
+            <strong>1. Pick one topic</strong>
+            <span>Choose something like networking, hardware, security, cloud, operating systems, or troubleshooting.</span>
+          </div>
+
+          <div class="step-item">
+            <strong>2. Test yourself with a quiz</strong>
+            <span>See what you already know and what still feels weak.</span>
+          </div>
+
+          <div class="step-item">
+            <strong>3. Use flashcards for memory</strong>
+            <span>Revise short facts, ports, acronyms, commands, and definitions until they stick.</span>
+          </div>
+
+          <div class="step-item">
+            <strong>4. Repeat weak areas</strong>
+            <span>That’s where real improvement happens — not in one pass, but in repetition.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Why this works</h3>
+        <p>LearnITFast is designed to keep learning practical and lightweight instead of overwhelming.</p>
+        <p>Quizzes help you find weak spots fast. Flashcards help you remember. Topic pages help you organize your revision.</p>
+        <p>That means the site supports both understanding and memory, which is exactly what most IT learners need.</p>
+        <p>You don’t need to do everything at once — just keep moving through the cycle until the ideas start feeling familiar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Main branches you can start with</h2>
+      <p>These are the core directions available on the platform right now.</p>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h4>Networking</h4>
+        <p>OSI, ports, IP addressing, switching, routing, Wi-Fi, and common network concepts.</p>
+        <a href="topics.html">Study Networking →</a>
+      </div>
+
+      <div class="topic-card">
+        <h4>Hardware</h4>
+        <p>Internal components, storage, peripherals, connectors, cables, and device basics.</p>
+        <a href="topics.html">Study Hardware →</a>
+      </div>
+
+      <div class="topic-card">
+        <h4>Security</h4>
+        <p>Threats, authentication, encryption, VPNs, wireless security, and protection basics.</p>
+        <a href="topics.html">Study Security →</a>
+      </div>
+
+      <div class="topic-card">
+        <h4>Cloud</h4>
+        <p>SaaS, PaaS, IaaS, virtualization, shared responsibility, and cloud foundations.</p>
+        <a href="topics.html">Study Cloud →</a>
+      </div>
+
+      <div class="topic-card">
+        <h4>Operating Systems</h4>
+        <p>Windows, Linux, commands, updates, users, processes, and system support basics.</p>
+        <a href="topics.html">Study Operating Systems →</a>
+      </div>
+
+      <div class="topic-card">
+        <h4>Troubleshooting</h4>
+        <p>Problem-solving steps for network, hardware, software, and general IT issues.</p>
+        <a href="topics.html">Study Troubleshooting →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2>Pick a method and begin now.</h2>
+        <p>You do not need the perfect plan to start. Choose quiz practice, flashcards, or topic learning and build from there.</p>
+        <a href="quiz.html" class="btn btn-primary">Begin With Quiz</a>
+      </div>
+
+      <div class="cta-points">
+        <div class="cta-point">
+          <strong>Fast practice</strong>
+          <div>Use quizzes for quick confidence checks.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Better memory</strong>
+          <div>Use flashcards for facts that need repetition.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Clear structure</strong>
+          <div>Use topic pages when you want organized revision.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>LearnITFast</h3>
+        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>

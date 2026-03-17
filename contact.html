@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Contact</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    button,
+    input,
+    textarea{
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      position:relative;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+      flex-shrink:0;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    .search-wrap{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:230px;
+      max-width:270px;
+      width:100%;
+    }
+
+    .search-wrap input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:12px 8px;
+      font-size:14px;
+      color:#111827;
+    }
+
+    .search-icon{
+      font-size:15px;
+      color:#6b7280;
+      flex-shrink:0;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:95px 6% 75px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(40px,5vw,62px);
+      line-height:1.04;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:28px;
+      max-width:700px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:820px;
+      margin:0 auto;
+    }
+
+    .contact-layout{
+      display:grid;
+      grid-template-columns:0.9fr 1.1fr;
+      gap:30px;
+      align-items:start;
+    }
+
+    .contact-info,
+    .contact-form-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .contact-info h3,
+    .contact-form-box h3{
+      font-size:24px;
+      margin-bottom:12px;
+      color:#111827;
+    }
+
+    .contact-info p,
+    .contact-form-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .info-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .info-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:16px;
+    }
+
+    .info-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .contact-form{
+      display:grid;
+      gap:16px;
+    }
+
+    .form-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .field{
+      display:grid;
+      gap:8px;
+    }
+
+    .field label{
+      font-weight:700;
+      color:#374151;
+      font-size:14px;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      border:1px solid #dbe3ef;
+      border-radius:16px;
+      padding:14px 16px;
+      font-size:15px;
+      outline:none;
+      background:#f8fafc;
+      color:#111827;
+    }
+
+    .field input:focus,
+    .field textarea:focus{
+      border-color:#93c5fd;
+      background:#ffffff;
+      box-shadow:0 0 0 4px rgba(37,99,235,0.08);
+    }
+
+    .field textarea{
+      min-height:180px;
+      resize:vertical;
+    }
+
+    .form-note{
+      font-size:14px;
+      color:#6b7280;
+    }
+
+    .faq-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:22px;
+    }
+
+    .faq-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .faq-card h3{
+      font-size:20px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .faq-card p{
+      color:#6b7280;
+      font-size:15px;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:1100px){
+      .search-wrap{
+        min-width:190px;
+        max-width:220px;
+      }
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .contact-layout,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        align-items:stretch;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      .search-wrap{
+        width:100%;
+        max-width:none;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+
+      .form-row{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner,
+      .contact-info,
+      .contact-form-box{
+        padding:24px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <div class="search-wrap">
+          <span class="search-icon">🔎</span>
+          <input type="text" id="siteSearch" placeholder="Search topics, quizzes, flashcards..." />
+        </div>
+
+        <nav id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html" class="active">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="heroTitle">Get in touch and ask anything about LearnITFast.</h1>
+        <p id="heroText">Whether you have a question, feedback, a feature idea, or need help using the platform, the contact page makes it easy to reach out.</p>
+        <div class="hero-btns">
+          <a href="#contactFormSection" class="btn btn-primary" id="heroBtnOne">Send a Message</a>
+          <a href="#faqSection" class="btn hero-btn-secondary" id="heroBtnTwo">View Help</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 id="heroCardTitle">Contact Snapshot</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statOneValue">Help</strong>
+            <span id="statOneLabel">Support</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statTwoValue">Ideas</strong>
+            <span id="statTwoLabel">Feedback</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statThreeValue">Fast</strong>
+            <span id="statThreeLabel">Contact</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statFourValue">Open</strong>
+            <span id="statFourLabel">Questions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contactFormSection">
+    <div class="section-header">
+      <h2 id="contactHeading">Contact LearnITFast</h2>
+      <p id="contactText">Use the form below to send a question, suggestion, or message. You can later connect this form to EmailJS, Formspree, Netlify Forms, or your backend.</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h3 id="infoTitle">Ways to reach out</h3>
+        <p id="infoText">This section helps visitors understand what they can contact you about and where the message will go once you connect the form properly.</p>
+
+        <div class="info-list" id="infoList"></div>
+      </div>
+
+      <div class="contact-form-box">
+        <h3 id="formTitle">Send a message</h3>
+        <p id="formText">Fill in the details and send your message. Right now the form is ready for structure and can be connected to your chosen service later.</p>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="field">
+              <label for="emailAddress">Email Address</label>
+              <input type="email" id="emailAddress" placeholder="Enter your email address" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="What is this about?" required>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Write your message here..." required></textarea>
+          </div>
+
+          <div class="form-note" id="formNote">This demo form currently shows a success message only. Connect it later to EmailJS, Formspree, Netlify Forms, or your own backend.</div>
+
+          <button type="submit" class="btn btn-primary" id="formBtn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faqSection">
+    <div class="section-header">
+      <h2 id="faqHeading">Quick help</h2>
+      <p id="faqText">These common questions can help visitors understand the platform better before they send a message.</p>
+    </div>
+
+    <div class="faq-grid" id="faqGrid"></div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2 id="ctaTitle">Have feedback or an idea for the platform?</h2>
+        <p id="ctaText">Create an account, explore the platform, and send your thoughts on how LearnITFast can grow into an even stronger study experience.</p>
+        <a href="signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
+      </div>
+
+      <div class="cta-points" id="ctaPoints"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused tech learning for students, beginners, and career switchers.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Main Areas</h3>
+        <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
+        <a href="security.html">Security</a>
+        <a href="cloud.html">Cloud</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p id="footerBottomText">©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main", "landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "questions", "test", "practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "cards", "revision", "memory"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics", "subjects", "categories", "areas"] },
+      { name: "About", url: "about.html", keywords: ["about", "story", "mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact", "message", "support", "help"] },
+      { name: "Security", url: "security.html", keywords: ["security", "cybersecurity", "protection"] },
+      { name: "Troubleshooting", url: "troubleshooting.html", keywords: ["troubleshooting", "support", "fix", "problems"] }
+    ];
+
+    document.getElementById("siteSearch").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet. Add more search keywords as you create more pages.");
+        }
+      }
+    });
+
+    const defaultContactData = {
+      siteLogo: "LearnITFast",
+      siteLogoImage: "logo.png",
+      heroTitle: "Get in touch and ask anything about LearnITFast.",
+      heroText: "Whether you have a question, feedback, a feature idea, or need help using the platform, the contact page makes it easy to reach out.",
+      heroBtnOne: "Send a Message",
+      heroBtnTwo: "View Help",
+      heroCardTitle: "Contact Snapshot",
+      stats: [
+        { value: "Help", label: "Support" },
+        { value: "Ideas", label: "Feedback" },
+        { value: "Fast", label: "Contact" },
+        { value: "Open", label: "Questions" }
+      ],
+      contactHeading: "Contact LearnITFast",
+      contactText: "Use the form below to send a question, suggestion, or message. You can later connect this form to EmailJS, Formspree, Netlify Forms, or your backend.",
+      infoTitle: "Ways to reach out",
+      infoText: "This section helps visitors understand what they can contact you about and where the message will go once you connect the form properly.",
+      infoItems: [
+        { title: "General questions", text: "Ask about the platform, study tools, topics, or how LearnITFast works." },
+        { title: "Feedback and ideas", text: "Share suggestions for new features, better pages, or improvements to the learning experience." },
+        { title: "Support requests", text: "Get help with quizzes, flashcards, navigation, or future account-related issues." }
+      ],
+      formTitle: "Send a message",
+      formText: "Fill in the details and send your message. Right now the form is ready for structure and can be connected to your chosen service later.",
+      formNote: "This demo form currently shows a success message only. Connect it later to EmailJS, Formspree, Netlify Forms, or your own backend.",
+      formBtn: "Send Message",
+      faqHeading: "Quick help",
+      faqText: "These common questions can help visitors understand the platform better before they send a message.",
+      faqs: [
+        { title: "Do I need an account to browse?", text: "You can browse parts of the platform first, then sign up as you add more learning features." },
+        { title: "Will more topics be added?", text: "Yes. The site structure is built to grow into a much bigger tech learning platform." },
+        { title: "Can the contact form send real emails?", text: "Yes. You can connect it later to EmailJS, Formspree, Netlify Forms, or your own backend service." },
+        { title: "Can search work across the whole site?", text: "Yes. You can copy this search bar to the rest of your pages and keep adding more page keywords." }
+      ],
+      ctaTitle: "Have feedback or an idea for the platform?",
+      ctaText: "Create an account, explore the platform, and send your thoughts on how LearnITFast can grow into an even stronger study experience.",
+      ctaBtn: "Create Free Account",
+      ctaPoints: [
+        { title: "Easy support", text: "Give visitors a simple way to reach out when they need help." },
+        { title: "Useful feedback", text: "Let users suggest features and improvements as your platform grows." },
+        { title: "Ready to connect", text: "The form structure is already prepared for a real sending service later." }
+      ],
+      footerBrand: "LearnITFast",
+      footerDesc: "Simple, focused tech learning for students, beginners, and career switchers.",
+      footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+    };
+
+    function getContactData(){
+      const saved = localStorage.getItem("learnitfast_contact_data");
+      if(saved){
+        try{
+          const parsed = JSON.parse(saved);
+          return { ...defaultContactData, ...parsed };
+        }catch(error){}
+      }
+      return defaultContactData;
+    }
+
+    function renderInfoItems(items){
+      const container = document.getElementById("infoList");
+      container.innerHTML = "";
+      items.forEach(item => {
+        const box = document.createElement("div");
+        box.className = "info-item";
+        box.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
+        container.appendChild(box);
+      });
+    }
+
+    function renderFaqs(items){
+      const grid = document.getElementById("faqGrid");
+      grid.innerHTML = "";
+      items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "faq-card";
+        card.innerHTML = `<h3>${item.title}</h3><p>${item.text}</p>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCtaPoints(points){
+      const container = document.getElementById("ctaPoints");
+      container.innerHTML = "";
+      points.forEach(point => {
+        const box = document.createElement("div");
+        box.className = "cta-point";
+        box.innerHTML = `<strong>${point.title}</strong><div>${point.text}</div>`;
+        container.appendChild(box);
+      });
+    }
+
+    function applyContactData(){
+      const data = getContactData();
+
+      document.title = `${data.siteLogo} | Contact`;
+
+      document.getElementById("siteLogoText").textContent = data.siteLogo;
+      document.getElementById("footerBrand").textContent = data.footerBrand || data.siteLogo;
+
+      const headerLogoImg = document.getElementById("siteLogoImg");
+      const footerLogoImg = document.getElementById("footerLogoImg");
+      const logoPath = data.siteLogoImage || "logo.png";
+
+      headerLogoImg.src = logoPath;
+      footerLogoImg.src = logoPath;
+
+      headerLogoImg.alt = `${data.siteLogo} Logo`;
+      footerLogoImg.alt = `${data.footerBrand || data.siteLogo} Logo`;
+
+      document.getElementById("heroTitle").textContent = data.heroTitle;
+      document.getElementById("heroText").textContent = data.heroText;
+      document.getElementById("heroBtnOne").textContent = data.heroBtnOne;
+      document.getElementById("heroBtnTwo").textContent = data.heroBtnTwo;
+      document.getElementById("heroCardTitle").textContent = data.heroCardTitle;
+
+      document.getElementById("statOneValue").textContent = data.stats[0]?.value || "";
+      document.getElementById("statOneLabel").textContent = data.stats[0]?.label || "";
+      document.getElementById("statTwoValue").textContent = data.stats[1]?.value || "";
+      document.getElementById("statTwoLabel").textContent = data.stats[1]?.label || "";
+      document.getElementById("statThreeValue").textContent = data.stats[2]?.value || "";
+      document.getElementById("statThreeLabel").textContent = data.stats[2]?.label || "";
+      document.getElementById("statFourValue").textContent = data.stats[3]?.value || "";
+      document.getElementById("statFourLabel").textContent = data.stats[3]?.label || "";
+
+      document.getElementById("contactHeading").textContent = data.contactHeading;
+      document.getElementById("contactText").textContent = data.contactText;
+      document.getElementById("infoTitle").textContent = data.infoTitle;
+      document.getElementById("infoText").textContent = data.infoText;
+      renderInfoItems(data.infoItems);
+
+      document.getElementById("formTitle").textContent = data.formTitle;
+      document.getElementById("formText").textContent = data.formText;
+      document.getElementById("formNote").textContent = data.formNote;
+      document.getElementById("formBtn").textContent = data.formBtn;
+
+      document.getElementById("faqHeading").textContent = data.faqHeading;
+      document.getElementById("faqText").textContent = data.faqText;
+      renderFaqs(data.faqs);
+
+      document.getElementById("ctaTitle").textContent = data.ctaTitle;
+      document.getElementById("ctaText").textContent = data.ctaText;
+      document.getElementById("ctaBtn").textContent = data.ctaBtn;
+      renderCtaPoints(data.ctaPoints);
+
+      document.getElementById("footerDesc").textContent = data.footerDesc;
+      document.getElementById("footerBottomText").textContent = data.footerBottomText;
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("Your message has been submitted. Connect this form to EmailJS, Formspree, Netlify Forms, or your backend to send real emails.");
+      this.reset();
+    });
+
+    applyContactData();
+  </script>
+</body>
+</html>

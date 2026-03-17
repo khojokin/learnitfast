@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Quiz</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    button{
+      transition:0.3s;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .btn-secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .btn-secondary:hover{
+      background:#d1d5db;
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:26px;
+      max-width:680px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:820px;
+      margin:0 auto;
+    }
+
+    .topics-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .topic-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+      cursor:pointer;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+      border-color:#bfdbfe;
+    }
+
+    .topic-card.active-topic{
+      border-color:#2563eb;
+      box-shadow:0 16px 34px rgba(37,99,235,0.14);
+    }
+
+    .topic-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .topic-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:18px;
+      flex:1;
+    }
+
+    .topic-link{
+      font-weight:800;
+      color:#2563eb;
+      font-size:14px;
+    }
+
+    .quiz-shell{
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:30px;
+      align-items:start;
+    }
+
+    .quiz-info,
+    .quiz-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .quiz-info h3,
+    .quiz-box h3{
+      font-size:24px;
+      margin-bottom:12px;
+      color:#111827;
+    }
+
+    .quiz-info p,
+    .quiz-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .feature-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .quiz-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+
+    .quiz-badge{
+      background:#dbeafe;
+      color:#1d4ed8;
+      font-weight:800;
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:13px;
+    }
+
+    .progress-text{
+      font-size:14px;
+      color:#6b7280;
+      font-weight:700;
+    }
+
+    .question-title{
+      font-size:26px;
+      line-height:1.3;
+      margin-bottom:18px;
+      color:#111827;
+      font-weight:800;
+    }
+
+    .answers{
+      display:grid;
+      gap:14px;
+      margin-bottom:20px;
+    }
+
+    .answer-btn{
+      width:100%;
+      text-align:left;
+      background:#f8fafc;
+      border:1px solid #dbe3ef;
+      border-radius:18px;
+      padding:16px 18px;
+      font-size:15px;
+      cursor:pointer;
+      color:#1f2937;
+      font-weight:700;
+    }
+
+    .answer-btn:hover{
+      border-color:#93c5fd;
+      background:#eff6ff;
+    }
+
+    .answer-btn.correct{
+      background:#dcfce7;
+      border-color:#86efac;
+      color:#166534;
+    }
+
+    .answer-btn.wrong{
+      background:#fee2e2;
+      border-color:#fca5a5;
+      color:#991b1b;
+    }
+
+    .answer-btn.disabled{
+      pointer-events:none;
+    }
+
+    .quiz-feedback{
+      min-height:28px;
+      font-weight:700;
+      margin-bottom:16px;
+    }
+
+    .quiz-controls{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .score-box{
+      text-align:center;
+      padding:12px 0 6px;
+    }
+
+    .score-box h4{
+      font-size:32px;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .score-box p{
+      max-width:520px;
+      margin:0 auto 20px;
+      color:#6b7280;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .quiz-shell,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner,
+      .quiz-info,
+      .quiz-box{
+        padding:24px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .question-title{
+        font-size:22px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="quiz.html" class="active">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="heroTitle">Choose a tech topic and take a quiz built for that exact area.</h1>
+        <p id="heroText">Practice IT and tech knowledge through grouped quizzes covering hardware, networking, programming, web development, databases, cybersecurity, cloud, operating systems, DevOps, IT support, analytics, and AI.</p>
+        <div class="hero-btns">
+          <a href="#quizTopics" class="btn btn-primary" id="heroBtnOne">Choose Quiz Topic</a>
+          <a href="#quizSection" class="btn hero-btn-secondary" id="heroBtnTwo">Start Practising</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 id="heroCardTitle">Quiz Dashboard</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statOneValue">12</strong>
+            <span id="statOneLabel">Quiz Groups</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statTwoValue">5</strong>
+            <span id="statTwoLabel">Questions Each</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statThreeValue">Instant</strong>
+            <span id="statThreeLabel">Feedback</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statFourValue">Topic-Based</strong>
+            <span id="statFourLabel">Practice</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quizTopics">
+    <div class="section-header">
+      <h2 id="topicsHeading">Choose a Quiz Group</h2>
+      <p id="topicsText">Each topic below has its own separate quiz. Click any group to load its questions in the quiz area underneath.</p>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+  </section>
+
+  <section class="section" id="quizSection">
+    <div class="section-header">
+      <h2 id="quizHeading">Topic Quiz</h2>
+      <p id="quizText">Pick a category first, then answer the questions and get instant feedback after every answer.</p>
+    </div>
+
+    <div class="quiz-shell">
+      <div class="quiz-info">
+        <h3 id="quizInfoTitle">How the grouped quiz works</h3>
+        <p id="quizInfoText">Instead of one mixed quiz, this page lets users choose a specific subject area and practise only that category. That makes study feel cleaner and more focused.</p>
+        <div class="feature-list" id="featureListOne"></div>
+      </div>
+
+      <div class="quiz-box">
+        <div id="quizContainer">
+          <div class="quiz-meta">
+            <span class="quiz-badge" id="quizTopicLabel">Hardware Quiz</span>
+            <span class="progress-text" id="progressText">Question 1 of 5</span>
+          </div>
+
+          <h3 class="question-title" id="questionTitle">Loading question...</h3>
+
+          <div class="answers" id="answersContainer"></div>
+
+          <div class="quiz-feedback" id="quizFeedback"></div>
+
+          <div class="quiz-controls">
+            <button class="btn btn-primary" id="nextBtn" style="display:none;">Next Question</button>
+            <button class="btn btn-secondary" id="restartBtn">Restart This Quiz</button>
+          </div>
+        </div>
+
+        <div class="score-box" id="scoreBox" style="display:none;">
+          <h4 id="scoreTitle">Quiz Complete</h4>
+          <p id="scoreText">You scored 0 out of 0.</p>
+          <button class="btn btn-primary" id="restartBtnFinal">Try This Topic Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2 id="ctaTitle">Study by category and get stronger one area at a time.</h2>
+        <p id="ctaText">Sign up to unlock more topic quizzes, flashcards, study tools, and future premium revision packs across the whole platform.</p>
+        <a href="signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
+      </div>
+
+      <div class="cta-points" id="ctaPoints"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Main Areas</h3>
+        <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
+        <a href="security.html">Security</a>
+        <a href="cloud.html">Cloud</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p id="footerBottomText">©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const defaultQuizData = {
+      siteLogo: "LearnITFast",
+      siteLogoImage: "logo.png",
+      heroTitle: "Choose a tech topic and take a quiz built for that exact area.",
+      heroText: "Practice IT and tech knowledge through grouped quizzes covering hardware, networking, programming, web development, databases, cybersecurity, cloud, operating systems, DevOps, IT support, analytics, and AI.",
+      heroBtnOne: "Choose Quiz Topic",
+      heroBtnTwo: "Start Practising",
+      heroCardTitle: "Quiz Dashboard",
+      stats: [
+        { value: "12", label: "Quiz Groups" },
+        { value: "5", label: "Questions Each" },
+        { value: "Instant", label: "Feedback" },
+        { value: "Topic-Based", label: "Practice" }
+      ],
+      topicsHeading: "Choose a Quiz Group",
+      topicsText: "Each topic below has its own separate quiz. Click any group to load its questions in the quiz area underneath.",
+      topics: [
+        {
+          key: "hardware",
+          icon: "🖥️",
+          title: "Hardware",
+          text: "The physical devices like computers, servers, storage drives, and networking equipment that form the foundation of all computing systems.",
+          linkText: "Open Hardware Quiz →"
+        },
+        {
+          key: "networking",
+          icon: "🌐",
+          title: "Networking",
+          text: "The technologies and infrastructure that enable devices to communicate and share data over local or global networks.",
+          linkText: "Open Networking Quiz →"
+        },
+        {
+          key: "programming",
+          icon: "⌨️",
+          title: "Software Development / Programming",
+          text: "The process of writing, testing, and maintaining code in languages such as Python, JavaScript, Java, or C#.",
+          linkText: "Open Programming Quiz →"
+        },
+        {
+          key: "webdev",
+          icon: "🌍",
+          title: "Web Development",
+          text: "A specialized area of software development focused on building websites and web applications using front-end, back-end, and full-stack technologies.",
+          linkText: "Open Web Development Quiz →"
+        },
+        {
+          key: "databases",
+          icon: "🗄️",
+          title: "Databases",
+          text: "Systems for storing, organizing, retrieving, and managing data efficiently using tools like MySQL, PostgreSQL, MongoDB, or cloud options.",
+          linkText: "Open Databases Quiz →"
+        },
+        {
+          key: "security",
+          icon: "🔐",
+          title: "Cybersecurity / Information Security",
+          text: "The practices, tools, and measures used to protect systems, networks, and data from attacks and unauthorized access.",
+          linkText: "Open Security Quiz →"
+        },
+        {
+          key: "cloud",
+          icon: "☁️",
+          title: "Cloud Computing",
+          text: "The delivery of computing services over the internet on-demand through providers like AWS, Google Cloud, Azure, Vercel, and Netlify.",
+          linkText: "Open Cloud Quiz →"
+        },
+        {
+          key: "os",
+          icon: "💻",
+          title: "Operating Systems",
+          text: "The core software that manages hardware resources, runs applications, and provides the interface between users and the machine.",
+          linkText: "Open Operating Systems Quiz →"
+        },
+        {
+          key: "devops",
+          icon: "⚙️",
+          title: "DevOps & Deployment",
+          text: "Practices, tools, and automation that streamline building, testing, releasing, and maintaining software efficiently.",
+          linkText: "Open DevOps Quiz →"
+        },
+        {
+          key: "itsupport",
+          icon: "🛠️",
+          title: "IT Support / Systems Administration",
+          text: "The ongoing management, troubleshooting, maintenance, backups, patching, and user support required to keep IT systems running smoothly.",
+          linkText: "Open IT Support Quiz →"
+        },
+        {
+          key: "analytics",
+          icon: "📊",
+          title: "Data Analytics & Business Intelligence",
+          text: "The processes and tools used to collect, process, analyze, and visualize data to extract insights and support decision-making.",
+          linkText: "Open Analytics Quiz →"
+        },
+        {
+          key: "ai",
+          icon: "🤖",
+          title: "Artificial Intelligence / Machine Learning",
+          text: "The development of systems and algorithms that enable computers to perform tasks requiring human-like intelligence.",
+          linkText: "Open AI / ML Quiz →"
+        }
+      ],
+      quizHeading: "Topic Quiz",
+      quizText: "Pick a category first, then answer the questions and get instant feedback after every answer.",
+      quizInfoTitle: "How the grouped quiz works",
+      quizInfoText: "Instead of one mixed quiz, this page lets users choose a specific subject area and practise only that category. That makes study feel cleaner and more focused.",
+      featureListOne: [
+        { title: "One topic at a time", text: "Users can focus on a single area instead of getting random mixed questions." },
+        { title: "Easy to expand", text: "You can later add more questions under each group without changing the layout." },
+        { title: "Admin-ready structure", text: "Each quiz category can later be managed from your hidden admin or a backend." }
+      ],
+      ctaTitle: "Study by category and get stronger one area at a time.",
+      ctaText: "Sign up to unlock more topic quizzes, flashcards, study tools, and future premium revision packs across the whole platform.",
+      ctaBtn: "Create Free Account",
+      ctaPoints: [
+        { title: "Focused practice", text: "Revise exactly the area you want to improve." },
+        { title: "Cleaner learning", text: "Grouped quizzes feel more organised and less overwhelming." },
+        { title: "Built to scale", text: "Easy to grow into a bigger quiz platform later." }
+      ],
+      footerBrand: "LearnITFast",
+      footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+      footerBottomText: "©️ 2026 LearnITFast. All rights reserved.",
+      selectedTopic: "hardware",
+      quizzes: {
+        hardware: [
+          {
+            question: "Which hardware component stores data permanently in a computer?",
+            answers: ["RAM", "SSD", "CPU", "Cache"],
+            correct: 1
+          },
+          {
+            question: "What does the CPU mainly do?",
+            answers: ["Display images", "Process instructions", "Store backups", "Print files"],
+            correct: 1
+          },
+          {
+            question: "Which part supplies power to the computer?",
+            answers: ["GPU", "PSU", "Motherboard", "NIC"],
+            correct: 1
+          },
+          {
+            question: "RAM is best described as:",
+            answers: ["Permanent storage", "Temporary working memory", "A cooling device", "A network tool"],
+            correct: 1
+          },
+          {
+            question: "Which device is used to input sound into a computer?",
+            answers: ["Monitor", "Microphone", "Speaker", "Projector"],
+            correct: 1
+          }
+        ],
+        networking: [
+          {
+            question: "What does IP stand for?",
+            answers: ["Internet Program", "Internal Protocol", "Internet Protocol", "Input Port"],
+            correct: 2
+          },
+          {
+            question: "Which device forwards traffic between networks?",
+            answers: ["Switch", "Router", "Monitor", "Keyboard"],
+            correct: 1
+          },
+          {
+            question: "DNS mainly translates:",
+            answers: ["Usernames to passwords", "Domain names to IP addresses", "Files to folders", "Emails to calls"],
+            correct: 1
+          },
+          {
+            question: "Wi-Fi is a type of:",
+            answers: ["Wireless networking", "Storage device", "Programming language", "Printer cable"],
+            correct: 0
+          },
+          {
+            question: "TCP/IP is best described as:",
+            answers: ["A cooling system", "A network protocol suite", "A database engine", "A display connector"],
+            correct: 1
+          }
+        ],
+        programming: [
+          {
+            question: "Programming is mainly about:",
+            answers: ["Writing and maintaining code", "Replacing hard drives", "Installing printers", "Drawing charts only"],
+            correct: 0
+          },
+          {
+            question: "Which of these is a programming language?",
+            answers: ["Python", "DNS", "Wi-Fi", "SSD"],
+            correct: 0
+          },
+          {
+            question: "A bug in software usually means:",
+            answers: ["A physical cable", "An error or flaw in the code", "A keyboard shortcut", "A cloud account"],
+            correct: 1
+          },
+          {
+            question: "Testing code helps developers:",
+            answers: ["Remove all hardware", "Find issues and verify behaviour", "Avoid using logic", "Turn websites into routers"],
+            correct: 1
+          },
+          {
+            question: "JavaScript is commonly used in:",
+            answers: ["Web applications", "Power supply units", "Network racks only", "Screen cleaning"],
+            correct: 0
+          }
+        ],
+        webdev: [
+          {
+            question: "HTML is mainly used to:",
+            answers: ["Structure web content", "Store passwords", "Encrypt files", "Manage routers"],
+            correct: 0
+          },
+          {
+            question: "CSS is mainly used for:",
+            answers: ["Database backups", "Styling web pages", "Power delivery", "Packet routing"],
+            correct: 1
+          },
+          {
+            question: "Front-end development focuses on:",
+            answers: ["What users see and interact with", "Replacing server fans", "Formatting hard disks", "Managing switches"],
+            correct: 0
+          },
+          {
+            question: "Back-end development usually handles:",
+            answers: ["Server logic and data handling", "Monitor brightness", "Mouse movement", "Screen cleaning"],
+            correct: 0
+          },
+          {
+            question: "A full-stack developer works with:",
+            answers: ["Only databases", "Only design software", "Both front-end and back-end", "Only networking cables"],
+            correct: 2
+          }
+        ],
+        databases: [
+          {
+            question: "A database is mainly used to:",
+            answers: ["Store and manage data", "Cool a computer", "Browse the internet", "Replace memory"],
+            correct: 0
+          },
+          {
+            question: "Which of these is a database system?",
+            answers: ["PostgreSQL", "HTML", "Wi-Fi", "Docker"],
+            correct: 0
+          },
+          {
+            question: "SQL is commonly used to:",
+            answers: ["Style websites", "Query and manage data", "Power monitors", "Encrypt keyboards"],
+            correct: 1
+          },
+          {
+            question: "MongoDB is generally known as a:",
+            answers: ["Relational database only", "Document database", "CPU brand", "Firewall vendor"],
+            correct: 1
+          },
+          {
+            question: "A table in a database contains:",
+            answers: ["Rows and columns", "Cables and ports", "Fans and chips", "Only images"],
+            correct: 0
+          }
+        ],
+        security: [
+          {
+            question: "Encryption helps protect:",
+            answers: ["Data confidentiality", "Monitor color", "Fan speed", "Cable length"],
+            correct: 0
+          },
+          {
+            question: "A firewall is mainly used to:",
+            answers: ["Heat the system", "Filter network traffic", "Write code", "Store files"],
+            correct: 1
+          },
+          {
+            question: "MFA stands for:",
+            answers: ["Multi-Factor Authentication", "Main File Access", "Managed Firewall Agent", "Memory Format Allocation"],
+            correct: 0
+          },
+          {
+            question: "Phishing attacks usually try to:",
+            answers: ["Increase Wi-Fi speed", "Trick users into giving sensitive info", "Repair hardware", "Format databases"],
+            correct: 1
+          },
+          {
+            question: "Strong passwords should generally be:",
+            answers: ["Short and easy", "Reused everywhere", "Unique and hard to guess", "Shared with friends"],
+            correct: 2
+          }
+        ],
+        cloud: [
+          {
+            question: "Cloud computing delivers services:",
+            answers: ["Only through USB", "Over the internet on demand", "Only on DVDs", "Through printers"],
+            correct: 1
+          },
+          {
+            question: "Which of these is a cloud provider?",
+            answers: ["AWS", "VGA", "BIOS", "HDMI"],
+            correct: 0
+          },
+          {
+            question: "SaaS stands for:",
+            answers: ["System as a Server", "Software as a Service", "Storage as a Switch", "Security as a Standard"],
+            correct: 1
+          },
+          {
+            question: "Netlify and Vercel are often used for:",
+            answers: ["Deploying web projects", "Installing RAM", "Cleaning CPUs", "Replacing monitors"],
+            correct: 0
+          },
+          {
+            question: "One benefit of cloud services is:",
+            answers: ["On-demand scalability", "More dust", "Less internet use always", "Permanent offline access only"],
+            correct: 0
+          }
+        ],
+        os: [
+          {
+            question: "An operating system mainly does what?",
+            answers: ["Manages hardware and runs applications", "Builds routers", "Creates cables", "Acts as a monitor stand"],
+            correct: 0
+          },
+          {
+            question: "Which of these is an operating system?",
+            answers: ["Ubuntu", "PostgreSQL", "CSS", "TCP"],
+            correct: 0
+          },
+          {
+            question: "Windows, Linux, and macOS are examples of:",
+            answers: ["Programming bugs", "Operating systems", "Only browsers", "Power supplies"],
+            correct: 1
+          },
+          {
+            question: "The OS acts as a bridge between:",
+            answers: ["Users/software and hardware", "Monitors and desks", "USB and HDMI", "Cloud and keyboard"],
+            correct: 0
+          },
+          {
+            question: "Drivers are used so the OS can:",
+            answers: ["Understand and work with hardware", "Delete the internet", "Encrypt the mouse pad", "Replace web pages"],
+            correct: 0
+          }
+        ],
+        devops: [
+          {
+            question: "DevOps aims to improve:",
+            answers: ["Software delivery and collaboration", "Fan speed only", "Monitor size", "Keyboard brightness"],
+            correct: 0
+          },
+          {
+            question: "Git is mainly used for:",
+            answers: ["Version control", "Database cooling", "Wi-Fi repair", "Printer setup"],
+            correct: 0
+          },
+          {
+            question: "CI/CD is associated with:",
+            answers: ["Automated building, testing, and deployment", "Cable installation", "Mouse cleaning", "Power supply repair"],
+            correct: 0
+          },
+          {
+            question: "Docker is commonly used for:",
+            answers: ["Containers", "Hard drive cloning only", "Password storage only", "Video editing only"],
+            correct: 0
+          },
+          {
+            question: "Kubernetes is commonly related to:",
+            answers: ["Container orchestration", "Spreadsheet design", "Monitor resolution", "Network cable color"],
+            correct: 0
+          }
+        ],
+        itsupport: [
+          {
+            question: "IT support often involves:",
+            answers: ["Troubleshooting and helping users", "Only web design", "Only coding games", "Only selling hardware"],
+            correct: 0
+          },
+          {
+            question: "A backup is important because it:",
+            answers: ["Helps recover lost data", "Makes monitors larger", "Removes all bugs forever", "Turns Wi-Fi into Ethernet"],
+            correct: 0
+          },
+          {
+            question: "Patching systems means:",
+            answers: ["Applying updates and fixes", "Physically sewing a laptop", "Replacing desks", "Turning off networks"],
+            correct: 0
+          },
+          {
+            question: "Systems administration usually includes:",
+            answers: ["Managing accounts, services, and system health", "Only drawing icons", "Only buying keyboards", "Only using browsers"],
+            correct: 0
+          },
+          {
+            question: "A help desk ticket is used to:",
+            answers: ["Track support issues", "Power servers", "Create websites", "Store cables"],
+            correct: 0
+          }
+        ],
+        analytics: [
+          {
+            question: "Data analytics is mainly about:",
+            answers: ["Collecting and analyzing data for insights", "Cooling routers", "Repairing keyboards", "Writing BIOS firmware only"],
+            correct: 0
+          },
+          {
+            question: "Business intelligence helps organisations:",
+            answers: ["Make better decisions from data", "Replace all hardware", "Avoid software", "Stop using networks"],
+            correct: 0
+          },
+          {
+            question: "A dashboard is often used to:",
+            answers: ["Visualize important data", "Store CPU chips", "Patch cables", "Encrypt speakers"],
+            correct: 0
+          },
+          {
+            question: "Which is most related to data visualization?",
+            answers: ["Charts and reports", "Power supplies", "Motherboards", "Thermal paste"],
+            correct: 0
+          },
+          {
+            question: "Analytics tools are often used to:",
+            answers: ["Find patterns and trends", "Format screens physically", "Repair internet cables", "Run antivirus scans only"],
+            correct: 0
+          }
+        ],
+        ai: [
+          {
+            question: "Artificial intelligence is about systems that can:",
+            answers: ["Learn, reason, or recognize patterns", "Only print faster", "Only connect cables", "Only create folders"],
+            correct: 0
+          },
+          {
+            question: "Machine learning is a part of:",
+            answers: ["Artificial intelligence", "Power management", "HTML styling", "Database cabling"],
+            correct: 0
+          },
+          {
+            question: "A model in machine learning is usually trained on:",
+            answers: ["Data", "Desk space", "Monitor stands", "Power cords"],
+            correct: 0
+          },
+          {
+            question: "Pattern recognition is often associated with:",
+            answers: ["AI and ML systems", "Hard drive repair", "Installing fans", "Changing batteries only"],
+            correct: 0
+          },
+          {
+            question: "One common use of AI is:",
+            answers: ["Image or text analysis", "Replacing a PSU", "Cleaning a keyboard", "Plugging in Ethernet only"],
+            correct: 0
+          }
+        ]
+      }
+    };
+
+    function getQuizData(){
+      const saved = localStorage.getItem("learnitfast_quizpage_data");
+      if(saved){
+        try{
+          const parsed = JSON.parse(saved);
+          return { ...defaultQuizData, ...parsed };
+        }catch(error){}
+      }
+      return defaultQuizData;
+    }
+
+    function renderFeatureList(containerId, items){
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const box = document.createElement("div");
+        box.className = "feature-item";
+        box.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
+        container.appendChild(box);
+      });
+    }
+
+    function renderTopics(topics, onSelect, selectedKey){
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      topics.forEach(topic => {
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        if(topic.key === selectedKey){
+          card.classList.add("active-topic");
+        }
+
+        card.innerHTML = `
+          <div class="topic-icon">${topic.icon}</div>
+          <h3>${topic.title}</h3>
+          <p>${topic.text}</p>
+          <span class="topic-link">${topic.linkText}</span>
+        `;
+
+        card.addEventListener("click", () => onSelect(topic.key));
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCtaPoints(points){
+      const container = document.getElementById("ctaPoints");
+      container.innerHTML = "";
+      points.forEach(point => {
+        const box = document.createElement("div");
+        box.className = "cta-point";
+        box.innerHTML = `<strong>${point.title}</strong><div>${point.text}</div>`;
+        container.appendChild(box);
+      });
+    }
+
+    let currentQuizKey = "hardware";
+    let currentQuestions = [];
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    function loadQuiz(topicKey, data){
+      currentQuizKey = topicKey;
+      currentQuestions = data.quizzes[topicKey] || [];
+      currentQuestion = 0;
+      score = 0;
+      answered = false;
+
+      renderTopics(data.topics, (key) => {
+        loadQuiz(key, data);
+        document.getElementById("quizSection").scrollIntoView({ behavior: "smooth" });
+      }, currentQuizKey);
+
+      const topicObj = data.topics.find(item => item.key === topicKey);
+      document.getElementById("quizTopicLabel").textContent = topicObj ? `${topicObj.title} Quiz` : "Topic Quiz";
+
+      document.getElementById("quizContainer").style.display = "block";
+      document.getElementById("scoreBox").style.display = "none";
+
+      renderQuestion(data);
+    }
+
+    function renderQuestion(data){
+      const questionTitle = document.getElementById("questionTitle");
+      const answersContainer = document.getElementById("answersContainer");
+      const quizFeedback = document.getElementById("quizFeedback");
+      const nextBtn = document.getElementById("nextBtn");
+      const progressText = document.getElementById("progressText");
+
+      answered = false;
+      nextBtn.style.display = "none";
+      quizFeedback.textContent = "";
+      answersContainer.innerHTML = "";
+
+      const q = currentQuestions[currentQuestion];
+      progressText.textContent = `Question ${currentQuestion + 1} of ${currentQuestions.length}`;
+      questionTitle.textContent = q.question;
+
+      q.answers.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = answer;
+
+        btn.addEventListener("click", () => {
+          if(answered) return;
+          answered = true;
+
+          const allButtons = answersContainer.querySelectorAll(".answer-btn");
+          allButtons.forEach(button => button.classList.add("disabled"));
+
+          if(index === q.correct){
+            btn.classList.add("correct");
+            quizFeedback.textContent = "Correct answer. Nice one.";
+            quizFeedback.style.color = "#166534";
+            score++;
+          }else{
+            btn.classList.add("wrong");
+            allButtons[q.correct].classList.add("correct");
+            quizFeedback.textContent = "Not quite. The correct answer is highlighted.";
+            quizFeedback.style.color = "#991b1b";
+          }
+
+          nextBtn.style.display = "inline-block";
+        });
+
+        answersContainer.appendChild(btn);
+      });
+    }
+
+    function showFinalScore(){
+      const quizContainer = document.getElementById("quizContainer");
+      const scoreBox = document.getElementById("scoreBox");
+      const scoreText = document.getElementById("scoreText");
+      const topicLabel = document.getElementById("quizTopicLabel").textContent;
+
+      quizContainer.style.display = "none";
+      scoreBox.style.display = "block";
+      scoreText.textContent = `You completed the ${topicLabel.toLowerCase()} and scored ${score} out of ${currentQuestions.length}.`;
+    }
+
+    function applyQuizData(){
+      const data = getQuizData();
+
+      document.title = `${data.siteLogo} | Quiz`;
+
+      document.getElementById("siteLogoText").textContent = data.siteLogo;
+      document.getElementById("footerBrand").textContent = data.footerBrand || data.siteLogo;
+
+      const headerLogoImg = document.getElementById("siteLogoImg");
+      const footerLogoImg = document.getElementById("footerLogoImg");
+      const logoPath = data.siteLogoImage || "logo.png";
+
+      headerLogoImg.src = logoPath;
+      footerLogoImg.src = logoPath;
+
+      headerLogoImg.alt = `${data.siteLogo} Logo`;
+      footerLogoImg.alt = `${data.footerBrand || data.siteLogo} Logo`;
+
+      document.getElementById("heroTitle").textContent = data.heroTitle;
+      document.getElementById("heroText").textContent = data.heroText;
+      document.getElementById("heroBtnOne").textContent = data.heroBtnOne;
+      document.getElementById("heroBtnTwo").textContent = data.heroBtnTwo;
+      document.getElementById("heroCardTitle").textContent = data.heroCardTitle;
+
+      document.getElementById("statOneValue").textContent = data.stats[0]?.value || "";
+      document.getElementById("statOneLabel").textContent = data.stats[0]?.label || "";
+      document.getElementById("statTwoValue").textContent = data.stats[1]?.value || "";
+      document.getElementById("statTwoLabel").textContent = data.stats[1]?.label || "";
+      document.getElementById("statThreeValue").textContent = data.stats[2]?.value || "";
+      document.getElementById("statThreeLabel").textContent = data.stats[2]?.label || "";
+      document.getElementById("statFourValue").textContent = data.stats[3]?.value || "";
+      document.getElementById("statFourLabel").textContent = data.stats[3]?.label || "";
+
+      document.getElementById("topicsHeading").textContent = data.topicsHeading;
+      document.getElementById("topicsText").textContent = data.topicsText;
+
+      document.getElementById("quizHeading").textContent = data.quizHeading;
+      document.getElementById("quizText").textContent = data.quizText;
+      document.getElementById("quizInfoTitle").textContent = data.quizInfoTitle;
+      document.getElementById("quizInfoText").textContent = data.quizInfoText;
+      renderFeatureList("featureListOne", data.featureListOne);
+
+      document.getElementById("ctaTitle").textContent = data.ctaTitle;
+      document.getElementById("ctaText").textContent = data.ctaText;
+      document.getElementById("ctaBtn").textContent = data.ctaBtn;
+      renderCtaPoints(data.ctaPoints);
+
+      document.getElementById("footerDesc").textContent = data.footerDesc;
+      document.getElementById("footerBottomText").textContent = data.footerBottomText;
+
+      loadQuiz(data.selectedTopic || "hardware", data);
+
+      document.getElementById("nextBtn").onclick = () => {
+        currentQuestion++;
+        if(currentQuestion < currentQuestions.length){
+          renderQuestion(data);
+        }else{
+          showFinalScore();
+        }
+      };
+
+      document.getElementById("restartBtn").onclick = () => {
+        loadQuiz(currentQuizKey, data);
+      };
+
+      document.getElementById("restartBtnFinal").onclick = () => {
+        loadQuiz(currentQuizKey, data);
+      };
+    }
+
+    applyQuizData();
+  </script>
+</body>
+</html>

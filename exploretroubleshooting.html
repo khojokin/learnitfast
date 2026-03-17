@@ -1,0 +1,936 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Explore Troubleshooting</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:26px;
+      max-width:670px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .topics-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .topic-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+    }
+
+    .topic-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .topic-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:18px;
+      flex:1;
+    }
+
+    .topic-link{
+      font-weight:800;
+      color:#2563eb;
+      font-size:14px;
+    }
+
+    .feature-wrap{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+    }
+
+    .feature-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .feature-box h3{
+      font-size:24px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .feature-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .feature-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .feature-wrap,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="troubleshooting.html" class="active">Troubleshooting</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="quiz.html" class="btn btn-primary">Start Studying</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="heroTitle">Explore troubleshooting and learn how to solve IT problems step by step.</h1>
+        <p id="heroText">Build confidence diagnosing hardware faults, network issues, slow systems, software crashes, boot problems, and user errors with a simple structured approach.</p>
+        <div class="hero-btns">
+          <a href="quiz.html" class="btn btn-primary" id="heroBtnOne">Start Troubleshooting Quiz</a>
+          <a href="#topicsSection" class="btn hero-btn-secondary" id="heroBtnTwo">Explore Problem Areas</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 id="heroCardTitle">Troubleshooting Focus</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statOneValue">6</strong>
+            <span id="statOneLabel">Problem Areas</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statTwoValue">Step-by-Step</strong>
+            <span id="statTwoLabel">Method</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statThreeValue">Real World</strong>
+            <span id="statThreeLabel">Scenarios</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statFourValue">24/7</strong>
+            <span id="statFourLabel">Study Access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="topicsSection">
+    <div class="section-header">
+      <h2 id="topicsHeading">Key Troubleshooting Areas</h2>
+      <p id="topicsText">Learn the most common places where issues happen and how to narrow them down quickly using logic, symptoms, and tested troubleshooting steps.</p>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2 id="featuresHeading">How troubleshooting gets easier</h2>
+      <p id="featuresText">Good troubleshooting is not guessing. It is about spotting patterns, checking the basics first, testing one change at a time, and confirming the fix before closing the issue.</p>
+    </div>
+
+    <div class="feature-wrap">
+      <div class="feature-box">
+        <h3 id="featureBoxOneTitle">Troubleshooting Method</h3>
+        <p id="featureBoxOneText">Follow a clean process so you do not waste time jumping between random fixes.</p>
+        <div class="feature-list" id="featureListOne"></div>
+      </div>
+
+      <div class="feature-box">
+        <h3 id="featureBoxTwoTitle">Common Real Problems</h3>
+        <p id="featureBoxTwoText">Practice with examples that match the kinds of issues users and technicians actually face every day.</p>
+        <div class="feature-list" id="featureListTwo"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2 id="ctaTitle">Get better at finding the cause, not just guessing the fix.</h2>
+        <p id="ctaText">Use LearnITFast to study troubleshooting logic, review symptoms, and build stronger confidence for exams, labs, and real support tasks.</p>
+        <a href="quiz.html" class="btn btn-primary" id="ctaBtn">Practice Troubleshooting Now</a>
+      </div>
+
+      <div class="cta-points" id="ctaPoints"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="networking.html">Networking</a>
+        <a href="security.html">Security</a>
+        <a href="troubleshooting.html">Troubleshooting</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p id="footerBottomText">©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const defaultTroubleshootingData = {
+      siteLogo: "LearnITFast",
+      siteLogoImage: "logo.png",
+      heroTitle: "Explore troubleshooting and learn how to solve IT problems step by step.",
+      heroText: "Build confidence diagnosing hardware faults, network issues, slow systems, software crashes, boot problems, and user errors with a simple structured approach.",
+      heroBtnOne: "Start Troubleshooting Quiz",
+      heroBtnTwo: "Explore Problem Areas",
+      heroCardTitle: "Troubleshooting Focus",
+      stats: [
+        { value: "6", label: "Problem Areas" },
+        { value: "Step-by-Step", label: "Method" },
+        { value: "Real World", label: "Scenarios" },
+        { value: "24/7", label: "Study Access" }
+      ],
+      topicsHeading: "Key Troubleshooting Areas",
+      topicsText: "Learn the most common places where issues happen and how to narrow them down quickly using logic, symptoms, and tested troubleshooting steps.",
+      topics: [
+        {
+          icon: "🖥️",
+          title: "PC Startup Issues",
+          text: "Learn what to check when a computer does not power on, fails POST, freezes during boot, or restarts unexpectedly.",
+          link: "startup-troubleshooting.html",
+          linkText: "Explore Startup Issues →"
+        },
+        {
+          icon: "🌐",
+          title: "Network Problems",
+          text: "Fix weak Wi-Fi, no internet access, DNS errors, IP conflicts, cable faults, and connection drops more confidently.",
+          link: "network-troubleshooting.html",
+          linkText: "Explore Network Problems →"
+        },
+        {
+          icon: "💽",
+          title: "Hardware Faults",
+          text: "Understand symptoms linked to RAM, drives, overheating, cables, monitors, power supplies, and damaged ports.",
+          link: "hardware-troubleshooting.html",
+          linkText: "Explore Hardware Faults →"
+        },
+        {
+          icon: "⚙️",
+          title: "Operating System Errors",
+          text: "Troubleshoot update failures, driver issues, login problems, blue screens, crashes, and poor performance.",
+          link: "os-troubleshooting.html",
+          linkText: "Explore OS Errors →"
+        },
+        {
+          icon: "🔐",
+          title: "Security Issues",
+          text: "Spot malware symptoms, suspicious pop-ups, permission problems, account lockouts, and unsafe system behaviour.",
+          link: "security-troubleshooting.html",
+          linkText: "Explore Security Issues →"
+        },
+        {
+          icon: "👤",
+          title: "User Support Problems",
+          text: "Handle printer issues, forgotten passwords, missing files, app confusion, and common day-to-day support requests.",
+          link: "user-support-troubleshooting.html",
+          linkText: "Explore User Support →"
+        }
+      ],
+      featuresHeading: "How troubleshooting gets easier",
+      featuresText: "Good troubleshooting is not guessing. It is about spotting patterns, checking the basics first, testing one change at a time, and confirming the fix before closing the issue.",
+      featureBoxOneTitle: "Troubleshooting Method",
+      featureBoxOneText: "Follow a clean process so you do not waste time jumping between random fixes.",
+      featureListOne: [
+        { title: "Identify the problem", text: "Start with symptoms, error messages, and what changed before the issue began." },
+        { title: "Test one fix at a time", text: "Avoid changing too many things together so you know what actually worked." },
+        { title: "Verify and document", text: "Confirm the issue is gone and note the solution for future similar cases." }
+      ],
+      featureBoxTwoTitle: "Common Real Problems",
+      featureBoxTwoText: "Practice with examples that match the kinds of issues users and technicians actually face every day.",
+      featureListTwo: [
+        { title: "Slow computer", text: "Learn how to check startup apps, disk space, RAM use, overheating, and background tasks." },
+        { title: "No internet", text: "Review adapter status, cables, Wi-Fi signal, IP settings, DNS, and router checks." },
+        { title: "App crashes", text: "Understand permissions, corrupted files, updates, compatibility, and reinstall steps." }
+      ],
+      ctaTitle: "Get better at finding the cause, not just guessing the fix.",
+      ctaText: "Use LearnITFast to study troubleshooting logic, review symptoms, and build stronger confidence for exams, labs, and real support tasks.",
+      ctaBtn: "Practice Troubleshooting Now",
+      ctaPoints: [
+        { title: "Step-by-step thinking", text: "Learn a structured way to approach issues." },
+        { title: "Exam-friendly practice", text: "Useful for IT support and certification study." },
+        { title: "Real support confidence", text: "Build skills you can actually use in real situations." }
+      ],
+      footerBrand: "LearnITFast",
+      footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+      footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+    };
+
+    function getTroubleshootingData(){
+      const saved = localStorage.getItem("learnitfast_troubleshooting_data");
+      if(saved){
+        try{
+          const parsed = JSON.parse(saved);
+          return { ...defaultTroubleshootingData, ...parsed };
+        }catch(error){}
+      }
+      return defaultTroubleshootingData;
+    }
+
+    function renderFeatureList(containerId, items){
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const box = document.createElement("div");
+        box.className = "feature-item";
+        box.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
+        container.appendChild(box);
+      });
+    }
+
+    function renderTopics(topics){
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      topics.forEach(topic => {
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        card.innerHTML = `
+          <div class="topic-icon">${topic.icon}</div>
+          <h3>${topic.title}</h3>
+          <p>${topic.text}</p>
+          <a href="${topic.link}" class="topic-link">${topic.linkText}</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCtaPoints(points){
+      const container = document.getElementById("ctaPoints");
+      container.innerHTML = "";
+      points.forEach(point => {
+        const box = document.createElement("div");
+        box.className = "cta-point";
+        box.innerHTML = `<strong>${point.title}</strong><div>${point.text}</div>`;
+        container.appendChild(box);
+      });
+    }
+
+    function applyTroubleshootingData(){
+      const data = getTroubleshootingData();
+
+      document.title = `${data.siteLogo} | Explore Troubleshooting`;
+
+      document.getElementById("siteLogoText").textContent = data.siteLogo;
+      document.getElementById("footerBrand").textContent = data.footerBrand || data.siteLogo;
+
+      const headerLogoImg = document.getElementById("siteLogoImg");
+      const footerLogoImg = document.getElementById("footerLogoImg");
+      const logoPath = data.siteLogoImage || "logo.png";
+
+      headerLogoImg.src = logoPath;
+      footerLogoImg.src = logoPath;
+
+      headerLogoImg.alt = `${data.siteLogo} Logo`;
+      footerLogoImg.alt = `${data.footerBrand || data.siteLogo} Logo`;
+
+      document.getElementById("heroTitle").textContent = data.heroTitle;
+      document.getElementById("heroText").textContent = data.heroText;
+      document.getElementById("heroBtnOne").textContent = data.heroBtnOne;
+      document.getElementById("heroBtnTwo").textContent = data.heroBtnTwo;
+      document.getElementById("heroCardTitle").textContent = data.heroCardTitle;
+
+      document.getElementById("statOneValue").textContent = data.stats[0]?.value || "";
+      document.getElementById("statOneLabel").textContent = data.stats[0]?.label || "";
+      document.getElementById("statTwoValue").textContent = data.stats[1]?.value || "";
+      document.getElementById("statTwoLabel").textContent = data.stats[1]?.label || "";
+      document.getElementById("statThreeValue").textContent = data.stats[2]?.value || "";
+      document.getElementById("statThreeLabel").textContent = data.stats[2]?.label || "";
+      document.getElementById("statFourValue").textContent = data.stats[3]?.value || "";
+      document.getElementById("statFourLabel").textContent = data.stats[3]?.label || "";
+
+      document.getElementById("topicsHeading").textContent = data.topicsHeading;
+      document.getElementById("topicsText").textContent = data.topicsText;
+      renderTopics(data.topics);
+
+      document.getElementById("featuresHeading").textContent = data.featuresHeading;
+      document.getElementById("featuresText").textContent = data.featuresText;
+      document.getElementById("featureBoxOneTitle").textContent = data.featureBoxOneTitle;
+      document.getElementById("featureBoxOneText").textContent = data.featureBoxOneText;
+      document.getElementById("featureBoxTwoTitle").textContent = data.featureBoxTwoTitle;
+      document.getElementById("featureBoxTwoText").textContent = data.featureBoxTwoText;
+
+      renderFeatureList("featureListOne", data.featureListOne);
+      renderFeatureList("featureListTwo", data.featureListTwo);
+
+      document.getElementById("ctaTitle").textContent = data.ctaTitle;
+      document.getElementById("ctaText").textContent = data.ctaText;
+      document.getElementById("ctaBtn").textContent = data.ctaBtn;
+      renderCtaPoints(data.ctaPoints);
+
+      document.getElementById("footerDesc").textContent = data.footerDesc;
+      document.getElementById("footerBottomText").textContent = data.footerBottomText;
+    }
+
+    applyTroubleshootingData();
+  </script>
+</body>
+</html>

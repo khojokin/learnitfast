@@ -1,0 +1,2158 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>LearnITFast | Full Admin</title>
+ <style>
+   *{
+     margin:0;
+     padding:0;
+     box-sizing:border-box;
+     font-family:Arial, Helvetica, sans-serif;
+   }
+
+   body{
+     background:#f8fafc;
+     color:#1f2937;
+     line-height:1.6;
+   }
+
+   button,
+   input,
+   textarea,
+   select{
+     font-family:Arial, Helvetica, sans-serif;
+   }
+
+   .layout{
+     display:grid;
+     grid-template-columns:300px 1fr 420px;
+     min-height:100vh;
+   }
+
+   .sidebar{
+     background:#111827;
+     color:#fff;
+     padding:24px 18px;
+     border-right:1px solid rgba(255,255,255,0.06);
+     position:sticky;
+     top:0;
+     height:100vh;
+     overflow-y:auto;
+   }
+
+   .brand{
+     display:flex;
+     align-items:center;
+     gap:12px;
+     margin-bottom:18px;
+   }
+
+   .brand img{
+     width:42px;
+     height:42px;
+     background:#fff;
+     border-radius:10px;
+     padding:4px;
+     object-fit:contain;
+   }
+
+   .brand-text{
+     font-size:26px;
+     font-weight:800;
+     color:#93c5fd;
+     line-height:1;
+   }
+
+   .sidebar p{
+     color:#9ca3af;
+     font-size:14px;
+     margin-bottom:18px;
+   }
+
+   .nav-group{
+     margin-bottom:20px;
+   }
+
+   .nav-group-title{
+     font-size:12px;
+     text-transform:uppercase;
+     letter-spacing:1px;
+     color:#93c5fd;
+     margin-bottom:10px;
+     font-weight:800;
+   }
+
+   .page-nav{
+     display:grid;
+     gap:10px;
+   }
+
+   .page-btn{
+     width:100%;
+     text-align:left;
+     background:#1f2937;
+     color:#e5e7eb;
+     border:1px solid rgba(255,255,255,0.08);
+     border-radius:14px;
+     padding:14px;
+     cursor:pointer;
+     font-size:14px;
+     font-weight:700;
+   }
+
+   .page-btn:hover,
+   .page-btn.active{
+     background:#2563eb;
+     color:#fff;
+     border-color:#2563eb;
+   }
+
+   .sidebar-box{
+     background:#1f2937;
+     border:1px solid rgba(255,255,255,0.08);
+     border-radius:16px;
+     padding:14px;
+     font-size:13px;
+     color:#cbd5e1;
+   }
+
+   .main{
+     padding:26px;
+     overflow-x:hidden;
+   }
+
+   .topbar{
+     display:flex;
+     justify-content:space-between;
+     align-items:flex-start;
+     gap:16px;
+     flex-wrap:wrap;
+     margin-bottom:20px;
+   }
+
+   .topbar h1{
+     font-size:34px;
+     line-height:1.1;
+     margin-bottom:6px;
+   }
+
+   .topbar p{
+     color:#6b7280;
+     font-size:15px;
+     max-width:800px;
+   }
+
+   .actions{
+     display:flex;
+     gap:12px;
+     flex-wrap:wrap;
+     margin-bottom:20px;
+   }
+
+   .btn{
+     border:none;
+     border-radius:999px;
+     padding:12px 18px;
+     font-weight:700;
+     cursor:pointer;
+     font-size:14px;
+   }
+
+   .btn-primary{
+     background:#2563eb;
+     color:#fff;
+     box-shadow:0 4px 14px rgba(37,99,235,0.2);
+   }
+
+   .btn-primary:hover{
+     background:#1d4ed8;
+   }
+
+   .btn-light{
+     background:#e5e7eb;
+     color:#111827;
+   }
+
+   .btn-light:hover{
+     background:#d1d5db;
+   }
+
+   .btn-danger{
+     background:#dc2626;
+     color:#fff;
+   }
+
+   .btn-danger:hover{
+     background:#b91c1c;
+   }
+
+   .btn-green{
+     background:#16a34a;
+     color:#fff;
+   }
+
+   .btn-green:hover{
+     background:#15803d;
+   }
+
+   .btn-small{
+     padding:9px 14px;
+     font-size:12px;
+     border-radius:999px;
+   }
+
+   .status{
+     display:none;
+     margin-bottom:18px;
+     padding:14px 16px;
+     border-radius:16px;
+     font-weight:700;
+     font-size:14px;
+   }
+
+   .status.success{
+     display:block;
+     background:#dcfce7;
+     color:#166534;
+     border:1px solid #86efac;
+   }
+
+   .status.error{
+     display:block;
+     background:#fee2e2;
+     color:#991b1b;
+     border:1px solid #fca5a5;
+   }
+
+   .editor-shell{
+     display:grid;
+     gap:22px;
+   }
+
+   .card{
+     background:#fff;
+     border:1px solid #e5e7eb;
+     border-radius:24px;
+     padding:24px;
+     box-shadow:0 10px 28px rgba(0,0,0,0.04);
+   }
+
+   .page-tag{
+     display:inline-block;
+     padding:8px 14px;
+     border-radius:999px;
+     background:#dbeafe;
+     color:#1d4ed8;
+     font-size:13px;
+     font-weight:800;
+     margin-bottom:10px;
+   }
+
+   .card h2{
+     font-size:22px;
+     margin-bottom:8px;
+     color:#111827;
+   }
+
+   .card p{
+     color:#6b7280;
+     font-size:14px;
+     margin-bottom:18px;
+   }
+
+   .tab-bar{
+     display:flex;
+     gap:10px;
+     flex-wrap:wrap;
+     margin-bottom:18px;
+   }
+
+   .tab-btn{
+     border:none;
+     background:#eef2ff;
+     color:#374151;
+     border-radius:999px;
+     padding:10px 16px;
+     font-size:13px;
+     font-weight:800;
+     cursor:pointer;
+   }
+
+   .tab-btn.active{
+     background:#2563eb;
+     color:#fff;
+   }
+
+   .tab-panel{
+     display:none;
+   }
+
+   .tab-panel.active{
+     display:block;
+   }
+
+   .section-note{
+     background:#f8fafc;
+     border:1px solid #e5e7eb;
+     border-radius:16px;
+     padding:14px 16px;
+     margin-bottom:16px;
+     font-size:13px;
+     color:#4b5563;
+   }
+
+   .fields{
+     display:grid;
+     grid-template-columns:repeat(2, minmax(0, 1fr));
+     gap:16px;
+   }
+
+   .field{
+     display:grid;
+     gap:8px;
+   }
+
+   .field.full{
+     grid-column:1 / -1;
+   }
+
+   .field label{
+     font-size:14px;
+     font-weight:700;
+     color:#374151;
+   }
+
+   .field input,
+   .field textarea,
+   .field select{
+     width:100%;
+     border:1px solid #dbe3ef;
+     border-radius:16px;
+     padding:14px 16px;
+     font-size:14px;
+     background:#f8fafc;
+     color:#111827;
+     outline:none;
+   }
+
+   .field textarea{
+     min-height:120px;
+     resize:vertical;
+   }
+
+   .field input:focus,
+   .field textarea:focus,
+   .field select:focus{
+     border-color:#93c5fd;
+     background:#fff;
+     box-shadow:0 0 0 4px rgba(37,99,235,0.08);
+   }
+
+   .upload-row{
+     display:flex;
+     gap:10px;
+     flex-wrap:wrap;
+     align-items:center;
+   }
+
+   .upload-preview{
+     width:80px;
+     height:80px;
+     object-fit:cover;
+     border-radius:12px;
+     border:1px solid #dbe3ef;
+     background:#fff;
+   }
+
+   .repeater-toolbar{
+     display:flex;
+     gap:10px;
+     flex-wrap:wrap;
+     margin-bottom:14px;
+   }
+
+   .repeater-list{
+     display:grid;
+     gap:14px;
+   }
+
+   .repeater-item{
+     border:1px solid #dbe3ef;
+     background:#f8fafc;
+     border-radius:18px;
+     padding:16px;
+   }
+
+   .repeater-head{
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     gap:12px;
+     margin-bottom:12px;
+     flex-wrap:wrap;
+   }
+
+   .repeater-title{
+     font-size:14px;
+     font-weight:800;
+     color:#1d4ed8;
+   }
+
+   .repeater-grid{
+     display:grid;
+     grid-template-columns:repeat(2, minmax(0, 1fr));
+     gap:12px;
+   }
+
+   .repeater-grid .field{
+     gap:6px;
+   }
+
+   .repeater-grid .field.full{
+     grid-column:1 / -1;
+   }
+
+   .object-group{
+     display:grid;
+     gap:18px;
+   }
+
+   .object-box{
+     border:1px solid #dbe3ef;
+     border-radius:18px;
+     padding:16px;
+     background:#f8fafc;
+   }
+
+   .preview-pane{
+     background:#f1f5f9;
+     border-left:1px solid #e5e7eb;
+     position:sticky;
+     top:0;
+     height:100vh;
+     overflow-y:auto;
+     padding:20px;
+   }
+
+   .preview-header{
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     gap:10px;
+     margin-bottom:14px;
+   }
+
+   .preview-header h3{
+     font-size:20px;
+     color:#111827;
+   }
+
+   .preview-device{
+     font-size:12px;
+     font-weight:800;
+     padding:8px 12px;
+     border-radius:999px;
+     background:#dbeafe;
+     color:#1d4ed8;
+   }
+
+   .preview-frame{
+     background:#fff;
+     border:1px solid #dbe3ef;
+     border-radius:24px;
+     overflow:hidden;
+     box-shadow:0 10px 28px rgba(0,0,0,0.06);
+   }
+
+   .preview-nav{
+     padding:14px 16px;
+     border-bottom:1px solid #e5e7eb;
+     display:grid;
+     gap:12px;
+     background:#ffffff;
+   }
+
+   .preview-logo{
+     font-weight:800;
+     color:#2563eb;
+     font-size:24px;
+   }
+
+   .preview-search{
+     padding:10px 14px;
+     border-radius:999px;
+     background:#f8fafc;
+     border:1px solid #e5e7eb;
+     font-size:13px;
+     color:#6b7280;
+   }
+
+   .preview-links{
+     display:flex;
+     flex-wrap:wrap;
+     gap:8px;
+   }
+
+   .preview-links span{
+     padding:7px 12px;
+     border-radius:999px;
+     font-size:12px;
+     font-weight:700;
+     background:#eef2ff;
+     color:#374151;
+   }
+
+   .preview-hero{
+     padding:28px 20px;
+     background:linear-gradient(135deg,#1e293b,#334155);
+     color:#fff;
+   }
+
+   .preview-hero h1{
+     font-size:28px;
+     line-height:1.1;
+     margin-bottom:10px;
+   }
+
+   .preview-hero p{
+     color:#dbeafe;
+     font-size:14px;
+     margin-bottom:16px;
+   }
+
+   .preview-hero-btns{
+     display:flex;
+     gap:10px;
+     flex-wrap:wrap;
+   }
+
+   .preview-btn{
+     padding:10px 14px;
+     border-radius:999px;
+     font-size:12px;
+     font-weight:800;
+   }
+
+   .preview-btn.primary{
+     background:#2563eb;
+     color:#fff;
+   }
+
+   .preview-btn.secondary{
+     background:rgba(255,255,255,0.15);
+     color:#fff;
+   }
+
+   .preview-section{
+     padding:22px 20px;
+     border-bottom:1px solid #f1f5f9;
+   }
+
+   .preview-section h4{
+     font-size:19px;
+     margin-bottom:8px;
+     color:#111827;
+   }
+
+   .preview-section p{
+     font-size:13px;
+     color:#6b7280;
+     margin-bottom:14px;
+   }
+
+   .preview-grid{
+     display:grid;
+     gap:12px;
+   }
+
+   .preview-card{
+     background:#f8fafc;
+     border:1px solid #e5e7eb;
+     border-radius:16px;
+     padding:14px;
+   }
+
+   .preview-card strong{
+     display:block;
+     color:#111827;
+     margin-bottom:6px;
+     font-size:14px;
+   }
+
+   .preview-card span{
+     font-size:12px;
+     color:#6b7280;
+   }
+
+   .preview-cta{
+     margin:20px;
+     background:linear-gradient(135deg,#1d4ed8,#111827);
+     color:#fff;
+     border-radius:20px;
+     padding:18px;
+   }
+
+   .preview-cta h4{
+     font-size:20px;
+     margin-bottom:8px;
+   }
+
+   .preview-cta p{
+     font-size:13px;
+     color:#dbeafe;
+     margin-bottom:12px;
+   }
+
+   .preview-footer{
+     padding:20px;
+     background:#111827;
+     color:#9ca3af;
+   }
+
+   .preview-footer strong{
+     display:block;
+     color:#fff;
+     margin-bottom:8px;
+   }
+
+   .preview-footer-grid{
+     display:grid;
+     grid-template-columns:1fr 1fr;
+     gap:12px;
+     margin-top:12px;
+   }
+
+   .preview-footer-col{
+     background:rgba(255,255,255,0.04);
+     border-radius:14px;
+     padding:12px;
+     font-size:12px;
+   }
+
+   .preview-footer-col b{
+     display:block;
+     color:#fff;
+     margin-bottom:6px;
+     font-size:13px;
+   }
+
+   .preview-bottom{
+     margin-top:14px;
+     padding-top:12px;
+     border-top:1px solid rgba(255,255,255,0.08);
+     font-size:12px;
+     text-align:center;
+   }
+
+   @media (max-width:1320px){
+     .layout{
+       grid-template-columns:290px 1fr;
+     }
+
+     .preview-pane{
+       grid-column:1 / -1;
+       position:relative;
+       height:auto;
+       border-left:none;
+       border-top:1px solid #e5e7eb;
+     }
+   }
+
+   @media (max-width:1080px){
+     .layout{
+       grid-template-columns:1fr;
+     }
+
+     .sidebar{
+       position:relative;
+       height:auto;
+     }
+   }
+
+   @media (max-width:760px){
+     .main{
+       padding:18px;
+     }
+
+     .fields,
+     .repeater-grid{
+       grid-template-columns:1fr;
+     }
+
+     .topbar h1{
+       font-size:28px;
+     }
+   }
+ </style>
+</head>
+<body>
+ <div class="layout">
+   <aside class="sidebar">
+     <div class="brand">
+       <img src="logo.png" alt="LearnITFast Logo">
+       <div class="brand-text">Admin</div>
+     </div>
+
+     <p>Edit every page, upload images, and add or delete repeated content from one place.</p>
+
+     <div class="nav-group">
+       <div class="nav-group-title">Global</div>
+       <div class="page-nav">
+         <button class="page-btn active" data-page="global">Global Settings</button>
+       </div>
+     </div>
+
+     <div class="nav-group">
+       <div class="nav-group-title">Pages</div>
+       <div class="page-nav" id="pageNav"></div>
+     </div>
+
+     <div class="sidebar-box">
+       Everything here saves in localStorage for now. That means it works in this browser without a backend.
+     </div>
+   </aside>
+
+   <main class="main">
+     <div class="topbar">
+       <div>
+         <h1 id="panelTitle">LearnITFast Full Admin</h1>
+         <p id="panelText">Manage shared settings, cards, quizzes, flashcards, and page content with visual add and delete controls.</p>
+       </div>
+     </div>
+
+     <div class="actions">
+       <button class="btn btn-primary" id="saveBtn">Save Current</button>
+       <button class="btn btn-light" id="loadSavedBtn">Load Saved Data</button>
+       <button class="btn btn-light" id="loadDefaultBtn">Load Default Data</button>
+       <button class="btn btn-danger" id="clearBtn">Clear Saved Data</button>
+     </div>
+
+     <div class="status" id="statusBox"></div>
+
+     <div class="editor-shell" id="editorShell"></div>
+   </main>
+
+   <aside class="preview-pane">
+     <div class="preview-header">
+       <h3>Live Preview</h3>
+       <span class="preview-device">Desktop View</span>
+     </div>
+     <div class="preview-frame" id="previewFrame"></div>
+   </aside>
+ </div>
+
+ <script>
+   function deepClone(obj){
+     return JSON.parse(JSON.stringify(obj));
+   }
+
+   function escapeHtml(value){
+     return String(value ?? "")
+       .replace(/&/g, "&amp;")
+       .replace(/"/g, "&quot;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;");
+   }
+
+   function formatLabel(key){
+     return key
+       .replace(/([A-Z])/g, " $1")
+       .replace(/_/g, " ")
+       .replace(/\b\w/g, c => c.toUpperCase());
+   }
+
+   function createStandardPage(label, storageKey, defaults){
+     return {
+       label,
+       storageKey,
+       defaults,
+       tabs: {
+         general: [
+           { key: "siteLogo", label: "Site Logo Text", type: "text" },
+           { key: "siteLogoImage", label: "Logo Image", type: "image" }
+         ],
+         hero: [
+           { key: "heroTitle", label: "Hero Title", type: "textarea" },
+           { key: "heroText", label: "Hero Text", type: "textarea" },
+           { key: "heroBtnOne", label: "Hero Button One Text", type: "text" },
+           { key: "heroBtnTwo", label: "Hero Button Two Text", type: "text" },
+           { key: "heroCardTitle", label: "Hero Card Title", type: "text" },
+           { key: "stats", label: "Hero Stats", type: "repeater", itemLabel: "Stat", itemShape: { value: "", label: "" } }
+         ],
+         sections: [],
+         cta: [
+           { key: "ctaTitle", label: "CTA Title", type: "textarea" },
+           { key: "ctaText", label: "CTA Text", type: "textarea" },
+           { key: "ctaBtn", label: "CTA Button Text", type: "text" },
+           { key: "ctaPoints", label: "CTA Points", type: "repeater", itemLabel: "CTA Point", itemShape: { title: "", text: "" } }
+         ],
+         footer: [
+           { key: "footerBrand", label: "Footer Brand", type: "text" },
+           { key: "footerDesc", label: "Footer Description", type: "textarea" },
+           { key: "footerBottomText", label: "Footer Bottom Text", type: "text" }
+         ]
+       }
+     };
+   }
+
+   const globalConfig = {
+     label: "Global Settings",
+     storageKey: "learnitfast_global_settings",
+     defaults: {
+       siteName: "LearnITFast",
+       logoImage: "logo.png",
+       searchPlaceholder: "Search topics, quizzes, flashcards...",
+       navLinks: [
+         { text: "Home", href: "index.html" },
+         { text: "Quiz", href: "quiz.html" },
+         { text: "Flashcards", href: "flashcards.html" },
+         { text: "Topics", href: "topics.html" },
+         { text: "About", href: "about.html" },
+         { text: "Contact", href: "contact.html" }
+       ],
+       searchPages: [
+         { name: "Home", url: "index.html", keywords: "home, main, landing" },
+         { name: "Quiz", url: "quiz.html", keywords: "quiz, questions, test" },
+         { name: "Flashcards", url: "flashcards.html", keywords: "flashcards, cards, memory" },
+         { name: "Topics", url: "topics.html", keywords: "topics, study, categories" }
+       ],
+       footerColumns: [
+         {
+           title: "Study",
+           links: [
+             { text: "Quiz", href: "quiz.html" },
+             { text: "Flashcards", href: "flashcards.html" },
+             { text: "Topics", href: "topics.html" }
+           ]
+         },
+         {
+           title: "Support",
+           links: [
+             { text: "About", href: "about.html" },
+             { text: "Contact", href: "contact.html" }
+           ]
+         }
+       ],
+       globalFooterBrand: "LearnITFast",
+       globalFooterDesc: "Simple, focused tech learning for students, beginners, and career switchers.",
+       globalFooterBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     },
+     tabs: {
+       general: [
+         { key: "siteName", label: "Site Name", type: "text" },
+         { key: "logoImage", label: "Logo Image", type: "image" },
+         { key: "searchPlaceholder", label: "Search Placeholder", type: "text" }
+       ],
+       nav: [
+         { key: "navLinks", label: "Navigation Links", type: "repeater", itemLabel: "Nav Link", itemShape: { text: "", href: "" } },
+         { key: "searchPages", label: "Search Pages", type: "repeater", itemLabel: "Search Page", itemShape: { name: "", url: "", keywords: "" } }
+       ],
+       footer: [
+         { key: "footerColumns", label: "Footer Columns", type: "nestedRepeater", itemLabel: "Footer Column", itemShape: { title: "", links: [] }, childKey: "links", childLabel: "Footer Link", childShape: { text: "", href: "" } },
+         { key: "globalFooterBrand", label: "Footer Brand", type: "text" },
+         { key: "globalFooterDesc", label: "Footer Description", type: "textarea" },
+         { key: "globalFooterBottomText", label: "Footer Bottom Text", type: "text" }
+       ]
+     }
+   };
+
+   const pageConfigs = {
+     home: createStandardPage("Home Page", "learnitfast_homepage_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Learn tech the smart way with quizzes, flashcards, and topic-based revision.",
+       heroText: "LearnITFast helps beginners, students, and career switchers build confidence across 12 major IT and tech areas.",
+       heroBtnOne: "Sign Up Free",
+       heroBtnTwo: "Explore Topics",
+       heroCardTitle: "Platform Snapshot",
+       stats: [
+         { value: "12", label: "IT Topics" },
+         { value: "100+", label: "Flashcards" },
+         { value: "Grouped", label: "Quizzes" },
+         { value: "24/7", label: "Study Access" }
+       ],
+       topicsHeading: "12 Main IT Learning Areas",
+       topicsText: "Start with the topic that matches your goals.",
+       topics: [
+         { icon: "🖥️", title: "Hardware", text: "Learn about computers and components.", link: "hardware.html", linkText: "Explore Hardware →" }
+       ],
+       featuresHeading: "How LearnITFast helps you study",
+       featuresText: "The platform is built to make revision feel cleaner and faster.",
+       featureBoxOneTitle: "Quiz Practice",
+       featureBoxOneText: "Choose one subject at a time.",
+       featureListOne: [
+         { title: "Grouped categories", text: "Practice within one subject." }
+       ],
+       featureBoxTwoTitle: "Flashcard Revision",
+       featureBoxTwoText: "Use active recall to repeat ideas.",
+       featureListTwo: [
+         { title: "Topic-based decks", text: "Study one category at a time." }
+       ],
+       highlightsHeading: "Why learners use it",
+       highlightsText: "Simple, focused, and easy to expand.",
+       highlights: [
+         { title: "Beginner-friendly", text: "Easy to start and follow." }
+       ],
+       ctaTitle: "Start learning one topic at a time and grow your confidence fast.",
+       ctaText: "Create a free account to unlock more study content.",
+       ctaBtn: "Create Free Account",
+       ctaPoints: [
+         { title: "Simple to use", text: "No clutter, just learning." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused tech learning for students, beginners, and career switchers.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     quiz: createStandardPage("Quiz Page", "learnitfast_quizpage_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Choose a tech topic and take a quiz built for that exact area.",
+       heroText: "Practice IT and tech knowledge through grouped quizzes.",
+       heroBtnOne: "Choose Quiz Topic",
+       heroBtnTwo: "Start Practising",
+       heroCardTitle: "Quiz Dashboard",
+       stats: [
+         { value: "12", label: "Quiz Groups" },
+         { value: "5", label: "Questions Each" }
+       ],
+       topicsHeading: "Choose a Quiz Group",
+       topicsText: "Each topic below has its own separate quiz.",
+       topics: [
+         { key: "hardware", icon: "🖥️", title: "Hardware", text: "Physical devices and computing equipment.", linkText: "Open Hardware Quiz →" }
+       ],
+       quizHeading: "Topic Quiz",
+       quizText: "Pick a category first.",
+       quizInfoTitle: "How the grouped quiz works",
+       quizInfoText: "Choose a specific subject area and practise only that category.",
+       featureListOne: [
+         { title: "One topic at a time", text: "Users can focus on a single area." }
+       ],
+       selectedTopic: "hardware",
+       quizzes: {
+         hardware: [
+           { question: "Which hardware component stores data permanently in a computer?", answers: ["RAM", "SSD", "CPU", "Cache"], correct: 1 }
+         ]
+       },
+       ctaTitle: "Study by category and get stronger one area at a time.",
+       ctaText: "Sign up to unlock more topic quizzes.",
+       ctaBtn: "Create Free Account",
+       ctaPoints: [
+         { title: "Focused practice", text: "Revise exactly the area you want." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     flashcards: createStandardPage("Flashcards Page", "learnitfast_flashcards_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Revise faster with big flashcard decks grouped by tech topic.",
+       heroText: "Choose a category and study through large flashcard sets.",
+       heroBtnOne: "Choose Flashcard Topic",
+       heroBtnTwo: "Start Revising",
+       heroCardTitle: "Flashcards Dashboard",
+       stats: [
+         { value: "12", label: "Topic Groups" },
+         { value: "100+", label: "Cards Per Topic" }
+       ],
+       topicsHeading: "Choose a Flashcard Group",
+       topicsText: "Each category below loads its own large flashcard deck.",
+       topics: [
+         { key: "hardware", icon: "🖥️", title: "Hardware", text: "Study computers and components.", linkText: "Open Hardware Flashcards →" }
+       ],
+       flashcardsHeading: "Topic Flashcards",
+       flashcardsText: "Click the card to flip it.",
+       flashcardsInfoTitle: "How this bigger deck works",
+       flashcardsInfoText: "Each category builds a larger revision deck.",
+       featureListOne: [
+         { title: "About 100 cards each", text: "Large deck generation." }
+       ],
+       selectedTopic: "hardware",
+       topicSeedFacts: {
+         hardware: [
+           { term: "CPU", definition: "the main processor that executes instructions", use: "processing calculations and system operations", memory: "often called the brain of the computer" }
+         ]
+       },
+       ctaTitle: "Keep revising until the ideas become automatic.",
+       ctaText: "Sign up to unlock even more flashcard decks.",
+       ctaBtn: "Create Free Account",
+       ctaPoints: [
+         { title: "Longer decks", text: "More repetition without running out too fast." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused tech learning for students, beginners, and career switchers.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     topics: createStandardPage("Topics Page", "learnitfast_topics_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Explore IT topics in a simple way and build your confidence one subject at a time.",
+       heroText: "Learn the foundations of networking, hardware, security, cloud, operating systems, and troubleshooting.",
+       heroBtnOne: "Sign Up Free",
+       heroBtnTwo: "Browse Topics",
+       heroCardTitle: "Learning Areas",
+       stats: [
+         { value: "12", label: "Main Topics" },
+         { value: "Beginner", label: "Friendly" }
+       ],
+       topicsHeading: "Main Study Topics",
+       topicsText: "These are the key IT subjects you can start with right now.",
+       topics: [
+         { icon: "🌐", title: "Networking", text: "Learn about IP addresses, ports, routers, switches, and Wi-Fi.", link: "networking.html", linkText: "Explore Networking →" }
+       ],
+       featuresHeading: "Why these topics matter",
+       featuresText: "A strong IT foundation comes from understanding the basics clearly.",
+       featureBoxOneTitle: "Core Knowledge",
+       featureBoxOneText: "Master the essential concepts first.",
+       featureListOne: [
+         { title: "Better understanding", text: "Learn the main ideas before harder details." }
+       ],
+       featureBoxTwoTitle: "Study Progress",
+       featureBoxTwoText: "Move topic by topic and revise at your own pace.",
+       featureListTwo: [
+         { title: "Learn step by step", text: "Focus on one subject at a time." }
+       ],
+       ctaTitle: "Start learning with the right topics from day one.",
+       ctaText: "Sign up to explore more lessons and quizzes.",
+       ctaBtn: "Create Free Account",
+       ctaPoints: [
+         { title: "Simple learning", text: "Clear topic pages made for easier study." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     about: createStandardPage("About Page", "learnitfast_about_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "About LearnITFast and why it was built to make tech learning easier.",
+       heroText: "LearnITFast is designed for students, beginners, and career switchers.",
+       heroBtnOne: "Join Free",
+       heroBtnTwo: "Our Story",
+       heroCardTitle: "About Snapshot",
+       stats: [
+         { value: "12", label: "Main Topics" },
+         { value: "Simple", label: "Learning Style" }
+       ],
+       storyHeading: "Our story",
+       storyText: "LearnITFast was created to make tech learning feel less messy and more focused.",
+       missionTitle: "Our mission",
+       missionText: "Help learners understand important tech topics.",
+       missionList: [
+         { title: "Make learning simpler", text: "Break large tech areas into cleaner sections." }
+       ],
+       whoTitle: "Who LearnITFast is for",
+       whoText: "Built for different stages of learning.",
+       whoList: [
+         { title: "Students", text: "Great for learners who need help revising." }
+       ],
+       valuesHeading: "What we care about",
+       valuesText: "Built around a few clear ideas.",
+       values: [
+         { title: "Clarity", text: "Keep the design and explanations clean." }
+       ],
+       journeyHeading: "How the platform is growing",
+       journeyText: "Built step by step.",
+       journey: [
+         { step: "Step 1", title: "Strong topic structure", text: "Start with grouped subject areas." }
+       ],
+       ctaTitle: "Be part of a simpler way to learn tech.",
+       ctaText: "Create a free account and start exploring.",
+       ctaBtn: "Create Free Account",
+       ctaPoints: [
+         { title: "Clear structure", text: "Everything is arranged to make studying easier." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused tech learning for students, beginners, and career switchers.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     contact: createStandardPage("Contact Page", "learnitfast_contact_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Get in touch and ask anything about LearnITFast.",
+       heroText: "Whether you have a question, feedback, a feature idea, or need help using the platform, the contact page makes it easy to reach out.",
+       heroBtnOne: "Send a Message",
+       heroBtnTwo: "View Help",
+       heroCardTitle: "Contact Snapshot",
+       stats: [
+         { value: "Help", label: "Support" },
+         { value: "Ideas", label: "Feedback" }
+       ],
+       contactHeading: "Contact LearnITFast",
+       contactText: "Use the form below to send a question.",
+       infoTitle: "Ways to reach out",
+       infoText: "This section helps visitors understand what they can contact you about.",
+       infoItems: [
+         { title: "General questions", text: "Ask about the platform." }
+       ],
+       formTitle: "Send a message",
+       formText: "Fill in the details and send your message.",
+       formNote: "This demo form currently shows a success message only.",
+       formBtn: "Send Message",
+       faqHeading: "Quick help",
+       faqText: "These common questions can help visitors understand the platform better.",
+       faqs: [
+         { title: "Do I need an account to browse?", text: "You can browse parts of the platform first." }
+       ],
+       ctaTitle: "Have feedback or an idea for the platform?",
+       ctaText: "Create an account and explore the platform.",
+       ctaBtn: "Create Free Account",
+       ctaPoints: [
+         { title: "Easy support", text: "Give visitors a simple way to reach out." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused tech learning for students, beginners, and career switchers.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     security: createStandardPage("Security Page", "learnitfast_security_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Explore security and understand how to protect systems, networks, and data.",
+       heroText: "Learn the basics of authentication, malware, encryption, firewalls, phishing, and best practices.",
+       heroBtnOne: "Start Security Quiz",
+       heroBtnTwo: "Explore Security Topics",
+       heroCardTitle: "Security Focus",
+       stats: [
+         { value: "6", label: "Core Areas" },
+         { value: "Safe", label: "Practices" }
+       ],
+       topicsHeading: "Main Security Topics",
+       topicsText: "Start with the foundations of cybersecurity.",
+       topics: [
+         { icon: "🔐", title: "Authentication", text: "Learn about usernames, passwords, biometrics, and MFA.", link: "security.html", linkText: "Explore Authentication →" }
+       ],
+       featuresHeading: "How security learning helps you",
+       featuresText: "Security is not only about hackers.",
+       featureBoxOneTitle: "Security Fundamentals",
+       featureBoxOneText: "Build a strong base by understanding the most important concepts first.",
+       featureListOne: [
+         { title: "Protect identities", text: "Understand passwords, MFA, and secure login." }
+       ],
+       featureBoxTwoTitle: "Common Security Risks",
+       featureBoxTwoText: "Study threats and mistakes that affect systems every day.",
+       featureListTwo: [
+         { title: "Phishing and scams", text: "Recognise fake links and suspicious emails." }
+       ],
+       ctaTitle: "Learn how to secure systems before problems happen.",
+       ctaText: "Use LearnITFast to revise security basics.",
+       ctaBtn: "Practice Security Now",
+       ctaPoints: [
+         { title: "Clear explanations", text: "Understand the basics without confusion." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     }),
+
+     troubleshooting: createStandardPage("Troubleshooting Page", "learnitfast_troubleshooting_data", {
+       siteLogo: "LearnITFast",
+       siteLogoImage: "logo.png",
+       heroTitle: "Explore troubleshooting and learn how to solve IT problems step by step.",
+       heroText: "Build confidence diagnosing hardware faults, network issues, slow systems, software crashes, and boot problems.",
+       heroBtnOne: "Start Troubleshooting Quiz",
+       heroBtnTwo: "Explore Problem Areas",
+       heroCardTitle: "Troubleshooting Focus",
+       stats: [
+         { value: "6", label: "Problem Areas" },
+         { value: "Step-by-Step", label: "Method" }
+       ],
+       topicsHeading: "Key Troubleshooting Areas",
+       topicsText: "Learn the most common places where issues happen.",
+       topics: [
+         { icon: "🛠️", title: "PC Startup Issues", text: "Learn what to check when a computer does not power on.", link: "troubleshooting.html", linkText: "Explore Startup Issues →" }
+       ],
+       featuresHeading: "How troubleshooting gets easier",
+       featuresText: "Good troubleshooting is not guessing.",
+       featureBoxOneTitle: "Troubleshooting Method",
+       featureBoxOneText: "Follow a clean process.",
+       featureListOne: [
+         { title: "Identify the problem", text: "Start with symptoms and error messages." }
+       ],
+       featureBoxTwoTitle: "Common Real Problems",
+       featureBoxTwoText: "Practice with examples technicians actually face.",
+       featureListTwo: [
+         { title: "Slow computer", text: "Check startup apps, disk space, RAM, and heat." }
+       ],
+       ctaTitle: "Get better at finding the cause, not just guessing the fix.",
+       ctaText: "Use LearnITFast to study troubleshooting logic.",
+       ctaBtn: "Practice Troubleshooting Now",
+       ctaPoints: [
+         { title: "Step-by-step thinking", text: "Learn a structured way to approach issues." }
+       ],
+       footerBrand: "LearnITFast",
+       footerDesc: "Simple, focused tech learning for students, career switchers, and tech beginners.",
+       footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+     })
+   };
+
+   pageConfigs.home.tabs.sections = [
+     { key: "topicsHeading", label: "Topics Heading", type: "text" },
+     { key: "topicsText", label: "Topics Intro Text", type: "textarea" },
+     { key: "topics", label: "Topic Cards", type: "repeater", itemLabel: "Topic Card", itemShape: { icon: "", title: "", text: "", link: "", linkText: "" } },
+     { key: "featuresHeading", label: "Features Heading", type: "text" },
+     { key: "featuresText", label: "Features Intro Text", type: "textarea" },
+     { key: "featureBoxOneTitle", label: "Feature Box One Title", type: "text" },
+     { key: "featureBoxOneText", label: "Feature Box One Text", type: "textarea" },
+     { key: "featureListOne", label: "Feature List One", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } },
+     { key: "featureBoxTwoTitle", label: "Feature Box Two Title", type: "text" },
+     { key: "featureBoxTwoText", label: "Feature Box Two Text", type: "textarea" },
+     { key: "featureListTwo", label: "Feature List Two", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } },
+     { key: "highlightsHeading", label: "Highlights Heading", type: "text" },
+     { key: "highlightsText", label: "Highlights Text", type: "textarea" },
+     { key: "highlights", label: "Highlights", type: "repeater", itemLabel: "Highlight", itemShape: { title: "", text: "" } }
+   ];
+
+   pageConfigs.topics.tabs.sections = [
+     { key: "topicsHeading", label: "Topics Heading", type: "text" },
+     { key: "topicsText", label: "Topics Intro Text", type: "textarea" },
+     { key: "topics", label: "Topic Cards", type: "repeater", itemLabel: "Topic Card", itemShape: { icon: "", title: "", text: "", link: "", linkText: "" } },
+     { key: "featuresHeading", label: "Features Heading", type: "text" },
+     { key: "featuresText", label: "Features Intro Text", type: "textarea" },
+     { key: "featureBoxOneTitle", label: "Feature Box One Title", type: "text" },
+     { key: "featureBoxOneText", label: "Feature Box One Text", type: "textarea" },
+     { key: "featureListOne", label: "Feature List One", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } },
+     { key: "featureBoxTwoTitle", label: "Feature Box Two Title", type: "text" },
+     { key: "featureBoxTwoText", label: "Feature Box Two Text", type: "textarea" },
+     { key: "featureListTwo", label: "Feature List Two", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } }
+   ];
+
+   pageConfigs.quiz.tabs.sections = [
+     { key: "topicsHeading", label: "Topics Heading", type: "text" },
+     { key: "topicsText", label: "Topics Intro Text", type: "textarea" },
+     { key: "topics", label: "Quiz Topic Cards", type: "repeater", itemLabel: "Quiz Topic", itemShape: { key: "", icon: "", title: "", text: "", linkText: "" } },
+     { key: "quizHeading", label: "Quiz Heading", type: "text" },
+     { key: "quizText", label: "Quiz Intro Text", type: "textarea" },
+     { key: "quizInfoTitle", label: "Quiz Info Title", type: "text" },
+     { key: "quizInfoText", label: "Quiz Info Text", type: "textarea" },
+     { key: "featureListOne", label: "Quiz Feature List", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } }
+   ];
+   pageConfigs.quiz.tabs.advanced = [
+     { key: "selectedTopic", label: "Default Selected Topic Key", type: "text" },
+     { key: "quizzes", label: "Quizzes by Topic", type: "quizMap" }
+   ];
+
+   pageConfigs.flashcards.tabs.sections = [
+     { key: "topicsHeading", label: "Topics Heading", type: "text" },
+     { key: "topicsText", label: "Topics Intro Text", type: "textarea" },
+     { key: "topics", label: "Flashcard Topic Cards", type: "repeater", itemLabel: "Flashcard Topic", itemShape: { key: "", icon: "", title: "", text: "", linkText: "" } },
+     { key: "flashcardsHeading", label: "Flashcards Heading", type: "text" },
+     { key: "flashcardsText", label: "Flashcards Intro Text", type: "textarea" },
+     { key: "flashcardsInfoTitle", label: "Flashcards Info Title", type: "text" },
+     { key: "flashcardsInfoText", label: "Flashcards Info Text", type: "textarea" },
+     { key: "featureListOne", label: "Flashcards Feature List", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } }
+   ];
+   pageConfigs.flashcards.tabs.advanced = [
+     { key: "selectedTopic", label: "Default Selected Topic Key", type: "text" },
+     { key: "topicSeedFacts", label: "Seed Facts by Topic", type: "seedFactMap" }
+   ];
+
+   pageConfigs.about.tabs.sections = [
+     { key: "storyHeading", label: "Story Heading", type: "text" },
+     { key: "storyText", label: "Story Text", type: "textarea" },
+     { key: "missionTitle", label: "Mission Title", type: "text" },
+     { key: "missionText", label: "Mission Text", type: "textarea" },
+     { key: "missionList", label: "Mission List", type: "repeater", itemLabel: "Mission Item", itemShape: { title: "", text: "" } },
+     { key: "whoTitle", label: "Who Title", type: "text" },
+     { key: "whoText", label: "Who Text", type: "textarea" },
+     { key: "whoList", label: "Who List", type: "repeater", itemLabel: "Who Item", itemShape: { title: "", text: "" } },
+     { key: "valuesHeading", label: "Values Heading", type: "text" },
+     { key: "valuesText", label: "Values Text", type: "textarea" },
+     { key: "values", label: "Values", type: "repeater", itemLabel: "Value", itemShape: { title: "", text: "" } },
+     { key: "journeyHeading", label: "Journey Heading", type: "text" },
+     { key: "journeyText", label: "Journey Text", type: "textarea" },
+     { key: "journey", label: "Journey Steps", type: "repeater", itemLabel: "Journey Step", itemShape: { step: "", title: "", text: "" } }
+   ];
+
+   pageConfigs.contact.tabs.sections = [
+     { key: "contactHeading", label: "Contact Heading", type: "text" },
+     { key: "contactText", label: "Contact Intro Text", type: "textarea" },
+     { key: "infoTitle", label: "Info Title", type: "text" },
+     { key: "infoText", label: "Info Text", type: "textarea" },
+     { key: "infoItems", label: "Info Items", type: "repeater", itemLabel: "Info Item", itemShape: { title: "", text: "" } },
+     { key: "formTitle", label: "Form Title", type: "text" },
+     { key: "formText", label: "Form Text", type: "textarea" },
+     { key: "formNote", label: "Form Note", type: "textarea" },
+     { key: "formBtn", label: "Form Button Text", type: "text" },
+     { key: "faqHeading", label: "FAQ Heading", type: "text" },
+     { key: "faqText", label: "FAQ Text", type: "textarea" },
+     { key: "faqs", label: "FAQs", type: "repeater", itemLabel: "FAQ", itemShape: { title: "", text: "" } }
+   ];
+
+   pageConfigs.security.tabs.sections = [
+     { key: "topicsHeading", label: "Topics Heading", type: "text" },
+     { key: "topicsText", label: "Topics Intro Text", type: "textarea" },
+     { key: "topics", label: "Security Cards", type: "repeater", itemLabel: "Security Card", itemShape: { icon: "", title: "", text: "", link: "", linkText: "" } },
+     { key: "featuresHeading", label: "Features Heading", type: "text" },
+     { key: "featuresText", label: "Features Intro Text", type: "textarea" },
+     { key: "featureBoxOneTitle", label: "Feature Box One Title", type: "text" },
+     { key: "featureBoxOneText", label: "Feature Box One Text", type: "textarea" },
+     { key: "featureListOne", label: "Feature List One", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } },
+     { key: "featureBoxTwoTitle", label: "Feature Box Two Title", type: "text" },
+     { key: "featureBoxTwoText", label: "Feature Box Two Text", type: "textarea" },
+     { key: "featureListTwo", label: "Feature List Two", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } }
+   ];
+
+   pageConfigs.troubleshooting.tabs.sections = [
+     { key: "topicsHeading", label: "Topics Heading", type: "text" },
+     { key: "topicsText", label: "Topics Intro Text", type: "textarea" },
+     { key: "topics", label: "Troubleshooting Cards", type: "repeater", itemLabel: "Troubleshooting Card", itemShape: { icon: "", title: "", text: "", link: "", linkText: "" } },
+     { key: "featuresHeading", label: "Features Heading", type: "text" },
+     { key: "featuresText", label: "Features Intro Text", type: "textarea" },
+     { key: "featureBoxOneTitle", label: "Feature Box One Title", type: "text" },
+     { key: "featureBoxOneText", label: "Feature Box One Text", type: "textarea" },
+     { key: "featureListOne", label: "Feature List One", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } },
+     { key: "featureBoxTwoTitle", label: "Feature Box Two Title", type: "text" },
+     { key: "featureBoxTwoText", label: "Feature Box Two Text", type: "textarea" },
+     { key: "featureListTwo", label: "Feature List Two", type: "repeater", itemLabel: "Feature Item", itemShape: { title: "", text: "" } }
+   ];
+
+   const tabLabels = {
+     general: "General",
+     nav: "Nav & Search",
+     hero: "Hero",
+     sections: "Main Sections",
+     advanced: "Advanced",
+     cta: "CTA",
+     footer: "Footer"
+   };
+
+   let currentMode = "global";
+   let currentPageKey = "home";
+   let currentTabKey = "general";
+
+   const pageNav = document.getElementById("pageNav");
+   const editorShell = document.getElementById("editorShell");
+   const panelTitle = document.getElementById("panelTitle");
+   const panelText = document.getElementById("panelText");
+   const statusBox = document.getElementById("statusBox");
+   const previewFrame = document.getElementById("previewFrame");
+
+   function showStatus(message, type="success"){
+     statusBox.className = `status ${type}`;
+     statusBox.textContent = message;
+   }
+
+   function getActiveConfig(){
+     return currentMode === "global" ? globalConfig : pageConfigs[currentPageKey];
+   }
+
+   function getStoredData(config){
+     const raw = localStorage.getItem(config.storageKey);
+     if(!raw) return null;
+     try{
+       return JSON.parse(raw);
+     }catch(error){
+       return null;
+     }
+   }
+
+   function normalizeData(config, data){
+     return { ...deepClone(config.defaults), ...(data || {}) };
+   }
+
+   function getMergedData(config){
+     return normalizeData(config, getStoredData(config));
+   }
+
+   function renderPageNav(){
+     pageNav.innerHTML = "";
+     Object.entries(pageConfigs).forEach(([key, config]) => {
+       const btn = document.createElement("button");
+       btn.className = "page-btn" + (currentMode === "page" && key === currentPageKey ? " active" : "");
+       btn.textContent = config.label;
+       btn.addEventListener("click", () => {
+         currentMode = "page";
+         currentPageKey = key;
+         currentTabKey = Object.keys(config.tabs)[0];
+         document.querySelector('[data-page="global"]').classList.remove("active");
+         renderPageNav();
+         renderEditor(false);
+         updatePreview();
+         showStatus(`${config.label} loaded.`, "success");
+       });
+       pageNav.appendChild(btn);
+     });
+   }
+
+   document.querySelector('[data-page="global"]').addEventListener("click", function(){
+     currentMode = "global";
+     currentTabKey = Object.keys(globalConfig.tabs)[0];
+     this.classList.add("active");
+     renderPageNav();
+     renderEditor(false);
+     updatePreview();
+     showStatus("Global settings loaded.", "success");
+   });
+
+   function createBasicField(field, value){
+     const wrapper = document.createElement("div");
+     wrapper.className = "field full";
+     wrapper.dataset.fieldRoot = field.key;
+
+     wrapper.innerHTML = `
+       <label>${field.label}</label>
+       ${field.type === "textarea"
+         ? `<textarea data-basic-input>${escapeHtml(value ?? "")}</textarea>`
+         : `<input type="text" data-basic-input value="${escapeHtml(value ?? "")}">`
+       }
+     `;
+
+     wrapper.querySelector("[data-basic-input]").addEventListener("input", updatePreviewFromCurrentForm);
+     return wrapper;
+   }
+
+   function createImageField(field, value){
+     const wrapper = document.createElement("div");
+     wrapper.className = "field full";
+     wrapper.dataset.fieldRoot = field.key;
+
+     wrapper.innerHTML = `
+       <label>${field.label}</label>
+       <input type="text" data-image-value value="${escapeHtml(value ?? "")}" placeholder="Paste image URL or upload below">
+       <div class="upload-row">
+         <input type="file" accept="image/*" data-image-upload>
+         <button type="button" class="btn btn-light btn-small" data-clear-image>Clear Image</button>
+         <img class="upload-preview" data-image-preview src="${escapeHtml(value || "")}" alt="">
+       </div>
+     `;
+
+     const textInput = wrapper.querySelector("[data-image-value]");
+     const fileInput = wrapper.querySelector("[data-image-upload]");
+     const clearBtn = wrapper.querySelector("[data-clear-image]");
+     const preview = wrapper.querySelector("[data-image-preview]");
+
+     textInput.addEventListener("input", () => {
+       preview.src = textInput.value || "";
+       updatePreviewFromCurrentForm();
+     });
+
+     fileInput.addEventListener("change", () => {
+       const file = fileInput.files?.[0];
+       if(!file) return;
+       const reader = new FileReader();
+       reader.onload = () => {
+         textInput.value = reader.result;
+         preview.src = reader.result;
+         updatePreviewFromCurrentForm();
+       };
+       reader.readAsDataURL(file);
+     });
+
+     clearBtn.addEventListener("click", () => {
+       textInput.value = "";
+       preview.src = "";
+       fileInput.value = "";
+       updatePreviewFromCurrentForm();
+     });
+
+     return wrapper;
+   }
+
+   function createRepeater(field, items){
+     const root = document.createElement("div");
+     root.className = "field full";
+     root.dataset.fieldRoot = field.key;
+
+     const safeItems = Array.isArray(items) ? items : [];
+
+     root.innerHTML = `
+       <label>${field.label}</label>
+       <div class="repeater-toolbar">
+         <button type="button" class="btn btn-green btn-small" data-add-item>Add ${field.itemLabel}</button>
+       </div>
+       <div class="repeater-list" data-repeater-list></div>
+     `;
+
+     const list = root.querySelector("[data-repeater-list]");
+     const addBtn = root.querySelector("[data-add-item]");
+
+     function addItem(itemData = null){
+       const data = itemData || deepClone(field.itemShape);
+       const box = document.createElement("div");
+       box.className = "repeater-item";
+       box.dataset.repeaterItem = "true";
+
+       const fieldsHtml = Object.keys(field.itemShape).map(key => `
+         <div class="field ${(key === "text" || key === "definition" || key === "memory" || key === "use") ? "full" : ""}">
+           <label>${formatLabel(key)}</label>
+           <input type="text" data-key="${key}" value="${escapeHtml(data[key] ?? "")}">
+         </div>
+       `).join("");
+
+       box.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">${field.itemLabel}</div>
+           <button type="button" class="btn btn-danger btn-small" data-delete-item>Delete</button>
+         </div>
+         <div class="repeater-grid">${fieldsHtml}</div>
+       `;
+
+       box.querySelectorAll("input").forEach(input => {
+         input.addEventListener("input", updatePreviewFromCurrentForm);
+       });
+
+       box.querySelector("[data-delete-item]").addEventListener("click", () => {
+         box.remove();
+         updatePreviewFromCurrentForm();
+       });
+
+       list.appendChild(box);
+       updatePreviewFromCurrentForm();
+     }
+
+     addBtn.addEventListener("click", () => addItem());
+     safeItems.forEach(item => addItem(item));
+
+     return root;
+   }
+
+   function createNestedRepeater(field, items){
+     const root = document.createElement("div");
+     root.className = "field full";
+     root.dataset.fieldRoot = field.key;
+
+     const safeItems = Array.isArray(items) ? items : [];
+
+     root.innerHTML = `
+       <label>${field.label}</label>
+       <div class="repeater-toolbar">
+         <button type="button" class="btn btn-green btn-small" data-add-parent>Add ${field.itemLabel}</button>
+       </div>
+       <div class="object-group" data-parent-list></div>
+     `;
+
+     const parentList = root.querySelector("[data-parent-list]");
+
+     function addChild(parentBox, childData = null){
+       const data = childData || deepClone(field.childShape);
+
+       const child = document.createElement("div");
+       child.className = "repeater-item";
+       child.dataset.childItem = "true";
+
+       child.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">${field.childLabel}</div>
+           <button type="button" class="btn btn-danger btn-small" data-delete-child>Delete</button>
+         </div>
+         <div class="repeater-grid">
+           ${Object.keys(field.childShape).map(key => `
+             <div class="field">
+               <label>${formatLabel(key)}</label>
+               <input type="text" data-child-key="${key}" value="${escapeHtml(data[key] ?? "")}">
+             </div>
+           `).join("")}
+         </div>
+       `;
+
+       child.querySelectorAll("input").forEach(input => input.addEventListener("input", updatePreviewFromCurrentForm));
+       child.querySelector("[data-delete-child]").addEventListener("click", () => {
+         child.remove();
+         updatePreviewFromCurrentForm();
+       });
+
+       parentBox.querySelector("[data-child-list]").appendChild(child);
+     }
+
+     function addParent(parentData = null){
+       const data = parentData || deepClone(field.itemShape);
+       const parent = document.createElement("div");
+       parent.className = "object-box";
+       parent.dataset.parentItem = "true";
+
+       parent.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">${field.itemLabel}</div>
+           <div style="display:flex; gap:8px; flex-wrap:wrap;">
+             <button type="button" class="btn btn-green btn-small" data-add-child>Add ${field.childLabel}</button>
+             <button type="button" class="btn btn-danger btn-small" data-delete-parent>Delete</button>
+           </div>
+         </div>
+
+         <div class="repeater-grid" style="margin-bottom:14px;">
+           ${Object.keys(field.itemShape).filter(key => key !== field.childKey).map(key => `
+             <div class="field">
+               <label>${formatLabel(key)}</label>
+               <input type="text" data-parent-key="${key}" value="${escapeHtml(data[key] ?? "")}">
+             </div>
+           `).join("")}
+         </div>
+
+         <div class="object-group" data-child-list></div>
+       `;
+
+       parent.querySelectorAll("[data-parent-key]").forEach(input => input.addEventListener("input", updatePreviewFromCurrentForm));
+       parent.querySelector("[data-delete-parent]").addEventListener("click", () => {
+         parent.remove();
+         updatePreviewFromCurrentForm();
+       });
+       parent.querySelector("[data-add-child]").addEventListener("click", () => addChild(parent));
+
+       parentList.appendChild(parent);
+       (data[field.childKey] || []).forEach(child => addChild(parent, child));
+       updatePreviewFromCurrentForm();
+     }
+
+     root.querySelector("[data-add-parent]").addEventListener("click", () => addParent());
+     safeItems.forEach(item => addParent(item));
+     return root;
+   }
+
+   function createQuizMap(field, quizMap){
+     const root = document.createElement("div");
+     root.className = "field full";
+     root.dataset.fieldRoot = field.key;
+
+     const safeMap = quizMap && typeof quizMap === "object" ? quizMap : {};
+
+     root.innerHTML = `
+       <label>${field.label}</label>
+       <div class="repeater-toolbar">
+         <button type="button" class="btn btn-green btn-small" data-add-topic>Add Quiz Topic</button>
+       </div>
+       <div class="object-group" data-quiz-topics></div>
+     `;
+
+     const topicsWrap = root.querySelector("[data-quiz-topics]");
+
+     function addQuestion(topicBox, questionData = null){
+       const data = questionData || { question: "", answers: ["", "", "", ""], correct: 0 };
+
+       const q = document.createElement("div");
+       q.className = "repeater-item";
+       q.dataset.questionItem = "true";
+
+       q.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">Quiz Question</div>
+           <button type="button" class="btn btn-danger btn-small" data-delete-question>Delete</button>
+         </div>
+         <div class="repeater-grid">
+           <div class="field full">
+             <label>Question</label>
+             <input type="text" data-question="question" value="${escapeHtml(data.question ?? "")}">
+           </div>
+           <div class="field"><label>Answer 1</label><input type="text" data-question="a1" value="${escapeHtml(data.answers?.[0] ?? "")}"></div>
+           <div class="field"><label>Answer 2</label><input type="text" data-question="a2" value="${escapeHtml(data.answers?.[1] ?? "")}"></div>
+           <div class="field"><label>Answer 3</label><input type="text" data-question="a3" value="${escapeHtml(data.answers?.[2] ?? "")}"></div>
+           <div class="field"><label>Answer 4</label><input type="text" data-question="a4" value="${escapeHtml(data.answers?.[3] ?? "")}"></div>
+           <div class="field">
+             <label>Correct Answer Index</label>
+             <select data-question="correct">
+               <option value="0" ${Number(data.correct) === 0 ? "selected" : ""}>0 - Answer 1</option>
+               <option value="1" ${Number(data.correct) === 1 ? "selected" : ""}>1 - Answer 2</option>
+               <option value="2" ${Number(data.correct) === 2 ? "selected" : ""}>2 - Answer 3</option>
+               <option value="3" ${Number(data.correct) === 3 ? "selected" : ""}>3 - Answer 4</option>
+             </select>
+           </div>
+         </div>
+       `;
+
+       q.querySelectorAll("input, select").forEach(el => el.addEventListener("input", updatePreviewFromCurrentForm));
+       q.querySelector("[data-delete-question]").addEventListener("click", () => {
+         q.remove();
+         updatePreviewFromCurrentForm();
+       });
+
+       topicBox.querySelector("[data-question-list]").appendChild(q);
+     }
+
+     function addTopic(topicKey = "", questions = []){
+       const box = document.createElement("div");
+       box.className = "object-box";
+       box.dataset.quizTopic = "true";
+
+       box.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">Quiz Topic Group</div>
+           <div style="display:flex; gap:8px; flex-wrap:wrap;">
+             <button type="button" class="btn btn-green btn-small" data-add-question>Add Question</button>
+             <button type="button" class="btn btn-danger btn-small" data-delete-topic>Delete Topic</button>
+           </div>
+         </div>
+         <div class="field" style="margin-bottom:14px;">
+           <label>Topic Key</label>
+           <input type="text" data-topic-name value="${escapeHtml(topicKey)}" placeholder="example: hardware">
+         </div>
+         <div class="object-group" data-question-list></div>
+       `;
+
+       box.querySelector("[data-topic-name]").addEventListener("input", updatePreviewFromCurrentForm);
+       box.querySelector("[data-add-question]").addEventListener("click", () => addQuestion(box));
+       box.querySelector("[data-delete-topic]").addEventListener("click", () => {
+         box.remove();
+         updatePreviewFromCurrentForm();
+       });
+
+       topicsWrap.appendChild(box);
+       questions.forEach(q => addQuestion(box, q));
+       updatePreviewFromCurrentForm();
+     }
+
+     root.querySelector("[data-add-topic]").addEventListener("click", () => addTopic());
+     Object.entries(safeMap).forEach(([topicKey, questions]) => addTopic(topicKey, questions));
+     return root;
+   }
+
+   function createSeedFactMap(field, seedMap){
+     const root = document.createElement("div");
+     root.className = "field full";
+     root.dataset.fieldRoot = field.key;
+
+     const safeMap = seedMap && typeof seedMap === "object" ? seedMap : {};
+
+     root.innerHTML = `
+       <label>${field.label}</label>
+       <div class="repeater-toolbar">
+         <button type="button" class="btn btn-green btn-small" data-add-seed-topic>Add Flashcard Topic</button>
+       </div>
+       <div class="object-group" data-seed-topics></div>
+     `;
+
+     const topicsWrap = root.querySelector("[data-seed-topics]");
+
+     function addSeed(topicBox, seedData = null){
+       const data = seedData || { term: "", definition: "", use: "", memory: "" };
+       const box = document.createElement("div");
+       box.className = "repeater-item";
+       box.dataset.seedItem = "true";
+
+       box.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">Seed Fact</div>
+           <button type="button" class="btn btn-danger btn-small" data-delete-seed>Delete</button>
+         </div>
+         <div class="repeater-grid">
+           <div class="field"><label>Term</label><input type="text" data-seed="term" value="${escapeHtml(data.term ?? "")}"></div>
+           <div class="field"><label>Definition</label><input type="text" data-seed="definition" value="${escapeHtml(data.definition ?? "")}"></div>
+           <div class="field full"><label>Use</label><input type="text" data-seed="use" value="${escapeHtml(data.use ?? "")}"></div>
+           <div class="field full"><label>Memory</label><input type="text" data-seed="memory" value="${escapeHtml(data.memory ?? "")}"></div>
+         </div>
+       `;
+
+       box.querySelectorAll("input").forEach(el => el.addEventListener("input", updatePreviewFromCurrentForm));
+       box.querySelector("[data-delete-seed]").addEventListener("click", () => {
+         box.remove();
+         updatePreviewFromCurrentForm();
+       });
+
+       topicBox.querySelector("[data-seed-list]").appendChild(box);
+     }
+
+     function addTopic(topicKey = "", items = []){
+       const box = document.createElement("div");
+       box.className = "object-box";
+       box.dataset.seedTopic = "true";
+
+       box.innerHTML = `
+         <div class="repeater-head">
+           <div class="repeater-title">Flashcard Topic Group</div>
+           <div style="display:flex; gap:8px; flex-wrap:wrap;">
+             <button type="button" class="btn btn-green btn-small" data-add-seed>Add Seed Fact</button>
+             <button type="button" class="btn btn-danger btn-small" data-delete-seed-topic>Delete Topic</button>
+           </div>
+         </div>
+         <div class="field" style="margin-bottom:14px;">
+           <label>Topic Key</label>
+           <input type="text" data-seed-name value="${escapeHtml(topicKey)}" placeholder="example: hardware">
+         </div>
+         <div class="object-group" data-seed-list></div>
+       `;
+
+       box.querySelector("[data-seed-name]").addEventListener("input", updatePreviewFromCurrentForm);
+       box.querySelector("[data-add-seed]").addEventListener("click", () => addSeed(box));
+       box.querySelector("[data-delete-seed-topic]").addEventListener("click", () => {
+         box.remove();
+         updatePreviewFromCurrentForm();
+       });
+
+       topicsWrap.appendChild(box);
+       items.forEach(item => addSeed(box, item));
+       updatePreviewFromCurrentForm();
+     }
+
+     root.querySelector("[data-add-seed-topic]").addEventListener("click", () => addTopic());
+     Object.entries(safeMap).forEach(([topicKey, items]) => addTopic(topicKey, items));
+     return root;
+   }
+
+   function renderField(field, value){
+     if(field.type === "text" || field.type === "textarea"){
+       return createBasicField(field, value);
+     }
+     if(field.type === "image"){
+       return createImageField(field, value);
+     }
+     if(field.type === "repeater"){
+       return createRepeater(field, value);
+     }
+     if(field.type === "nestedRepeater"){
+       return createNestedRepeater(field, value);
+     }
+     if(field.type === "quizMap"){
+       return createQuizMap(field, value);
+     }
+     if(field.type === "seedFactMap"){
+       return createSeedFactMap(field, value);
+     }
+     return createBasicField(field, value);
+   }
+
+   function collectRepeater(root, shape){
+     const items = [];
+     root.querySelectorAll("[data-repeater-item]").forEach(item => {
+       const obj = {};
+       Object.keys(shape).forEach(key => {
+         const input = item.querySelector(`[data-key="${key}"]`);
+         obj[key] = input ? input.value : "";
+       });
+       items.push(obj);
+     });
+     return items;
+   }
+
+   function collectNestedRepeater(root, field){
+     const items = [];
+     root.querySelectorAll("[data-parent-item]").forEach(parent => {
+       const obj = {};
+       Object.keys(field.itemShape).forEach(key => {
+         if(key === field.childKey) return;
+         const input = parent.querySelector(`[data-parent-key="${key}"]`);
+         obj[key] = input ? input.value : "";
+       });
+
+       obj[field.childKey] = [];
+       parent.querySelectorAll("[data-child-item]").forEach(child => {
+         const childObj = {};
+         Object.keys(field.childShape).forEach(childKey => {
+           const input = child.querySelector(`[data-child-key="${childKey}"]`);
+           childObj[childKey] = input ? input.value : "";
+         });
+         obj[field.childKey].push(childObj);
+       });
+
+       items.push(obj);
+     });
+     return items;
+   }
+
+   function collectQuizMap(root){
+     const result = {};
+     root.querySelectorAll("[data-quiz-topic]").forEach(topicBox => {
+       const topicKey = topicBox.querySelector("[data-topic-name]").value.trim();
+       if(!topicKey) return;
+
+       result[topicKey] = [];
+       topicBox.querySelectorAll("[data-question-item]").forEach(questionBox => {
+         const question = questionBox.querySelector('[data-question="question"]').value;
+         const a1 = questionBox.querySelector('[data-question="a1"]').value;
+         const a2 = questionBox.querySelector('[data-question="a2"]').value;
+         const a3 = questionBox.querySelector('[data-question="a3"]').value;
+         const a4 = questionBox.querySelector('[data-question="a4"]').value;
+         const correct = Number(questionBox.querySelector('[data-question="correct"]').value || 0);
+
+         result[topicKey].push({
+           question,
+           answers: [a1, a2, a3, a4],
+           correct
+         });
+       });
+     });
+     return result;
+   }
+
+   function collectSeedFactMap(root){
+     const result = {};
+     root.querySelectorAll("[data-seed-topic]").forEach(topicBox => {
+       const topicKey = topicBox.querySelector("[data-seed-name]").value.trim();
+       if(!topicKey) return;
+
+       result[topicKey] = [];
+       topicBox.querySelectorAll("[data-seed-item]").forEach(item => {
+         result[topicKey].push({
+           term: item.querySelector('[data-seed="term"]').value,
+           definition: item.querySelector('[data-seed="definition"]').value,
+           use: item.querySelector('[data-seed="use"]').value,
+           memory: item.querySelector('[data-seed="memory"]').value
+         });
+       });
+     });
+     return result;
+   }
+
+   function getCurrentFormData(){
+     const config = getActiveConfig();
+     const payload = {};
+
+     Object.values(config.tabs).flat().forEach(field => {
+       const root = document.querySelector(`[data-field-root="${field.key}"]`);
+       if(!root) return;
+
+       if(field.type === "text" || field.type === "textarea"){
+         const el = root.querySelector("[data-basic-input]");
+         payload[field.key] = el ? el.value : "";
+       } else if(field.type === "image"){
+         const el = root.querySelector("[data-image-value]");
+         payload[field.key] = el ? el.value : "";
+       } else if(field.type === "repeater"){
+         payload[field.key] = collectRepeater(root, field.itemShape);
+       } else if(field.type === "nestedRepeater"){
+         payload[field.key] = collectNestedRepeater(root, field);
+       } else if(field.type === "quizMap"){
+         payload[field.key] = collectQuizMap(root);
+       } else if(field.type === "seedFactMap"){
+         payload[field.key] = collectSeedFactMap(root);
+       }
+     });
+
+     return payload;
+   }
+
+   function renderEditor(useDefaults = false){
+     const config = getActiveConfig();
+     const data = useDefaults ? deepClone(config.defaults) : getMergedData(config);
+
+     panelTitle.textContent = currentMode === "global"
+       ? "Global Site Settings"
+       : `${config.label} Admin`;
+
+     panelText.textContent = currentMode === "global"
+       ? "Manage shared nav, search, footer, and logo settings across the whole site."
+       : "Manage the current page and visually add or remove repeated content like cards, quizzes, and flashcard items.";
+
+     const tabKeys = Object.keys(config.tabs);
+     if(!tabKeys.includes(currentTabKey)){
+       currentTabKey = tabKeys[0];
+     }
+
+     editorShell.innerHTML = `
+       <div class="card">
+         <span class="page-tag">${config.label}</span>
+         <h2>Edit content</h2>
+         <p>Use the tabs below to manage the current section of this page or global structure.</p>
+         <div class="tab-bar" id="tabBar"></div>
+         <div id="tabPanels"></div>
+       </div>
+     `;
+
+     const tabBar = document.getElementById("tabBar");
+     const tabPanels = document.getElementById("tabPanels");
+
+     tabKeys.forEach(tabKey => {
+       const tabBtn = document.createElement("button");
+       tabBtn.className = "tab-btn" + (tabKey === currentTabKey ? " active" : "");
+       tabBtn.textContent = tabLabels[tabKey] || tabKey;
+       tabBtn.addEventListener("click", () => {
+         currentTabKey = tabKey;
+         renderEditor(useDefaults);
+         updatePreview();
+       });
+       tabBar.appendChild(tabBtn);
+
+       const panel = document.createElement("div");
+       panel.className = "tab-panel" + (tabKey === currentTabKey ? " active" : "");
+
+       const note = document.createElement("div");
+       note.className = "section-note";
+       note.textContent = `Editing ${tabLabels[tabKey] || tabKey} for ${config.label}.`;
+       panel.appendChild(note);
+
+       const fieldsWrap = document.createElement("div");
+       fieldsWrap.className = "fields";
+
+       config.tabs[tabKey].forEach(field => {
+         fieldsWrap.appendChild(renderField(field, data[field.key]));
+       });
+
+       panel.appendChild(fieldsWrap);
+       tabPanels.appendChild(panel);
+     });
+   }
+
+   function getGlobalPreviewData(){
+     if(currentMode === "global"){
+       try{
+         return normalizeData(globalConfig, getCurrentFormData());
+       }catch(error){
+         return getMergedData(globalConfig);
+       }
+     }
+     return getMergedData(globalConfig);
+   }
+
+   function getPagePreviewData(){
+     if(currentMode === "page"){
+       try{
+         return normalizeData(getActiveConfig(), getCurrentFormData());
+       }catch(error){
+         return getMergedData(getActiveConfig());
+       }
+     }
+     return getMergedData(pageConfigs.home);
+   }
+
+   function updatePreview(){
+     const globalData = getGlobalPreviewData();
+     const pageData = getPagePreviewData();
+
+     const navLinks = Array.isArray(globalData.navLinks) ? globalData.navLinks : [];
+     const footerColumns = Array.isArray(globalData.footerColumns) ? globalData.footerColumns : [];
+     const topicCards = Array.isArray(pageData.topics) ? pageData.topics.slice(0, 3) : [];
+     const featureCards =
+       Array.isArray(pageData.highlights) ? pageData.highlights.slice(0, 3) :
+       Array.isArray(pageData.featureListOne) ? pageData.featureListOne.slice(0, 3) :
+       Array.isArray(pageData.infoItems) ? pageData.infoItems.slice(0, 3) :
+       Array.isArray(pageData.values) ? pageData.values.slice(0, 3) : [];
+     const ctaPoints = Array.isArray(pageData.ctaPoints) ? pageData.ctaPoints.slice(0, 3) : [];
+
+     previewFrame.innerHTML = `
+       <div class="preview-nav">
+         <div class="preview-logo">${globalData.siteName || pageData.siteLogo || "LearnITFast"}</div>
+         <div class="preview-search">${globalData.searchPlaceholder || "Search..."}</div>
+         <div class="preview-links">
+           ${navLinks.map(link => `<span>${link.text || "Link"}</span>`).join("")}
+         </div>
+       </div>
+
+       <div class="preview-hero">
+         <h1>${pageData.heroTitle || "Page title preview"}</h1>
+         <p>${pageData.heroText || "Page description preview"}</p>
+         <div class="preview-hero-btns">
+           <span class="preview-btn primary">${pageData.heroBtnOne || "Primary Button"}</span>
+           <span class="preview-btn secondary">${pageData.heroBtnTwo || "Secondary Button"}</span>
+         </div>
+       </div>
+
+       <div class="preview-section">
+         <h4>${pageData.topicsHeading || pageData.contactHeading || pageData.storyHeading || "Main Section"}</h4>
+         <p>${pageData.topicsText || pageData.contactText || pageData.storyText || "Section intro text goes here."}</p>
+         <div class="preview-grid">
+           ${topicCards.length ? topicCards.map(item => `
+             <div class="preview-card">
+               <strong>${item.title || item.icon || "Card"}</strong>
+               <span>${item.text || item.linkText || "Card preview content."}</span>
+             </div>
+           `).join("") : `
+             <div class="preview-card">
+               <strong>${pageData.featureBoxOneTitle || pageData.infoTitle || pageData.missionTitle || "Content Block"}</strong>
+               <span>${pageData.featureBoxOneText || pageData.infoText || pageData.missionText || "Preview of the current page content appears here."}</span>
+             </div>
+           `}
+         </div>
+       </div>
+
+       <div class="preview-section">
+         <h4>${pageData.featuresHeading || pageData.valuesHeading || pageData.faqHeading || "Extra Section"}</h4>
+         <p>${pageData.featuresText || pageData.valuesText || pageData.faqText || "Additional supporting section text."}</p>
+         <div class="preview-grid">
+           ${featureCards.length ? featureCards.map(item => `
+             <div class="preview-card">
+               <strong>${item.title || item.step || "Item"}</strong>
+               <span>${item.text || "Preview detail text."}</span>
+             </div>
+           `).join("") : `
+             <div class="preview-card">
+               <strong>Preview item</strong>
+               <span>Content cards for this section will appear here.</span>
+             </div>
+           `}
+         </div>
+       </div>
+
+       <div class="preview-cta">
+         <h4>${pageData.ctaTitle || "CTA Title"}</h4>
+         <p>${pageData.ctaText || "CTA text preview."}</p>
+         <span class="preview-btn primary">${pageData.ctaBtn || "CTA Button"}</span>
+       </div>
+
+       <div class="preview-section">
+         <div class="preview-grid">
+           ${ctaPoints.map(item => `
+             <div class="preview-card">
+               <strong>${item.title || "Point"}</strong>
+               <span>${item.text || ""}</span>
+             </div>
+           `).join("")}
+         </div>
+       </div>
+
+       <div class="preview-footer">
+         <strong>${globalData.globalFooterBrand || pageData.footerBrand || "LearnITFast"}</strong>
+         <div>${globalData.globalFooterDesc || pageData.footerDesc || ""}</div>
+
+         <div class="preview-footer-grid">
+           ${footerColumns.map(col => `
+             <div class="preview-footer-col">
+               <b>${col.title || "Column"}</b>
+               ${(col.links || []).map(link => `<div>${link.text || "Link"}</div>`).join("")}
+             </div>
+           `).join("")}
+         </div>
+
+         <div class="preview-bottom">
+           ${globalData.globalFooterBottomText || pageData.footerBottomText || ""}
+         </div>
+       </div>
+     `;
+   }
+
+   function updatePreviewFromCurrentForm(){
+     updatePreview();
+   }
+
+   document.getElementById("saveBtn").addEventListener("click", () => {
+     try{
+       const config = getActiveConfig();
+       const payload = getCurrentFormData();
+       localStorage.setItem(config.storageKey, JSON.stringify(payload));
+       showStatus(`${config.label} saved successfully.`, "success");
+       updatePreview();
+     }catch(error){
+       showStatus(error.message || "Could not save current settings.", "error");
+     }
+   });
+
+   document.getElementById("loadSavedBtn").addEventListener("click", () => {
+     renderEditor(false);
+     updatePreview();
+     showStatus(`Loaded saved data for ${getActiveConfig().label}.`, "success");
+   });
+
+   document.getElementById("loadDefaultBtn").addEventListener("click", () => {
+     renderEditor(true);
+     updatePreview();
+     showStatus(`Loaded defaults for ${getActiveConfig().label}. Save if you want to keep them.`, "success");
+   });
+
+   document.getElementById("clearBtn").addEventListener("click", () => {
+     const config = getActiveConfig();
+     localStorage.removeItem(config.storageKey);
+     renderEditor(true);
+     updatePreview();
+     showStatus(`Cleared saved data for ${config.label}.`, "success");
+   });
+
+   renderPageNav();
+   renderEditor(false);
+   updatePreview();
+ </script>
+</body>
+</html>
+
+
+On 17 Mar 2026, at 17:59, kingsfordkojo7@icloud.com wrote:
+
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LearnITFast | Smart Admin</title>

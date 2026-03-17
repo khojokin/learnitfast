@@ -1,0 +1,937 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Topics</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:26px;
+      max-width:670px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .topics-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .topic-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+    }
+
+    .topic-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .topic-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:18px;
+      flex:1;
+    }
+
+    .topic-link{
+      font-weight:800;
+      color:#2563eb;
+      font-size:14px;
+    }
+
+    .feature-wrap{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+    }
+
+    .feature-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .feature-box h3{
+      font-size:24px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .feature-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .feature-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .feature-wrap,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html" class="active">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="heroTitle">Explore IT topics in a simple way and build your confidence one subject at a time.</h1>
+        <p id="heroText">Learn the foundations of networking, hardware, security, cloud, operating systems, and troubleshooting with clean topic pages designed for easy study and revision.</p>
+        <div class="hero-btns">
+          <a href="signup.html" class="btn btn-primary" id="heroBtnOne">Sign Up Free</a>
+          <a href="#topicsSection" class="btn hero-btn-secondary" id="heroBtnTwo">Browse Topics</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 id="heroCardTitle">Learning Areas</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statOneValue">6</strong>
+            <span id="statOneLabel">Core Topics</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statTwoValue">Beginner</strong>
+            <span id="statTwoLabel">Friendly</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statThreeValue">Step-by-Step</strong>
+            <span id="statThreeLabel">Learning</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statFourValue">24/7</strong>
+            <span id="statFourLabel">Study Access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="topicsSection">
+    <div class="section-header">
+      <h2 id="topicsHeading">Main Study Topics</h2>
+      <p id="topicsText">These are the key IT subjects you can start with right now. Each one helps build a stronger foundation for practice quizzes, flashcards, and deeper revision later.</p>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2 id="featuresHeading">Why these topics matter</h2>
+      <p id="featuresText">A strong IT foundation comes from understanding the basics clearly. These topic sections help learners focus on the important ideas without feeling overwhelmed.</p>
+    </div>
+
+    <div class="feature-wrap">
+      <div class="feature-box">
+        <h3 id="featureBoxOneTitle">Core Knowledge</h3>
+        <p id="featureBoxOneText">Master the essential concepts first so the harder questions and technical ideas make more sense later.</p>
+        <div class="feature-list" id="featureListOne"></div>
+      </div>
+
+      <div class="feature-box">
+        <h3 id="featureBoxTwoTitle">Study Progress</h3>
+        <p id="featureBoxTwoText">Move topic by topic, revise at your own pace, and build confidence as your understanding grows.</p>
+        <div class="feature-list" id="featureListTwo"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2 id="ctaTitle">Start learning with the right topics from day one.</h2>
+        <p id="ctaText">Sign up to explore more lessons, quizzes, flashcards, and future premium revision resources built to make IT study easier.</p>
+        <a href="signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
+      </div>
+
+      <div class="cta-points" id="ctaPoints"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+        <a href="troubleshooting.html">Troubleshooting</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p id="footerBottomText">©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const defaultTopicsData = {
+      siteLogo: "LearnITFast",
+      siteLogoImage: "logo.png",
+      heroTitle: "Explore IT topics in a simple way and build your confidence one subject at a time.",
+      heroText: "Learn the foundations of networking, hardware, security, cloud, operating systems, and troubleshooting with clean topic pages designed for easy study and revision.",
+      heroBtnOne: "Sign Up Free",
+      heroBtnTwo: "Browse Topics",
+      heroCardTitle: "Learning Areas",
+      stats: [
+        { value: "6", label: "Core Topics" },
+        { value: "Beginner", label: "Friendly" },
+        { value: "Step-by-Step", label: "Learning" },
+        { value: "24/7", label: "Study Access" }
+      ],
+      topicsHeading: "Main Study Topics",
+      topicsText: "These are the key IT subjects you can start with right now. Each one helps build a stronger foundation for practice quizzes, flashcards, and deeper revision later.",
+      topics: [
+        {
+          icon: "🌐",
+          title: "Networking",
+          text: "Learn about IP addresses, ports, routers, switches, Wi-Fi, protocols, and how networks communicate.",
+          link: "networking.html",
+          linkText: "Explore Networking →"
+        },
+        {
+          icon: "🖥️",
+          title: "Hardware",
+          text: "Study internal computer parts, storage, memory, displays, connectors, and physical device basics.",
+          link: "hardware.html",
+          linkText: "Explore Hardware →"
+        },
+        {
+          icon: "🔐",
+          title: "Security",
+          text: "Understand passwords, authentication, malware, encryption, access control, and safe computing habits.",
+          link: "security.html",
+          linkText: "Explore Security →"
+        },
+        {
+          icon: "☁️",
+          title: "Cloud",
+          text: "Explore cloud models like SaaS, PaaS, and IaaS, plus virtualization and shared responsibility.",
+          link: "cloud.html",
+          linkText: "Explore Cloud →"
+        },
+        {
+          icon: "💻",
+          title: "Operating Systems",
+          text: "Learn Windows, Linux, user accounts, commands, updates, drivers, and common OS tasks.",
+          link: "os.html",
+          linkText: "Explore Operating Systems →"
+        },
+        {
+          icon: "🛠️",
+          title: "Troubleshooting",
+          text: "Build skill in finding and solving hardware, software, startup, and network issues step by step.",
+          link: "troubleshooting.html",
+          linkText: "Explore Troubleshooting →"
+        }
+      ],
+      featuresHeading: "Why these topics matter",
+      featuresText: "A strong IT foundation comes from understanding the basics clearly. These topic sections help learners focus on the important ideas without feeling overwhelmed.",
+      featureBoxOneTitle: "Core Knowledge",
+      featureBoxOneText: "Master the essential concepts first so the harder questions and technical ideas make more sense later.",
+      featureListOne: [
+        { title: "Better understanding", text: "Learn the main ideas before moving into harder technical details." },
+        { title: "Stronger revision", text: "Topic-focused learning makes it easier to remember and review later." },
+        { title: "Useful for exams", text: "These same foundations often appear in tests, interviews, and certification study." }
+      ],
+      featureBoxTwoTitle: "Study Progress",
+      featureBoxTwoText: "Move topic by topic, revise at your own pace, and build confidence as your understanding grows.",
+      featureListTwo: [
+        { title: "Learn step by step", text: "Focus on one subject at a time instead of trying to learn everything together." },
+        { title: "Mix with quizzes", text: "Read the topic first, then test yourself to improve memory and confidence." },
+        { title: "Grow with the platform", text: "These sections can later connect to more premium lessons and revision tools." }
+      ],
+      ctaTitle: "Start learning with the right topics from day one.",
+      ctaText: "Sign up to explore more lessons, quizzes, flashcards, and future premium revision resources built to make IT study easier.",
+      ctaBtn: "Create Free Account",
+      ctaPoints: [
+        { title: "Simple learning", text: "Clear topic pages made for easier study." },
+        { title: "Stronger basics", text: "Build a solid foundation before advanced material." },
+        { title: "Ready to grow", text: "Perfect structure for quizzes, flashcards, and more later." }
+      ],
+      footerBrand: "LearnITFast",
+      footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+      footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+    };
+
+    function getTopicsData(){
+      const saved = localStorage.getItem("learnitfast_topics_data");
+      if(saved){
+        try{
+          const parsed = JSON.parse(saved);
+          return { ...defaultTopicsData, ...parsed };
+        }catch(error){}
+      }
+      return defaultTopicsData;
+    }
+
+    function renderFeatureList(containerId, items){
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const box = document.createElement("div");
+        box.className = "feature-item";
+        box.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
+        container.appendChild(box);
+      });
+    }
+
+    function renderTopics(topics){
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      topics.forEach(topic => {
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        card.innerHTML = `
+          <div class="topic-icon">${topic.icon}</div>
+          <h3>${topic.title}</h3>
+          <p>${topic.text}</p>
+          <a href="${topic.link}" class="topic-link">${topic.linkText}</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCtaPoints(points){
+      const container = document.getElementById("ctaPoints");
+      container.innerHTML = "";
+      points.forEach(point => {
+        const box = document.createElement("div");
+        box.className = "cta-point";
+        box.innerHTML = `<strong>${point.title}</strong><div>${point.text}</div>`;
+        container.appendChild(box);
+      });
+    }
+
+    function applyTopicsData(){
+      const data = getTopicsData();
+
+      document.title = `${data.siteLogo} | Topics`;
+
+      document.getElementById("siteLogoText").textContent = data.siteLogo;
+      document.getElementById("footerBrand").textContent = data.footerBrand || data.siteLogo;
+
+      const headerLogoImg = document.getElementById("siteLogoImg");
+      const footerLogoImg = document.getElementById("footerLogoImg");
+      const logoPath = data.siteLogoImage || "logo.png";
+
+      headerLogoImg.src = logoPath;
+      footerLogoImg.src = logoPath;
+
+      headerLogoImg.alt = `${data.siteLogo} Logo`;
+      footerLogoImg.alt = `${data.footerBrand || data.siteLogo} Logo`;
+
+      document.getElementById("heroTitle").textContent = data.heroTitle;
+      document.getElementById("heroText").textContent = data.heroText;
+      document.getElementById("heroBtnOne").textContent = data.heroBtnOne;
+      document.getElementById("heroBtnTwo").textContent = data.heroBtnTwo;
+      document.getElementById("heroCardTitle").textContent = data.heroCardTitle;
+
+      document.getElementById("statOneValue").textContent = data.stats[0]?.value || "";
+      document.getElementById("statOneLabel").textContent = data.stats[0]?.label || "";
+      document.getElementById("statTwoValue").textContent = data.stats[1]?.value || "";
+      document.getElementById("statTwoLabel").textContent = data.stats[1]?.label || "";
+      document.getElementById("statThreeValue").textContent = data.stats[2]?.value || "";
+      document.getElementById("statThreeLabel").textContent = data.stats[2]?.label || "";
+      document.getElementById("statFourValue").textContent = data.stats[3]?.value || "";
+      document.getElementById("statFourLabel").textContent = data.stats[3]?.label || "";
+
+      document.getElementById("topicsHeading").textContent = data.topicsHeading;
+      document.getElementById("topicsText").textContent = data.topicsText;
+      renderTopics(data.topics);
+
+      document.getElementById("featuresHeading").textContent = data.featuresHeading;
+      document.getElementById("featuresText").textContent = data.featuresText;
+      document.getElementById("featureBoxOneTitle").textContent = data.featureBoxOneTitle;
+      document.getElementById("featureBoxOneText").textContent = data.featureBoxOneText;
+      document.getElementById("featureBoxTwoTitle").textContent = data.featureBoxTwoTitle;
+      document.getElementById("featureBoxTwoText").textContent = data.featureBoxTwoText;
+
+      renderFeatureList("featureListOne", data.featureListOne);
+      renderFeatureList("featureListTwo", data.featureListTwo);
+
+      document.getElementById("ctaTitle").textContent = data.ctaTitle;
+      document.getElementById("ctaText").textContent = data.ctaText;
+      document.getElementById("ctaBtn").textContent = data.ctaBtn;
+      renderCtaPoints(data.ctaPoints);
+
+      document.getElementById("footerDesc").textContent = data.footerDesc;
+      document.getElementById("footerBottomText").textContent = data.footerBottomText;
+    }
+
+    applyTopicsData();
+  </script>
+</body>
+</html>

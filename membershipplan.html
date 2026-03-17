@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership Plans | LearnITFast</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+      transition:0.3s;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.80), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:38px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(36px,5vw,58px);
+      line-height:1.05;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      max-width:680px;
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:22px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+      backdrop-filter:blur(6px);
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:24px;
+      color:#93c5fd;
+      margin-bottom:6px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      max-width:1240px;
+      margin:0 auto;
+      padding:80px 6%;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:42px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .billing-toggle-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:30px;
+    }
+
+    .billing-toggle{
+      background:#e5e7eb;
+      border-radius:999px;
+      padding:6px;
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+    }
+
+    .billing-btn{
+      border:none;
+      background:transparent;
+      padding:11px 18px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      color:#4b5563;
+      font-size:14px;
+    }
+
+    .billing-btn.active{
+      background:#2563eb;
+      color:#fff;
+    }
+
+    .plans-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .plan-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:28px;
+      padding:28px;
+      box-shadow:0 14px 30px rgba(0,0,0,0.05);
+      display:flex;
+      flex-direction:column;
+      position:relative;
+    }
+
+    .plan-card.featured{
+      border-color:#2563eb;
+      box-shadow:0 20px 40px rgba(37,99,235,0.14);
+      transform:translateY(-8px);
+    }
+
+    .plan-badge{
+      position:absolute;
+      top:18px;
+      right:18px;
+      background:#dbeafe;
+      color:#1d4ed8;
+      font-size:12px;
+      font-weight:800;
+      padding:7px 12px;
+      border-radius:999px;
+      text-transform:uppercase;
+    }
+
+    .plan-name{
+      font-size:28px;
+      font-weight:800;
+      color:#111827;
+      margin-bottom:8px;
+    }
+
+    .plan-desc{
+      color:#6b7280;
+      margin-bottom:18px;
+      min-height:48px;
+    }
+
+    .plan-price{
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+      margin-bottom:18px;
+    }
+
+    .plan-price strong{
+      font-size:44px;
+      line-height:1;
+      color:#111827;
+    }
+
+    .plan-price span{
+      color:#6b7280;
+      font-weight:700;
+      padding-bottom:5px;
+    }
+
+    .save-note{
+      display:inline-block;
+      background:#ecfdf5;
+      color:#166534;
+      font-size:12px;
+      font-weight:800;
+      padding:7px 12px;
+      border-radius:999px;
+      margin-bottom:18px;
+      width:fit-content;
+    }
+
+    .plan-features{
+      display:grid;
+      gap:12px;
+      margin-bottom:24px;
+    }
+
+    .plan-feature{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+      font-size:14px;
+      color:#4b5563;
+    }
+
+    .plan-feature strong{
+      color:#111827;
+    }
+
+    .plan-actions{
+      margin-top:auto;
+      display:grid;
+      gap:12px;
+    }
+
+    .plan-btn{
+      display:block;
+      width:100%;
+      text-align:center;
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:15px;
+      border:none;
+      cursor:pointer;
+    }
+
+    .plan-btn.primary{
+      background:#2563eb;
+      color:#fff;
+    }
+
+    .plan-btn.secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .compare-wrap{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .compare-card,
+    .faq-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:26px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+    }
+
+    .compare-card h3,
+    .faq-card h3{
+      font-size:28px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .compare-card p,
+    .faq-card p{
+      color:#6b7280;
+      margin-bottom:16px;
+      font-size:15px;
+    }
+
+    .compare-list,
+    .faq-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .compare-item,
+    .faq-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .compare-item strong,
+    .faq-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .cta{
+      padding:0 6% 80px;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:42px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+      margin-top:20px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:1024px){
+      .hero-inner,
+      .compare-wrap,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .plan-price strong{
+        font-size:38px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">LearnITFast</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="membership-plans.html" class="btn btn-primary active">Plans</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Choose the membership plan that matches how you want to study.</h1>
+        <p>Start free or upgrade for more quizzes, deeper flashcards, extra topic coverage, premium mock exams, and future study tools built to help you revise better.</p>
+        <div class="hero-btns">
+          <a href="#plansSection" class="btn btn-primary">View Plans</a>
+          <a href="payment.html" class="btn hero-btn-secondary">Go To Payment</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Membership Snapshot</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>Free</strong>
+            <span>Start Simple</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Pro</strong>
+            <span>Study More</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Premium</strong>
+            <span>Go Deeper</span>
+          </div>
+          <div class="hero-stat">
+            <strong>24/7</strong>
+            <span>Access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="plansSection">
+    <div class="section-header">
+      <h2>Membership Plans</h2>
+      <p>Switch between monthly and yearly billing to compare the best option for your study goals.</p>
+    </div>
+
+    <div class="billing-toggle-wrap">
+      <div class="billing-toggle">
+        <button class="billing-btn active" id="monthlyBtn">Monthly</button>
+        <button class="billing-btn" id="yearlyBtn">Yearly</button>
+      </div>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-desc">A simple starting point for basic quiz and flashcard revision.</div>
+        <div class="plan-price">
+          <strong id="freePrice">£0</strong>
+          <span>/ forever</span>
+        </div>
+        <div class="save-note">Start anytime</div>
+
+        <div class="plan-features">
+          <div class="plan-feature"><strong>Basic access</strong> to selected quizzes</div>
+          <div class="plan-feature"><strong>Intro flashcards</strong> for core concepts</div>
+          <div class="plan-feature"><strong>Main topic browsing</strong> across the site</div>
+          <div class="plan-feature"><strong>No payment needed</strong> to get started</div>
+        </div>
+
+        <div class="plan-actions">
+          <a href="signup.html" class="plan-btn secondary">Start Free</a>
+        </div>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-desc">Best for consistent learners who want stronger revision and more content.</div>
+        <div class="plan-price">
+          <strong id="proPrice">£19</strong>
+          <span id="proPeriod">/ month</span>
+        </div>
+        <div class="save-note" id="proSave">Good value for regular study</div>
+
+        <div class="plan-features">
+          <div class="plan-feature"><strong>Expanded quiz bank</strong> across major IT topics</div>
+          <div class="plan-feature"><strong>More flashcards</strong> for deeper topic revision</div>
+          <div class="plan-feature"><strong>Better study coverage</strong> for networking, hardware, security, cloud, and more</div>
+          <div class="plan-feature"><strong>Future progress tools</strong> and revision extras</div>
+        </div>
+
+        <div class="plan-actions">
+          <a href="payment.html" class="plan-btn primary">Choose Pro</a>
+          <a href="signup.html" class="plan-btn secondary">Create Account First</a>
+        </div>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Ultimate</div>
+        <div class="plan-desc">For learners who want the biggest content access and the strongest future tools.</div>
+        <div class="plan-price">
+          <strong id="ultimatePrice">£29</strong>
+          <span id="ultimatePeriod">/ month</span>
+        </div>
+        <div class="save-note" id="ultimateSave">Best full access plan</div>
+
+        <div class="plan-features">
+          <div class="plan-feature"><strong>Full premium quizzes</strong> and mock exam access</div>
+          <div class="plan-feature"><strong>Largest flashcard library</strong> for faster recall</div>
+          <div class="plan-feature"><strong>Premium study paths</strong> and advanced revision packs</div>
+          <div class="plan-feature"><strong>Future account extras</strong> like saved history and deeper personalization</div>
+        </div>
+
+        <div class="plan-actions">
+          <a href="payment.html" class="plan-btn primary">Choose Ultimate</a>
+          <a href="contact.html" class="plan-btn secondary">Ask About Plans</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="compare-wrap">
+      <div class="compare-card">
+        <h3>Which plan should you pick?</h3>
+        <p>The best plan depends on how seriously you want to study right now.</p>
+
+        <div class="compare-list">
+          <div class="compare-item">
+            <strong>Choose Free</strong>
+            <span>If you want to try the platform first and keep things simple.</span>
+          </div>
+          <div class="compare-item">
+            <strong>Choose Pro</strong>
+            <span>If you want stronger revision, bigger question sets, and more flashcards without going all in yet.</span>
+          </div>
+          <div class="compare-item">
+            <strong>Choose Ultimate</strong>
+            <span>If you want the biggest content access and future premium features as the platform grows.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-card">
+        <h3>Plan Questions</h3>
+        <p>Quick answers to the things people usually want to know.</p>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <strong>Can I start free first?</strong>
+            <span>Yes. The free plan is there so you can try the platform before upgrading.</span>
+          </div>
+          <div class="faq-item">
+            <strong>Can I switch later?</strong>
+            <span>Yes. You can start with one plan and move up when you want more study tools.</span>
+          </div>
+          <div class="faq-item">
+            <strong>Do these plans charge for real now?</strong>
+            <span>This page is front-end only until you connect it to a real payment system like Stripe.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2>Pick your plan and start building real study momentum.</h2>
+        <p>Whether you want a simple free start or a stronger premium study flow, the right plan can help you revise more consistently.</p>
+        <a href="payment.html" class="btn btn-primary">Continue To Payment</a>
+      </div>
+
+      <div class="cta-points">
+        <div class="cta-point">
+          <strong>Flexible start</strong>
+          <div>Use the free plan first if you want to test the platform.</div>
+        </div>
+        <div class="cta-point">
+          <strong>More study depth</strong>
+          <div>Upgrade for more questions, flashcards, and topic access.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Growth-ready</strong>
+          <div>The plans are designed to expand as LearnITFast gets bigger.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>LearnITFast</h3>
+        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+    const monthlyBtn = document.getElementById("monthlyBtn");
+    const yearlyBtn = document.getElementById("yearlyBtn");
+
+    const proPrice = document.getElementById("proPrice");
+    const proPeriod = document.getElementById("proPeriod");
+    const proSave = document.getElementById("proSave");
+
+    const ultimatePrice = document.getElementById("ultimatePrice");
+    const ultimatePeriod = document.getElementById("ultimatePeriod");
+    const ultimateSave = document.getElementById("ultimateSave");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    function setBilling(type){
+      monthlyBtn.classList.toggle("active", type === "monthly");
+      yearlyBtn.classList.toggle("active", type === "yearly");
+
+      if(type === "monthly"){
+        proPrice.textContent = "£19";
+        proPeriod.textContent = "/ month";
+        proSave.textContent = "Good value for regular study";
+
+        ultimatePrice.textContent = "£29";
+        ultimatePeriod.textContent = "/ month";
+        ultimateSave.textContent = "Best full access plan";
+      } else {
+        proPrice.textContent = "£190";
+        proPeriod.textContent = "/ year";
+        proSave.textContent = "Save compared to monthly";
+
+        ultimatePrice.textContent = "£290";
+        ultimatePeriod.textContent = "/ year";
+        ultimateSave.textContent = "Biggest yearly value";
+      }
+    }
+
+    monthlyBtn.addEventListener("click", () => setBilling("monthly"));
+    yearlyBtn.addEventListener("click", () => setBilling("yearly"));
+  </script>
+</body>
+</html>

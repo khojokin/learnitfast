@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In | LearnITFast</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+      transition:0.3s;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:84px 6% 40px;
+      background:
+        linear-gradient(rgba(15,23,42,0.80), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:34px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(36px,5vw,56px);
+      line-height:1.05;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      max-width:670px;
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:20px;
+    }
+
+    .hero-points{
+      display:grid;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .hero-point{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .hero-point strong{
+      display:block;
+      margin-bottom:4px;
+      color:#93c5fd;
+    }
+
+    .login-wrap{
+      max-width:1240px;
+      margin:0 auto;
+      padding:0 6% 80px;
+      margin-top:-40px;
+      position:relative;
+      z-index:2;
+    }
+
+    .login-layout{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:24px;
+      align-items:start;
+    }
+
+    .login-card,
+    .side-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:26px;
+      padding:28px;
+      box-shadow:0 16px 36px rgba(0,0,0,0.08);
+    }
+
+    .login-card h2,
+    .side-card h3{
+      font-size:28px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .login-card p,
+    .side-card p{
+      color:#6b7280;
+      margin-bottom:18px;
+      font-size:15px;
+    }
+
+    .field{
+      margin-bottom:16px;
+    }
+
+    .field label{
+      display:block;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:8px;
+      color:#374151;
+    }
+
+    .field input{
+      width:100%;
+      padding:14px 15px;
+      border:1px solid #d1d5db;
+      border-radius:16px;
+      background:#f9fafb;
+      outline:none;
+      font-size:15px;
+    }
+
+    .field input:focus{
+      border-color:#2563eb;
+      background:#fff;
+      box-shadow:0 0 0 3px rgba(37,99,235,0.08);
+    }
+
+    .form-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin:8px 0 16px;
+      flex-wrap:wrap;
+    }
+
+    .remember-wrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:#4b5563;
+      font-size:14px;
+    }
+
+    .forgot-link{
+      color:#2563eb;
+      font-weight:800;
+      font-size:14px;
+    }
+
+    .submit-btn{
+      width:100%;
+      padding:14px 18px;
+      border:none;
+      border-radius:999px;
+      background:#2563eb;
+      color:#fff;
+      font-weight:800;
+      font-size:15px;
+      cursor:pointer;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .submit-btn:hover{
+      background:#1d4ed8;
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:20px 0;
+      color:#9ca3af;
+      font-size:13px;
+      font-weight:700;
+      text-transform:uppercase;
+    }
+
+    .divider::before,
+    .divider::after{
+      content:"";
+      flex:1;
+      height:1px;
+      background:#e5e7eb;
+    }
+
+    .social-btn{
+      width:100%;
+      padding:14px 18px;
+      border:1px solid #d1d5db;
+      border-radius:999px;
+      background:#fff;
+      color:#111827;
+      font-weight:800;
+      font-size:15px;
+      cursor:pointer;
+      margin-bottom:12px;
+    }
+
+    .social-btn:hover{
+      background:#f8fafc;
+    }
+
+    .form-footer{
+      margin-top:18px;
+      text-align:center;
+      color:#6b7280;
+      font-size:14px;
+    }
+
+    .form-footer a{
+      color:#2563eb;
+      font-weight:800;
+    }
+
+    .success-message{
+      display:none;
+      margin-top:16px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:#ecfdf5;
+      border:1px solid #86efac;
+      color:#166534;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .success-message.show{
+      display:block;
+    }
+
+    .benefit-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .benefit-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .benefit-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .note-box{
+      margin-top:18px;
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:16px;
+      color:#1d4ed8;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+      margin-top:20px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:1024px){
+      .hero-inner,
+      .login-layout{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .login-wrap,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .login-card,
+      .side-card{
+        padding:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">LearnITFast</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-primary active">Log In</a>
+          <a href="signup.html" class="btn-login">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Welcome back to LearnITFast.</h1>
+        <p>Log in to continue your revision, return to your study flow, and prepare for future features like saved progress, premium tools, and stronger personalized learning.</p>
+
+        <div class="hero-points">
+          <div class="hero-point">
+            <strong>Continue learning</strong>
+            <span>Get back to quizzes, flashcards, and topic study without losing momentum.</span>
+          </div>
+          <div class="hero-point">
+            <strong>Future-ready account</strong>
+            <span>Your login flow is ready to grow into real authentication later.</span>
+          </div>
+          <div class="hero-point">
+            <strong>Clean access</strong>
+            <span>Simple sign in now, stronger account tools later.</span>
+          </div>
+        </div>
+      </div>
+
+      <div></div>
+    </div>
+  </section>
+
+  <section class="login-wrap">
+    <div class="login-layout">
+      <div class="login-card">
+        <h2>Log in to your account</h2>
+        <p>Enter your details below to sign in.</p>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" name="loginEmail" placeholder="you@example.com" required>
+          </div>
+
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+          </div>
+
+          <div class="form-row">
+            <label class="remember-wrap">
+              <input type="checkbox" id="rememberMe">
+              <span>Remember me</span>
+            </label>
+
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="submit-btn">Log In</button>
+
+          <div class="success-message" id="successMessage">
+            Login form submitted successfully. This front-end version shows confirmation only until you connect real authentication.
+          </div>
+        </form>
+
+        <div class="divider">or continue with</div>
+
+        <button class="social-btn" type="button">Continue with Google</button>
+        <button class="social-btn" type="button">Continue with Microsoft</button>
+
+        <div class="form-footer">
+          Don’t have an account? <a href="signup.html">Create one here</a>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h3>Why log in?</h3>
+        <p>Your account makes the platform more useful as it grows.</p>
+
+        <div class="benefit-list">
+          <div class="benefit-item">
+            <strong>Return to your study flow</strong>
+            <span>Pick up where you left off with quizzes, flashcards, and topics.</span>
+          </div>
+
+          <div class="benefit-item">
+            <strong>Prepare for progress tracking</strong>
+            <span>This login flow can later connect to saved scores, flashcard history, and premium access.</span>
+          </div>
+
+          <div class="benefit-item">
+            <strong>Unlock future premium tools</strong>
+            <span>As LearnITFast grows, your account can power deeper revision features and memberships.</span>
+          </div>
+        </div>
+
+        <div class="note-box">
+          This is a styled front-end login page. To make it work for real, connect it later to Firebase, Supabase, or your own backend authentication system.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>LearnITFast</h3>
+        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+    const loginForm = document.getElementById("loginForm");
+    const successMessage = document.getElementById("successMessage");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    loginForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      successMessage.classList.add("show");
+      loginForm.reset();
+
+      setTimeout(() => {
+        successMessage.classList.remove("show");
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

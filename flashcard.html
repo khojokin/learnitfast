@@ -1,0 +1,1406 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Flashcards</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    button{
+      transition:0.3s;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .btn-secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .btn-secondary:hover{
+      background:#d1d5db;
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:26px;
+      max-width:680px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:820px;
+      margin:0 auto;
+    }
+
+    .topics-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .topic-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+      cursor:pointer;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+      border-color:#bfdbfe;
+    }
+
+    .topic-card.active-topic{
+      border-color:#2563eb;
+      box-shadow:0 16px 34px rgba(37,99,235,0.14);
+    }
+
+    .topic-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .topic-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:18px;
+      flex:1;
+    }
+
+    .topic-link{
+      font-weight:800;
+      color:#2563eb;
+      font-size:14px;
+    }
+
+    .flashcards-shell{
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:30px;
+      align-items:start;
+    }
+
+    .flashcards-info,
+    .flashcards-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .flashcards-info h3,
+    .flashcards-box h3{
+      font-size:24px;
+      margin-bottom:12px;
+      color:#111827;
+    }
+
+    .flashcards-info p,
+    .flashcards-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .feature-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .flashcard-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+
+    .flashcard-badge{
+      background:#dbeafe;
+      color:#1d4ed8;
+      font-weight:800;
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:13px;
+    }
+
+    .progress-text{
+      font-size:14px;
+      color:#6b7280;
+      font-weight:700;
+    }
+
+    .flashcard{
+      min-height:330px;
+      perspective:1000px;
+      margin-bottom:20px;
+      cursor:pointer;
+    }
+
+    .flashcard-inner{
+      position:relative;
+      width:100%;
+      min-height:330px;
+      transition:transform 0.6s;
+      transform-style:preserve-3d;
+    }
+
+    .flashcard.flipped .flashcard-inner{
+      transform:rotateY(180deg);
+    }
+
+    .flashcard-face{
+      position:absolute;
+      width:100%;
+      min-height:330px;
+      backface-visibility:hidden;
+      border:1px solid #dbe3ef;
+      border-radius:24px;
+      padding:32px 28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      background:#f8fafc;
+    }
+
+    .flashcard-back{
+      transform:rotateY(180deg);
+      background:#eff6ff;
+      border-color:#bfdbfe;
+    }
+
+    .flashcard-label{
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-weight:800;
+      color:#2563eb;
+      margin-bottom:14px;
+    }
+
+    .flashcard-title{
+      font-size:30px;
+      line-height:1.25;
+      color:#111827;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    .flashcard-text{
+      color:#4b5563;
+      font-size:16px;
+      max-width:580px;
+    }
+
+    .flashcard-tip{
+      text-align:center;
+      font-size:14px;
+      color:#6b7280;
+      margin-bottom:16px;
+      font-weight:700;
+    }
+
+    .flashcard-controls{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .flashcards-shell,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner,
+      .flashcards-info,
+      .flashcards-box{
+        padding:24px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .flashcard-title{
+        font-size:24px;
+      }
+
+      .flashcard,
+      .flashcard-inner,
+      .flashcard-face{
+        min-height:280px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html" class="active">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="heroTitle">Revise faster with big flashcard decks grouped by tech topic.</h1>
+        <p id="heroText">Choose a category and study through large flashcard sets for hardware, networking, programming, web development, databases, cybersecurity, cloud, operating systems, DevOps, IT support, analytics, and AI.</p>
+        <div class="hero-btns">
+          <a href="#flashcardTopics" class="btn btn-primary" id="heroBtnOne">Choose Flashcard Topic</a>
+          <a href="#flashcardsSection" class="btn hero-btn-secondary" id="heroBtnTwo">Start Revising</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 id="heroCardTitle">Flashcards Dashboard</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statOneValue">12</strong>
+            <span id="statOneLabel">Topic Groups</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statTwoValue">100+</strong>
+            <span id="statTwoLabel">Cards Per Topic</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statThreeValue">Tap</strong>
+            <span id="statThreeLabel">To Flip</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statFourValue">Fast</strong>
+            <span id="statFourLabel">Revision</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="flashcardTopics">
+    <div class="section-header">
+      <h2 id="topicsHeading">Choose a Flashcard Group</h2>
+      <p id="topicsText">Each category below loads its own large flashcard deck. This version auto-generates about 100 cards per topic from strong seed facts.</p>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+  </section>
+
+  <section class="section" id="flashcardsSection">
+    <div class="section-header">
+      <h2 id="flashcardsHeading">Topic Flashcards</h2>
+      <p id="flashcardsText">Click the card to flip it, then move through the deck with the controls underneath.</p>
+    </div>
+
+    <div class="flashcards-shell">
+      <div class="flashcards-info">
+        <h3 id="flashcardsInfoTitle">How this bigger deck works</h3>
+        <p id="flashcardsInfoText">Instead of a tiny starter set, each category now builds a much larger revision deck automatically so learners can keep practising longer without running out of cards quickly.</p>
+        <div class="feature-list" id="featureListOne"></div>
+      </div>
+
+      <div class="flashcards-box">
+        <div class="flashcard-meta">
+          <span class="flashcard-badge" id="flashcardTopicLabel">Hardware Flashcards</span>
+          <span class="progress-text" id="progressText">Card 1 of 100</span>
+        </div>
+
+        <div class="flashcard-tip" id="flashcardTip">Tap or click the card to reveal the answer.</div>
+
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-inner">
+            <div class="flashcard-face flashcard-front">
+              <div class="flashcard-label">Front</div>
+              <div class="flashcard-title" id="flashcardFront">Loading card...</div>
+              <div class="flashcard-text" id="flashcardFrontText">Question side</div>
+            </div>
+
+            <div class="flashcard-face flashcard-back">
+              <div class="flashcard-label">Back</div>
+              <div class="flashcard-title" id="flashcardBack">Answer</div>
+              <div class="flashcard-text" id="flashcardBackText">Answer side</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn btn-secondary" id="prevBtn">Previous</button>
+          <button class="btn btn-primary" id="flipBtn">Flip Card</button>
+          <button class="btn btn-secondary" id="nextBtn">Next</button>
+          <button class="btn btn-primary" id="restartBtn">Restart Set</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2 id="ctaTitle">Keep revising until the ideas become automatic.</h2>
+        <p id="ctaText">Sign up to unlock even more flashcard decks, quizzes, topic notes, and future premium revision packs across the whole platform.</p>
+        <a href="signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
+      </div>
+
+      <div class="cta-points" id="ctaPoints"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Main Areas</h3>
+        <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
+        <a href="security.html">Security</a>
+        <a href="cloud.html">Cloud</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p id="footerBottomText">©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const defaultFlashcardsData = {
+      siteLogo: "LearnITFast",
+      siteLogoImage: "logo.png",
+      heroTitle: "Revise faster with big flashcard decks grouped by tech topic.",
+      heroText: "Choose a category and study through large flashcard sets for hardware, networking, programming, web development, databases, cybersecurity, cloud, operating systems, DevOps, IT support, analytics, and AI.",
+      heroBtnOne: "Choose Flashcard Topic",
+      heroBtnTwo: "Start Revising",
+      heroCardTitle: "Flashcards Dashboard",
+      stats: [
+        { value: "12", label: "Topic Groups" },
+        { value: "100+", label: "Cards Per Topic" },
+        { value: "Tap", label: "To Flip" },
+        { value: "Fast", label: "Revision" }
+      ],
+      topicsHeading: "Choose a Flashcard Group",
+      topicsText: "Each category below loads its own large flashcard deck. This version auto-generates about 100 cards per topic from strong seed facts.",
+      topics: [
+        { key: "hardware", icon: "🖥️", title: "Hardware", text: "Study computers, components, storage, memory, servers, and physical equipment.", linkText: "Open Hardware Flashcards →" },
+        { key: "networking", icon: "🌐", title: "Networking", text: "Revise routers, switches, protocols, DNS, addressing, Wi-Fi, and connectivity.", linkText: "Open Networking Flashcards →" },
+        { key: "programming", icon: "⌨️", title: "Software Development / Programming", text: "Review coding, logic, testing, debugging, and software building concepts.", linkText: "Open Programming Flashcards →" },
+        { key: "webdev", icon: "🌍", title: "Web Development", text: "Revise front-end, back-end, full-stack, HTML, CSS, JavaScript, and web apps.", linkText: "Open Web Development Flashcards →" },
+        { key: "databases", icon: "🗄️", title: "Databases", text: "Study data storage, tables, queries, models, indexing, and database systems.", linkText: "Open Database Flashcards →" },
+        { key: "security", icon: "🔐", title: "Cybersecurity / Information Security", text: "Revise threats, protection, encryption, authentication, and secure practices.", linkText: "Open Security Flashcards →" },
+        { key: "cloud", icon: "☁️", title: "Cloud Computing", text: "Learn on-demand services, providers, deployment models, and scaling concepts.", linkText: "Open Cloud Flashcards →" },
+        { key: "os", icon: "💻", title: "Operating Systems", text: "Review Windows, Linux, system roles, processes, drivers, and administration basics.", linkText: "Open Operating Systems Flashcards →" },
+        { key: "devops", icon: "⚙️", title: "DevOps & Deployment", text: "Revise version control, automation, pipelines, containers, and deployments.", linkText: "Open DevOps Flashcards →" },
+        { key: "itsupport", icon: "🛠️", title: "IT Support / Systems Administration", text: "Study support tasks, troubleshooting, patching, backups, accounts, and maintenance.", linkText: "Open IT Support Flashcards →" },
+        { key: "analytics", icon: "📊", title: "Data Analytics & Business Intelligence", text: "Review dashboards, KPIs, trends, reports, metrics, and data-driven decisions.", linkText: "Open Analytics Flashcards →" },
+        { key: "ai", icon: "🤖", title: "Artificial Intelligence / Machine Learning", text: "Revise AI, ML, models, training data, predictions, and pattern recognition.", linkText: "Open AI / ML Flashcards →" }
+      ],
+      flashcardsHeading: "Topic Flashcards",
+      flashcardsText: "Click the card to flip it, then move through the deck with the controls underneath.",
+      flashcardsInfoTitle: "How this bigger deck works",
+      flashcardsInfoText: "Instead of a tiny starter set, each category now builds a much larger revision deck automatically so learners can keep practising longer without running out of cards quickly.",
+      featureListOne: [
+        { title: "About 100 cards each", text: "Every category is generated into a much larger flashcard deck for longer revision sessions." },
+        { title: "Topic-based recall", text: "Users stay inside one subject so the ideas connect better and feel easier to remember." },
+        { title: "Easy to scale later", text: "You can still add more seed facts later and the deck size grows automatically." }
+      ],
+      ctaTitle: "Keep revising until the ideas become automatic.",
+      ctaText: "Sign up to unlock even more flashcard decks, quizzes, topic notes, and future premium revision packs across the whole platform.",
+      ctaBtn: "Create Free Account",
+      ctaPoints: [
+        { title: "Longer decks", text: "More repetition without running out too fast." },
+        { title: "Better recall", text: "Repeated exposure helps ideas stick much more naturally." },
+        { title: "Cleaner revision", text: "Topic-by-topic learning feels more organised and focused." }
+      ],
+      footerBrand: "LearnITFast",
+      footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+      footerBottomText: "©️ 2026 LearnITFast. All rights reserved.",
+      selectedTopic: "hardware",
+      topicSeedFacts: {
+        hardware: [
+          { term: "CPU", definition: "the main processor that executes instructions", use: "processing calculations and system operations", memory: "often called the brain of the computer" },
+          { term: "RAM", definition: "temporary working memory used by active programs", use: "holding data currently being used", memory: "contents are lost when power is off" },
+          { term: "SSD", definition: "solid-state storage for files and operating systems", use: "fast permanent storage", memory: "faster than traditional hard drives" },
+          { term: "HDD", definition: "magnetic disk-based storage device", use: "storing large amounts of data", memory: "usually slower than SSD storage" },
+          { term: "Motherboard", definition: "the main circuit board connecting components", use: "allowing hardware parts to communicate", memory: "everything important plugs into it" },
+          { term: "PSU", definition: "the power supply unit", use: "converting electricity for internal components", memory: "without it the computer will not power properly" },
+          { term: "GPU", definition: "graphics processing unit for rendering visuals", use: "handling graphics, video, and parallel tasks", memory: "important for gaming and design workloads" },
+          { term: "NIC", definition: "network interface card", use: "connecting a device to a network", memory: "can be wired or wireless" },
+          { term: "Cooling Fan", definition: "a cooling component that moves heat away", use: "keeping hardware temperatures safe", memory: "helps prevent overheating" },
+          { term: "BIOS", definition: "firmware that starts hardware during boot", use: "basic startup configuration and checks", memory: "runs before the operating system loads" },
+          { term: "ROM", definition: "read-only memory storing permanent instructions", use: "holding low-level firmware", memory: "not meant for everyday changing" },
+          { term: "Server", definition: "a computer that provides services to other machines", use: "hosting apps, files, or systems", memory: "designed to serve clients across a network" }
+        ],
+        networking: [
+          { term: "IP Address", definition: "a numerical address identifying a device on a network", use: "sending data to the right destination", memory: "every networked device needs one" },
+          { term: "Router", definition: "a device that forwards data between networks", use: "connecting local networks to other networks or the internet", memory: "it chooses paths for traffic" },
+          { term: "Switch", definition: "a device that connects multiple devices within a LAN", use: "sending frames inside a local network", memory: "common in offices and labs" },
+          { term: "DNS", definition: "a service that translates names into IP addresses", use: "finding the address behind a website name", memory: "helps users avoid memorising IPs" },
+          { term: "TCP", definition: "a connection-oriented transport protocol", use: "reliable delivery of data", memory: "it checks order and accuracy" },
+          { term: "UDP", definition: "a connectionless transport protocol", use: "fast delivery where speed matters more than reliability", memory: "often used for streaming and real-time traffic" },
+          { term: "DHCP", definition: "a service that assigns IP settings automatically", use: "giving devices network configuration", memory: "saves manual setup time" },
+          { term: "Subnet Mask", definition: "a value that separates network and host portions of an IP", use: "helping define network ranges", memory: "works together with the IP address" },
+          { term: "Wi-Fi", definition: "wireless network communication technology", use: "connecting devices without cables", memory: "common in homes, schools, and offices" },
+          { term: "Firewall", definition: "a filter for network traffic", use: "allowing or blocking connections", memory: "part of security and networking" },
+          { term: "VPN", definition: "a virtual private network creating an encrypted tunnel", use: "secure remote access and privacy", memory: "useful on public networks" },
+          { term: "Bandwidth", definition: "the amount of data that can be transferred in a period", use: "measuring network capacity", memory: "more bandwidth can support more traffic" }
+        ],
+        programming: [
+          { term: "Algorithm", definition: "a step-by-step method for solving a problem", use: "driving logic in software", memory: "good programs depend on clear algorithms" },
+          { term: "Variable", definition: "a named place for storing data in code", use: "holding values used by a program", memory: "its value can change while code runs" },
+          { term: "Function", definition: "a reusable block of code for a task", use: "organising logic into callable units", memory: "helps reduce repeated code" },
+          { term: "Loop", definition: "a structure that repeats instructions", use: "running code multiple times", memory: "useful for lists and repeated tasks" },
+          { term: "Conditional", definition: "logic that chooses actions based on conditions", use: "making decisions in programs", memory: "often written with if and else" },
+          { term: "Bug", definition: "an error or flaw in software", use: "describing incorrect behaviour in code", memory: "developers try to remove bugs before release" },
+          { term: "Debugging", definition: "the process of finding and fixing bugs", use: "improving program correctness", memory: "an essential developer skill" },
+          { term: "Compiler", definition: "a tool that translates source code into machine-readable form", use: "building programs in compiled languages", memory: "common with C, C++, and similar languages" },
+          { term: "Interpreter", definition: "a tool that runs code by reading it directly", use: "executing scripts and interpreted languages", memory: "common with Python and JavaScript runtimes" },
+          { term: "Library", definition: "a collection of reusable code", use: "adding ready-made functionality", memory: "saves time during development" },
+          { term: "API", definition: "an interface for software to communicate with other software", use: "sharing functions, data, or services", memory: "widely used in modern apps" },
+          { term: "Version Control", definition: "a system for tracking code changes", use: "managing collaboration and code history", memory: "Git is the most common example" }
+        ],
+        webdev: [
+          { term: "HTML", definition: "the markup language used to structure web content", use: "building page layout and content structure", memory: "it is the skeleton of a webpage" },
+          { term: "CSS", definition: "the styling language used for web presentation", use: "controlling colors, spacing, and layout", memory: "it makes pages look polished" },
+          { term: "JavaScript", definition: "the language that adds interactivity to websites", use: "handling dynamic behaviour in the browser", memory: "buttons, forms, and effects often rely on it" },
+          { term: "Front-End", definition: "the part of web development users directly see", use: "creating visual interfaces and interactions", memory: "browser-facing work" },
+          { term: "Back-End", definition: "the server-side part of a web application", use: "handling logic, databases, and authentication", memory: "works behind the scenes" },
+          { term: "Full-Stack", definition: "development across both front-end and back-end", use: "building complete web applications", memory: "covers the whole flow" },
+          { term: "Responsive Design", definition: "design that adapts to different screen sizes", use: "making sites work on phones, tablets, and desktops", memory: "important for mobile-friendly pages" },
+          { term: "DOM", definition: "the document object model representing a webpage structure", use: "letting scripts read and change web content", memory: "JavaScript often manipulates the DOM" },
+          { term: "Form", definition: "a web element for collecting user input", use: "submitting names, emails, passwords, and other data", memory: "common in sign-up and contact pages" },
+          { term: "API Fetch", definition: "requesting data from a server inside a web app", use: "loading dynamic content", memory: "often used with JSON" },
+          { term: "Hosting", definition: "placing a website or app online so others can access it", use: "publishing web projects", memory: "Netlify and Vercel are popular choices" },
+          { term: "Authentication", definition: "verifying a user's identity in a web app", use: "protecting account access", memory: "login systems rely on it" }
+        ],
+        databases: [
+          { term: "Database", definition: "an organised system for storing and managing data", use: "saving information so it can be searched and updated", memory: "used in almost every serious application" },
+          { term: "Table", definition: "a structured set of rows and columns", use: "holding related records in relational databases", memory: "common in SQL systems" },
+          { term: "Row", definition: "a single record in a table", use: "storing one entry of data", memory: "one row usually represents one item or user" },
+          { term: "Column", definition: "a field in a table describing one attribute", use: "storing a type of value across records", memory: "examples include name, age, or email" },
+          { term: "SQL", definition: "a language for querying and managing relational data", use: "reading, inserting, updating, and deleting data", memory: "central to many databases" },
+          { term: "Primary Key", definition: "a field that uniquely identifies each row", use: "preventing duplicate identity inside a table", memory: "often an ID value" },
+          { term: "Foreign Key", definition: "a field linking one table to another", use: "creating relationships between tables", memory: "important in relational design" },
+          { term: "Query", definition: "a request for data from a database", use: "retrieving or modifying information", memory: "SQL queries are everyday database work" },
+          { term: "Index", definition: "a structure that speeds up data lookup", use: "improving search performance", memory: "helpful but can add storage overhead" },
+          { term: "Normalization", definition: "organising tables to reduce redundancy", use: "improving data consistency", memory: "important in database design" },
+          { term: "PostgreSQL", definition: "a popular open-source relational database", use: "storing and managing structured data", memory: "widely used in production apps" },
+          { term: "MongoDB", definition: "a document-oriented NoSQL database", use: "storing flexible JSON-like records", memory: "useful when data shape varies" }
+        ],
+        security: [
+          { term: "Encryption", definition: "the process of making data unreadable without the right key", use: "protecting confidentiality", memory: "important for stored and transmitted data" },
+          { term: "Authentication", definition: "verifying the identity of a user or system", use: "controlling access", memory: "login systems depend on it" },
+          { term: "Authorization", definition: "deciding what an authenticated user can do", use: "setting permissions", memory: "comes after identity is verified" },
+          { term: "MFA", definition: "multi-factor authentication using more than one verification method", use: "improving login security", memory: "stronger than password-only access" },
+          { term: "Phishing", definition: "a deceptive attack trying to trick users into giving information", use: "stealing passwords or data", memory: "often arrives by email or fake pages" },
+          { term: "Malware", definition: "malicious software designed to cause harm", use: "describing viruses, ransomware, spyware, and more", memory: "keeps security teams busy" },
+          { term: "Ransomware", definition: "malware that locks or encrypts files for payment", use: "extorting victims", memory: "one of the most damaging modern threats" },
+          { term: "Firewall", definition: "a tool that filters allowed and blocked traffic", use: "protecting systems and networks", memory: "works as a gatekeeper" },
+          { term: "VPN", definition: "an encrypted tunnel across a network", use: "secure remote access and privacy", memory: "especially useful on public Wi-Fi" },
+          { term: "Least Privilege", definition: "giving only the minimum access needed", use: "reducing security risk", memory: "a core security principle" },
+          { term: "Patch Management", definition: "keeping software updated with fixes", use: "reducing known vulnerabilities", memory: "outdated systems are easier targets" },
+          { term: "Penetration Testing", definition: "authorized testing to find weaknesses", use: "assessing security posture", memory: "simulates attacker behaviour legally" }
+        ],
+        cloud: [
+          { term: "Cloud Computing", definition: "delivering computing resources over the internet", use: "accessing servers, storage, and services on demand", memory: "no need to own all the hardware yourself" },
+          { term: "AWS", definition: "Amazon Web Services, a major cloud platform", use: "hosting apps, storage, databases, and more", memory: "one of the biggest providers" },
+          { term: "Azure", definition: "Microsoft's cloud platform", use: "cloud services for apps, data, and infrastructure", memory: "popular with Microsoft-focused organisations" },
+          { term: "Google Cloud", definition: "Google's cloud computing platform", use: "running workloads and data services online", memory: "another major provider" },
+          { term: "SaaS", definition: "software as a service", use: "delivering ready-to-use software over the internet", memory: "users consume software without managing servers" },
+          { term: "PaaS", definition: "platform as a service", use: "providing a managed environment for building and running apps", memory: "developers focus more on code than infrastructure" },
+          { term: "IaaS", definition: "infrastructure as a service", use: "providing virtual machines, networking, and storage", memory: "more control than SaaS or PaaS" },
+          { term: "Scalability", definition: "the ability to grow or shrink resources as needed", use: "handling changing demand", memory: "one of cloud's biggest advantages" },
+          { term: "Region", definition: "a geographical cloud location", use: "placing services closer to users or policies", memory: "providers offer many regions globally" },
+          { term: "Availability Zone", definition: "an isolated location inside a cloud region", use: "improving resilience and uptime", memory: "helps reduce single points of failure" },
+          { term: "Serverless", definition: "a model where code runs without managing servers directly", use: "executing functions on demand", memory: "the provider handles infrastructure details" },
+          { term: "Object Storage", definition: "cloud storage for files as objects", use: "storing images, backups, logs, and large files", memory: "commonly used for scalable file storage" }
+        ],
+        os: [
+          { term: "Operating System", definition: "the core software that manages hardware and applications", use: "acting as a bridge between users, software, and devices", memory: "every general-purpose computer relies on one" },
+          { term: "Windows", definition: "a common desktop operating system", use: "running applications and managing user systems", memory: "popular in homes and businesses" },
+          { term: "Linux", definition: "an open-source operating system family", use: "powering servers, dev machines, and many systems", memory: "strong in server environments" },
+          { term: "macOS", definition: "Apple's desktop operating system", use: "running Macs and Apple desktop software", memory: "common in creative and Apple ecosystems" },
+          { term: "Kernel", definition: "the central core of an operating system", use: "managing memory, processes, and hardware interaction", memory: "the deepest major part of the OS" },
+          { term: "Process", definition: "a running instance of a program", use: "executing tasks in the operating system", memory: "multiple processes can run at once" },
+          { term: "Driver", definition: "software that helps the OS communicate with hardware", use: "making devices work correctly", memory: "wrong drivers can cause device issues" },
+          { term: "File System", definition: "the method an OS uses to organise files and folders", use: "storing and locating data", memory: "examples differ across systems" },
+          { term: "User Account", definition: "an identity profile inside the operating system", use: "controlling access and personalization", memory: "ties permissions to a person or role" },
+          { term: "Permission", definition: "a rule defining allowed actions", use: "limiting access to files, apps, or settings", memory: "important for both usability and security" },
+          { term: "Command Line", definition: "a text-based interface for interacting with the OS", use: "running commands and scripts", memory: "powerful for admins and developers" },
+          { term: "Update", definition: "a software change that improves security or functionality", use: "fixing issues and adding improvements", memory: "keeping systems updated is important" }
+        ],
+        devops: [
+          { term: "DevOps", definition: "a culture and practice linking development and operations", use: "speeding up reliable software delivery", memory: "it improves collaboration across teams" },
+          { term: "Git", definition: "a distributed version control system", use: "tracking code changes and collaboration", memory: "almost every modern dev team uses it" },
+          { term: "Repository", definition: "a project storage space in version control", use: "holding source code and history", memory: "often called a repo" },
+          { term: "Branch", definition: "a separate line of development in version control", use: "working on changes without affecting the main code immediately", memory: "useful for features and fixes" },
+          { term: "CI", definition: "continuous integration", use: "automatically testing and merging changes often", memory: "helps catch issues early" },
+          { term: "CD", definition: "continuous delivery or deployment", use: "moving tested changes toward release automatically", memory: "speeds up release workflows" },
+          { term: "Pipeline", definition: "an automated sequence for build, test, and release tasks", use: "standardising software delivery", memory: "central to CI/CD" },
+          { term: "Docker", definition: "a platform for packaging apps in containers", use: "making software more portable and consistent", memory: "containers include dependencies too" },
+          { term: "Container", definition: "a lightweight package containing an app and its runtime needs", use: "running software consistently across environments", memory: "lighter than full virtual machines" },
+          { term: "Kubernetes", definition: "a system for orchestrating containers", use: "managing deployment, scaling, and availability", memory: "very common in large modern systems" },
+          { term: "Deployment", definition: "releasing software into an environment where it runs", use: "making code available to users or systems", memory: "the end of one build cycle and start of usage" },
+          { term: "Monitoring", definition: "tracking the health and performance of systems", use: "finding issues quickly in production", memory: "important after deployment" }
+        ],
+        itsupport: [
+          { term: "Help Desk", definition: "the support function handling user issues", use: "receiving and resolving IT problems", memory: "often the first support point" },
+          { term: "Ticket", definition: "a tracked support request", use: "logging issues from users", memory: "helps teams prioritise and document work" },
+          { term: "Backup", definition: "a copy of data kept for recovery", use: "restoring files after loss or damage", memory: "critical for resilience" },
+          { term: "Restore", definition: "putting backed-up data back into use", use: "recovering from deletion or failure", memory: "backups matter only if restore works" },
+          { term: "Patch", definition: "an update fixing bugs or vulnerabilities", use: "improving security and stability", memory: "important for good maintenance" },
+          { term: "Asset Management", definition: "tracking and managing hardware or software inventory", use: "knowing what systems exist and who uses them", memory: "helps support teams stay organised" },
+          { term: "Account Provisioning", definition: "creating or preparing user access", use: "giving users the accounts and permissions they need", memory: "part of onboarding" },
+          { term: "Troubleshooting", definition: "systematically identifying and fixing problems", use: "solving technical issues step by step", memory: "good support depends on structured thinking" },
+          { term: "Remote Support", definition: "helping a user from another location", use: "fixing issues without being physically present", memory: "common in modern IT teams" },
+          { term: "Uptime", definition: "how long a system stays available and working", use: "measuring reliability", memory: "higher uptime usually means better service" },
+          { term: "Maintenance Window", definition: "a planned time for updates or work", use: "reducing disruption during changes", memory: "often scheduled outside busy hours" },
+          { term: "Documentation", definition: "written records of systems and procedures", use: "helping teams work consistently and solve issues faster", memory: "great support teams document well" }
+        ],
+        analytics: [
+          { term: "Data Analytics", definition: "the process of examining data to gain insights", use: "supporting better decisions", memory: "turns raw data into useful meaning" },
+          { term: "Business Intelligence", definition: "tools and methods for reporting and decision support", use: "helping organisations understand performance", memory: "often built around dashboards and reports" },
+          { term: "Dashboard", definition: "a visual display of important metrics", use: "summarising status and trends quickly", memory: "common in BI tools" },
+          { term: "KPI", definition: "a key performance indicator", use: "tracking an important business metric", memory: "used to measure progress or success" },
+          { term: "Metric", definition: "a measurable value", use: "quantifying performance or activity", memory: "KPIs are special high-priority metrics" },
+          { term: "Trend", definition: "a general direction of change over time", use: "spotting patterns in data", memory: "upward and downward movement matter" },
+          { term: "Report", definition: "a structured presentation of data and findings", use: "communicating information clearly", memory: "common in business environments" },
+          { term: "Visualization", definition: "showing data graphically", use: "making insights easier to understand", memory: "charts and graphs are visualizations" },
+          { term: "Data Cleaning", definition: "preparing data by fixing errors or inconsistencies", use: "improving data quality before analysis", memory: "bad data leads to bad insight" },
+          { term: "ETL", definition: "extract, transform, load", use: "moving and preparing data between systems", memory: "important in data workflows" },
+          { term: "Forecasting", definition: "predicting future results from existing data", use: "planning and decision support", memory: "often built from historical patterns" },
+          { term: "Segmentation", definition: "dividing data into meaningful groups", use: "understanding different user or business groups", memory: "useful in marketing and reporting" }
+        ],
+        ai: [
+          { term: "Artificial Intelligence", definition: "building systems that perform tasks needing human-like intelligence", use: "automation, reasoning, perception, and prediction", memory: "AI is the wider field" },
+          { term: "Machine Learning", definition: "a branch of AI where systems learn from data", use: "making predictions or decisions from examples", memory: "ML is a subset of AI" },
+          { term: "Model", definition: "a trained system used to make predictions or classifications", use: "applying learned patterns to new data", memory: "the model is the learned result" },
+          { term: "Training Data", definition: "data used to teach a model", use: "helping the system learn patterns", memory: "quality training data matters a lot" },
+          { term: "Inference", definition: "using a trained model to make a prediction", use: "applying the model after training", memory: "training builds, inference uses" },
+          { term: "Classification", definition: "predicting a category or label", use: "sorting data into classes", memory: "spam detection is one example" },
+          { term: "Regression", definition: "predicting a continuous value", use: "estimating numbers like prices or scores", memory: "it predicts amounts rather than labels" },
+          { term: "Neural Network", definition: "a model inspired by connected layers of nodes", use: "handling complex learning tasks", memory: "common in modern AI systems" },
+          { term: "Feature", definition: "an input variable used by a model", use: "giving useful information for learning", memory: "features shape model performance" },
+          { term: "Bias", definition: "systematic unfairness or skew in AI outcomes", use: "describing problematic patterns in results", memory: "ethical AI tries to reduce harmful bias" },
+          { term: "Overfitting", definition: "when a model learns training data too closely", use: "describing poor generalization to new data", memory: "it performs well in training but badly in reality" },
+          { term: "Pattern Recognition", definition: "finding meaningful structures in data", use: "supporting tasks like image or speech analysis", memory: "a core strength of ML systems" }
+        ]
+      }
+    };
+
+    function getFlashcardsData(){
+      const saved = localStorage.getItem("learnitfast_flashcards_data");
+      if(saved){
+        try{
+          const parsed = JSON.parse(saved);
+          return { ...defaultFlashcardsData, ...parsed };
+        }catch(error){}
+      }
+      return defaultFlashcardsData;
+    }
+
+    function renderFeatureList(containerId, items){
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const box = document.createElement("div");
+        box.className = "feature-item";
+        box.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
+        container.appendChild(box);
+      });
+    }
+
+    function renderTopics(topics, onSelect, selectedKey){
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      topics.forEach(topic => {
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        if(topic.key === selectedKey){
+          card.classList.add("active-topic");
+        }
+
+        card.innerHTML = `
+          <div class="topic-icon">${topic.icon}</div>
+          <h3>${topic.title}</h3>
+          <p>${topic.text}</p>
+          <span class="topic-link">${topic.linkText}</span>
+        `;
+
+        card.addEventListener("click", () => onSelect(topic.key));
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCtaPoints(points){
+      const container = document.getElementById("ctaPoints");
+      container.innerHTML = "";
+      points.forEach(point => {
+        const box = document.createElement("div");
+        box.className = "cta-point";
+        box.innerHTML = `<strong>${point.title}</strong><div>${point.text}</div>`;
+        container.appendChild(box);
+      });
+    }
+
+    function buildTopicDeck(topicTitle, facts){
+      const cards = [];
+
+      facts.forEach((fact, index) => {
+        cards.push(
+          {
+            front: `What is ${fact.term}?`,
+            frontText: `Core definition card ${index + 1}`,
+            back: fact.term,
+            backText: `${fact.term} is ${fact.definition}.`
+          },
+          {
+            front: `${fact.term}`,
+            frontText: `Give the simple meaning`,
+            back: "Definition",
+            backText: `${fact.term} means ${fact.definition}.`
+          },
+          {
+            front: `Why does ${fact.term} matter?`,
+            frontText: `Recall its importance`,
+            back: fact.term,
+            backText: `${fact.term} matters because it is used for ${fact.use}.`
+          },
+          {
+            front: `Which concept matches this description?`,
+            frontText: fact.definition.charAt(0).toUpperCase() + fact.definition.slice(1),
+            back: fact.term,
+            backText: `The correct concept is ${fact.term}.`
+          },
+          {
+            front: `When would you think about ${fact.term}?`,
+            frontText: `Usage recall`,
+            back: fact.term,
+            backText: `You would think about ${fact.term} when working on ${fact.use}.`
+          },
+          {
+            front: `Quick recall`,
+            frontText: `${fact.term} belongs to which study area here?`,
+            back: topicTitle,
+            backText: `${fact.term} belongs to the ${topicTitle} topic group.`
+          },
+          {
+            front: `Memory check`,
+            frontText: `What should you remember about ${fact.term}?`,
+            back: fact.term,
+            backText: `${fact.term}: ${fact.memory}.`
+          },
+          {
+            front: `Definition to term`,
+            frontText: `Name the concept: ${fact.definition}.`,
+            back: fact.term,
+            backText: `That concept is ${fact.term}.`
+          }
+        );
+      });
+
+      cards.push(
+        {
+          front: `${topicTitle} revision goal`,
+          frontText: `What is the main point of this topic?`,
+          back: topicTitle,
+          backText: `The ${topicTitle} topic helps learners build solid core understanding of this area before moving into harder practical work.`
+        },
+        {
+          front: `${topicTitle} study tip`,
+          frontText: `How should you study this topic well?`,
+          back: "Study tip",
+          backText: `Revise small groups of terms, repeat them often, and mix flashcards with quizzes for better recall.`
+        },
+        {
+          front: `${topicTitle} memory strategy`,
+          frontText: `What helps most with retention here?`,
+          back: "Active recall",
+          backText: `Active recall works best: look at the front, answer in your own words, then flip and check.`
+        },
+        {
+          front: `${topicTitle} practice reminder`,
+          frontText: `What is the best way to improve?`,
+          back: "Repeat and apply",
+          backText: `Repeat the cards often, then connect the terms to labs, quizzes, projects, or real-world examples.`
+        }
+      );
+
+      return cards.slice(0, 100);
+    }
+
+    let currentTopicKey = "hardware";
+    let currentCards = [];
+    let currentCardIndex = 0;
+    let isFlipped = false;
+    let activeData = null;
+
+    function loadFlashcardTopic(topicKey, data){
+      currentTopicKey = topicKey;
+
+      const topicObj = data.topics.find(item => item.key === topicKey);
+      const facts = data.topicSeedFacts[topicKey] || [];
+      currentCards = buildTopicDeck(topicObj ? topicObj.title : "Topic", facts);
+
+      currentCardIndex = 0;
+      isFlipped = false;
+
+      renderTopics(data.topics, (key) => {
+        loadFlashcardTopic(key, data);
+        document.getElementById("flashcardsSection").scrollIntoView({ behavior: "smooth" });
+      }, currentTopicKey);
+
+      document.getElementById("flashcardTopicLabel").textContent = topicObj ? `${topicObj.title} Flashcards` : "Topic Flashcards";
+
+      renderCurrentCard();
+    }
+
+    function renderCurrentCard(){
+      const flashcard = document.getElementById("flashcard");
+      const progressText = document.getElementById("progressText");
+      const front = document.getElementById("flashcardFront");
+      const frontText = document.getElementById("flashcardFrontText");
+      const back = document.getElementById("flashcardBack");
+      const backText = document.getElementById("flashcardBackText");
+
+      const card = currentCards[currentCardIndex];
+      progressText.textContent = `Card ${currentCardIndex + 1} of ${currentCards.length}`;
+
+      front.textContent = card.front;
+      frontText.textContent = card.frontText;
+      back.textContent = card.back;
+      backText.textContent = card.backText;
+
+      flashcard.classList.remove("flipped");
+      isFlipped = false;
+    }
+
+    function flipCurrentCard(){
+      const flashcard = document.getElementById("flashcard");
+      isFlipped = !isFlipped;
+      flashcard.classList.toggle("flipped", isFlipped);
+    }
+
+    function nextCard(){
+      currentCardIndex++;
+      if(currentCardIndex >= currentCards.length){
+        currentCardIndex = 0;
+      }
+      renderCurrentCard();
+    }
+
+    function prevCard(){
+      currentCardIndex--;
+      if(currentCardIndex < 0){
+        currentCardIndex = currentCards.length - 1;
+      }
+      renderCurrentCard();
+    }
+
+    function restartCards(){
+      currentCardIndex = 0;
+      renderCurrentCard();
+    }
+
+    function applyFlashcardsData(){
+      const data = getFlashcardsData();
+      activeData = data;
+
+      document.title = `${data.siteLogo} | Flashcards`;
+
+      document.getElementById("siteLogoText").textContent = data.siteLogo;
+      document.getElementById("footerBrand").textContent = data.footerBrand || data.siteLogo;
+
+      const headerLogoImg = document.getElementById("siteLogoImg");
+      const footerLogoImg = document.getElementById("footerLogoImg");
+      const logoPath = data.siteLogoImage || "logo.png";
+
+      headerLogoImg.src = logoPath;
+      footerLogoImg.src = logoPath;
+
+      headerLogoImg.alt = `${data.siteLogo} Logo`;
+      footerLogoImg.alt = `${data.footerBrand || data.siteLogo} Logo`;
+
+      document.getElementById("heroTitle").textContent = data.heroTitle;
+      document.getElementById("heroText").textContent = data.heroText;
+      document.getElementById("heroBtnOne").textContent = data.heroBtnOne;
+      document.getElementById("heroBtnTwo").textContent = data.heroBtnTwo;
+      document.getElementById("heroCardTitle").textContent = data.heroCardTitle;
+
+      document.getElementById("statOneValue").textContent = data.stats[0]?.value || "";
+      document.getElementById("statOneLabel").textContent = data.stats[0]?.label || "";
+      document.getElementById("statTwoValue").textContent = data.stats[1]?.value || "";
+      document.getElementById("statTwoLabel").textContent = data.stats[1]?.label || "";
+      document.getElementById("statThreeValue").textContent = data.stats[2]?.value || "";
+      document.getElementById("statThreeLabel").textContent = data.stats[2]?.label || "";
+      document.getElementById("statFourValue").textContent = data.stats[3]?.value || "";
+      document.getElementById("statFourLabel").textContent = data.stats[3]?.label || "";
+
+      document.getElementById("topicsHeading").textContent = data.topicsHeading;
+      document.getElementById("topicsText").textContent = data.topicsText;
+
+      document.getElementById("flashcardsHeading").textContent = data.flashcardsHeading;
+      document.getElementById("flashcardsText").textContent = data.flashcardsText;
+      document.getElementById("flashcardsInfoTitle").textContent = data.flashcardsInfoTitle;
+      document.getElementById("flashcardsInfoText").textContent = data.flashcardsInfoText;
+      renderFeatureList("featureListOne", data.featureListOne);
+
+      document.getElementById("ctaTitle").textContent = data.ctaTitle;
+      document.getElementById("ctaText").textContent = data.ctaText;
+      document.getElementById("ctaBtn").textContent = data.ctaBtn;
+      renderCtaPoints(data.ctaPoints);
+
+      document.getElementById("footerDesc").textContent = data.footerDesc;
+      document.getElementById("footerBottomText").textContent = data.footerBottomText;
+
+      loadFlashcardTopic(data.selectedTopic || "hardware", data);
+    }
+
+    document.getElementById("flashcard").addEventListener("click", flipCurrentCard);
+    document.getElementById("flipBtn").addEventListener("click", flipCurrentCard);
+    document.getElementById("nextBtn").addEventListener("click", nextCard);
+    document.getElementById("prevBtn").addEventListener("click", prevCard);
+    document.getElementById("restartBtn").addEventListener("click", restartCards);
+
+    applyFlashcardsData();
+  </script>
+</body>
+</html>

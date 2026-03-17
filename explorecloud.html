@@ -1,0 +1,356 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Cloud Computing</title>
+  <style>
+    /* --- KEEPING YOUR ORIGINAL CSS --- */
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      position:relative;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    /* --- YOUR ORIGINAL SEARCH STYLES --- */
+    .search-wrap{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:230px;
+      max-width:270px;
+      width:100%;
+      position: relative;
+    }
+
+    .search-wrap input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:12px 8px;
+      font-size:14px;
+    }
+
+    #searchDropdown {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 2000;
+      overflow: hidden;
+    }
+
+    .search-result-item {
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .search-result-item:hover {
+      background: #eff6ff;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover, nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    /* --- CLOUD CONTENT STYLES (MATCHING YOUR TOPIC CARDS) --- */
+    .hero-topic {
+      padding: 80px 6%;
+      background: linear-gradient(rgba(37, 99, 235, 0.9), rgba(30, 41, 59, 0.9)),
+                  url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80') center/cover;
+      color: white;
+      text-align: center;
+    }
+
+    .hero-topic h1 { font-size: 48px; margin-bottom: 10px; }
+
+    .section {
+      padding:60px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .grid-concepts {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap:24px;
+      margin-top: 40px;
+    }
+
+    .concept-card {
+      background: white;
+      padding: 30px;
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .concept-card h3 {
+      color: #2563eb;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .model-table th, .model-table td {
+      padding: 20px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .model-table th { background: #f1f5f9; color: #1e3a8a; }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+      margin-top: 80px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text">LearnITFast</span>
+      </a>
+
+      <div class="nav-area">
+        <div class="search-wrap">
+          <span class="search-icon">🔎</span>
+          <input type="text" id="siteSearch" placeholder="Search topics..." autocomplete="off" />
+          <div id="searchDropdown"></div>
+        </div>
+
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html" class="active">Topics</a>
+          <a href="about.html">About</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-topic">
+    <h1>Cloud Computing</h1>
+    <p>Understanding on-demand computing, virtualization, and global infrastructure.</p>
+  </section>
+
+  <main class="section">
+    <div style="text-align: center; margin-bottom: 50px;">
+      <h2>The Core Pillars</h2>
+      <p>Why businesses are moving away from physical hardware to the cloud.</p>
+    </div>
+
+    <div class="grid-concepts">
+      <div class="concept-card">
+        <h3>On-Demand Self-Service</h3>
+        <p>Users can provision computing capabilities, such as server time and network storage, as needed automatically without requiring human interaction with each service provider.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Resource Pooling</h3>
+        <p>The provider's computing resources are pooled to serve multiple consumers using a multi-tenant model, with different physical and virtual resources assigned according to demand.</p>
+      </div>
+      <div class="concept-card">
+        <h3>Rapid Elasticity</h3>
+        <p>Capabilities can be elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 80px;">
+      <h2 style="text-align: center;">Service Models (IaaS vs PaaS vs SaaS)</h2>
+      <table class="model-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>You Manage</th>
+            <th>Provider Manages</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>IaaS</strong> (Infrastructure)</td>
+            <td>Applications, Data, OS</td>
+            <td>Virtualization, Servers, Storage</td>
+          </tr>
+          <tr>
+            <td><strong>PaaS</strong> (Platform)</td>
+            <td>Applications & Data</td>
+            <td>OS, Middleware, Runtime</td>
+          </tr>
+          <tr>
+            <td><strong>SaaS</strong> (Software)</td>
+            <td>Nothing (Use the app)</td>
+            <td>Everything</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>LearnITFast</h3>
+        <p>Simple, focused tech learning for students and career switchers.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <a href="quiz.html">Quiz</a><br>
+        <a href="flashcards.html">Flashcards</a><br>
+        <a href="topics.html">Topics</a>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 40px; font-size: 14px;">
+      ©️ 2026 LearnITFast. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    /* --- KEEPING YOUR ORIGINAL JS LOGIC --- */
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "test"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "revision"] },
+      { name: "Cloud Computing", url: "cloud.html", keywords: ["cloud", "aws", "azure"] },
+      { name: "Hardware", url: "hardware.html", keywords: ["hardware", "cpu"] }
+    ];
+
+    const searchInput = document.getElementById("siteSearch");
+    const searchDropdown = document.getElementById("searchDropdown");
+
+    searchInput.addEventListener("input", function() {
+      const query = this.value.toLowerCase().trim();
+      searchDropdown.innerHTML = "";
+      if (query.length < 1) { searchDropdown.style.display = "none"; return; }
+
+      const matches = searchPages.filter(page => 
+        page.name.toLowerCase().includes(query) || 
+        page.keywords.some(k => k.includes(query))
+      );
+
+      if (matches.length > 0) {
+        searchDropdown.style.display = "block";
+        matches.forEach(match => {
+          const item = document.createElement("div");
+          item.className = "search-result-item";
+          item.innerHTML = `<strong>${match.name}</strong>`;
+          item.onclick = () => window.location.href = match.url;
+          searchDropdown.appendChild(item);
+        });
+      } else { searchDropdown.style.display = "none"; }
+    });
+
+    // Close search on click outside
+    document.addEventListener("click", (e) => {
+      if (!document.querySelector(".search-wrap").contains(e.target)) {
+        searchDropdown.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

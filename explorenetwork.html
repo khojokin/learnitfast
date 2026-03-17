@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Networking | LearnITFast</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+      color:inherit;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:84px 6% 60px;
+      background:
+        linear-gradient(rgba(15,23,42,0.78), rgba(30,41,59,0.76)),
+        url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:38px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(36px,5vw,58px);
+      line-height:1.05;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      max-width:680px;
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:22px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+      backdrop-filter:blur(6px);
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:24px;
+      color:#93c5fd;
+      margin-bottom:6px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      max-width:1240px;
+      margin:0 auto;
+      padding:80px 6%;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .overview-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
+
+    .overview-card,
+    .path-card,
+    .split-card,
+    .study-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+    }
+
+    .overview-card h3,
+    .path-card h3,
+    .split-card h3,
+    .study-card h3{
+      font-size:24px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .overview-card p,
+    .path-card p,
+    .split-card p,
+    .study-card p{
+      color:#6b7280;
+      font-size:15px;
+    }
+
+    .overview-icon{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#dbeafe;
+      font-size:28px;
+      margin-bottom:14px;
+    }
+
+    .paths-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:22px;
+    }
+
+    .path-tag{
+      display:inline-block;
+      background:#dbeafe;
+      color:#1d4ed8;
+      border-radius:999px;
+      padding:6px 12px;
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+
+    .path-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .small-link{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .small-link.primary{
+      background:#2563eb;
+      color:#fff;
+    }
+
+    .small-link.secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .split-layout{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .check-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .check-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .check-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .study-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
+
+    .study-step{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:22px;
+      padding:22px;
+    }
+
+    .step-number{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:#2563eb;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .study-step h4{
+      font-size:21px;
+      margin-bottom:8px;
+      color:#1d4ed8;
+    }
+
+    .study-step p{
+      color:#4b5563;
+      font-size:15px;
+    }
+
+    .cta{
+      padding:0 6% 80px;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:42px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+      margin-top:20px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:1024px){
+      .hero-inner,
+      .split-layout,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">LearnITFast</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html" class="active">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="quiz.html" class="btn btn-primary">Start Quiz</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Explore networking from the basics to the ideas that show up in real exams.</h1>
+        <p>Learn how devices connect, how data moves, how protocols work, and why concepts like IP addressing, switching, routing, Wi-Fi, and security all matter together.</p>
+        <div class="hero-btns">
+          <a href="#networkingPaths" class="btn btn-primary">Explore Networking</a>
+          <a href="quiz.html" class="btn hero-btn-secondary">Practice Quiz</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Networking Snapshot</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>OSI</strong>
+            <span>Layer Concepts</span>
+          </div>
+          <div class="hero-stat">
+            <strong>IP</strong>
+            <span>Addressing</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Wi-Fi</strong>
+            <span>Wireless Basics</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Ports</strong>
+            <span>Core Services</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>What networking covers</h2>
+      <p>Networking is about how computers, phones, servers, routers, and other devices communicate reliably across local and global systems.</p>
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-icon">🌐</div>
+        <h3>Communication</h3>
+        <p>Networking explains how devices send, receive, and understand data across physical and wireless connections.</p>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">🔀</div>
+        <h3>Traffic Flow</h3>
+        <p>You learn how switches, routers, protocols, and addressing help move traffic to the correct destination.</p>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">📡</div>
+        <h3>Wireless</h3>
+        <p>Wi-Fi, access points, channels, interference, SSIDs, and security all sit inside networking fundamentals.</p>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">🔐</div>
+        <h3>Protection</h3>
+        <p>Networking also connects directly to security through firewalls, VPNs, IPsec, secure protocols, and access control.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="networkingPaths">
+    <div class="section-header">
+      <h2>Main networking study paths</h2>
+      <p>Break networking into smaller branches so it becomes easier to understand and revise.</p>
+    </div>
+
+    <div class="paths-grid">
+      <div class="path-card">
+        <span class="path-tag">Foundation</span>
+        <h3>OSI & TCP/IP Models</h3>
+        <p>Understand how data moves through layers, where frames, packets, segments, and bits fit, and how exam questions map to each layer.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Addressing</span>
+        <h3>IP, MAC & Subnet Basics</h3>
+        <p>Learn the difference between IP and MAC addresses, sockets, ports, unicast, multicast, anycast, and basic addressing ideas.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Devices</span>
+        <h3>Routers, Switches & Clients</h3>
+        <p>Study what clients do, how servers respond, why switches use MAC addresses, and why routers use IP addresses.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Wireless</span>
+        <h3>Wi-Fi & Wireless Concepts</h3>
+        <p>Cover 2.4 GHz vs 5 GHz, overlapping channels, channel width, WPA2, WPA3, PSK, Enterprise, RADIUS, and access points.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Protocols</span>
+        <h3>Ports, Services & Traffic</h3>
+        <p>Focus on common services like SSH, SMTP, DNS, LDAP, plus the difference between TCP, UDP, connection-oriented, and connectionless traffic.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Security</span>
+        <h3>Secure Networking</h3>
+        <p>Learn about VPNs, IPsec, AH, ESP, proxies, NSGs, ACL-style controls, and how security fits into network design.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="split-layout">
+      <div class="split-card">
+        <h3>Why networking matters</h3>
+        <p>Networking is one of the most important foundations in IT because almost every other area depends on it. Cloud, cybersecurity, operating systems, support work, servers, and internet services all rely on devices being able to communicate properly.</p>
+        <p>If you understand networking well, many other IT concepts start making more sense because you can see how systems connect instead of treating them as isolated topics.</p>
+
+        <div class="check-list">
+          <div class="check-item">
+            <strong>It connects everything</strong>
+            <span>Most IT systems rely on networking in some way, whether local or internet-based.</span>
+          </div>
+          <div class="check-item">
+            <strong>It appears in many exams</strong>
+            <span>Networking concepts show up repeatedly in entry-level and mid-level certification paths.</span>
+          </div>
+          <div class="check-item">
+            <strong>It builds strong foundations</strong>
+            <span>When you know networking, later topics like security and cloud feel easier to understand.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-card">
+        <h3>What to focus on first</h3>
+        <p>If networking feels big, do not try to learn everything at once. Start with the ideas that repeat the most in quiz questions and exam prep.</p>
+
+        <div class="check-list">
+          <div class="check-item">
+            <strong>OSI layer names and data units</strong>
+            <span>Know frames, packets, segments, and which devices or functions belong to each layer.</span>
+          </div>
+          <div class="check-item">
+            <strong>Ports and protocols</strong>
+            <span>SSH, SMTP, DNS, LDAP, TCP, UDP, AH, ESP, and the difference between connection types.</span>
+          </div>
+          <div class="check-item">
+            <strong>Wireless basics</strong>
+            <span>2.4 GHz vs 5 GHz, channel overlap, WPA2 vs WPA3, and PSK vs Enterprise.</span>
+          </div>
+          <div class="check-item">
+            <strong>Routers, switches, IP and MAC</strong>
+            <span>These show up constantly and are core to understanding how traffic moves.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Best way to study networking here</h2>
+      <p>Use a simple cycle instead of trying to memorize everything in one go.</p>
+    </div>
+
+    <div class="study-grid">
+      <div class="study-step">
+        <div class="step-number">1</div>
+        <h4>Read the topic</h4>
+        <p>Start by understanding the idea first — like what a switch does, what a port is, or why layers exist.</p>
+      </div>
+
+      <div class="study-step">
+        <div class="step-number">2</div>
+        <h4>Take quiz questions</h4>
+        <p>Use practice questions to check what you really understand and where you still get confused.</p>
+      </div>
+
+      <div class="study-step">
+        <div class="step-number">3</div>
+        <h4>Use flashcards</h4>
+        <p>Reinforce ports, acronyms, definitions, services, and layered concepts with fast recall practice.</p>
+      </div>
+
+      <div class="study-step">
+        <div class="step-number">4</div>
+        <h4>Repeat weak areas</h4>
+        <p>Come back to the topics that feel hardest. That is where your strongest progress usually happens.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2>Start building your networking confidence now.</h2>
+        <p>Move from reading concepts to answering questions and revising with flashcards so the ideas start feeling natural.</p>
+        <a href="quiz.html" class="btn btn-primary">Practice Networking Quiz</a>
+      </div>
+
+      <div class="cta-points">
+        <div class="cta-point">
+          <strong>Core foundations</strong>
+          <div>OSI, TCP/IP, ports, addressing, and devices.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Wireless essentials</strong>
+          <div>Wi-Fi bands, security, SSIDs, and interference.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Exam-ready revision</strong>
+          <div>Perfect for repeated quiz and flashcard practice.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>LearnITFast</h3>
+        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>

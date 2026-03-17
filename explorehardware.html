@@ -1,0 +1,901 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hardware | LearnITFast</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+      color:inherit;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:84px 6% 60px;
+      background:
+        linear-gradient(rgba(15,23,42,0.78), rgba(30,41,59,0.76)),
+        url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:38px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(36px,5vw,58px);
+      line-height:1.05;
+      margin-bottom:16px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      max-width:680px;
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:22px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+      backdrop-filter:blur(6px);
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:24px;
+      color:#93c5fd;
+      margin-bottom:6px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      max-width:1240px;
+      margin:0 auto;
+      padding:80px 6%;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .overview-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
+
+    .overview-card,
+    .path-card,
+    .split-card,
+    .study-step{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.04);
+    }
+
+    .overview-card h3,
+    .path-card h3,
+    .split-card h3,
+    .study-step h4{
+      color:#111827;
+    }
+
+    .overview-card h3,
+    .path-card h3,
+    .split-card h3{
+      font-size:24px;
+      margin-bottom:10px;
+    }
+
+    .overview-card p,
+    .path-card p,
+    .split-card p,
+    .study-step p{
+      color:#6b7280;
+      font-size:15px;
+    }
+
+    .overview-icon{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#dbeafe;
+      font-size:28px;
+      margin-bottom:14px;
+    }
+
+    .paths-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:22px;
+    }
+
+    .path-tag{
+      display:inline-block;
+      background:#dbeafe;
+      color:#1d4ed8;
+      border-radius:999px;
+      padding:6px 12px;
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+
+    .path-links{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .small-link{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .small-link.primary{
+      background:#2563eb;
+      color:#fff;
+    }
+
+    .small-link.secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .split-layout{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .check-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .check-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .check-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .study-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
+
+    .study-step{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+    }
+
+    .step-number{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:#2563eb;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .study-step h4{
+      font-size:21px;
+      margin-bottom:8px;
+      color:#1d4ed8;
+    }
+
+    .cta{
+      padding:0 6% 80px;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:42px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+      margin-top:20px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:1024px){
+      .hero-inner,
+      .split-layout,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">LearnITFast</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html" class="active">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="quiz.html" class="btn btn-primary">Start Quiz</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Explore hardware and understand the physical side of IT systems.</h1>
+        <p>Learn what components do, how devices connect, how storage works, and why hardware knowledge matters for troubleshooting, upgrades, performance, and support roles.</p>
+        <div class="hero-btns">
+          <a href="#hardwarePaths" class="btn btn-primary">Explore Hardware</a>
+          <a href="quiz.html" class="btn hero-btn-secondary">Practice Quiz</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Hardware Snapshot</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>CPU</strong>
+            <span>Processing</span>
+          </div>
+          <div class="hero-stat">
+            <strong>RAM</strong>
+            <span>Memory</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Drives</strong>
+            <span>Storage</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Cables</strong>
+            <span>Connections</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>What hardware covers</h2>
+      <p>Hardware is the physical side of computing — the parts you can install, replace, connect, upgrade, diagnose, and support.</p>
+    </div>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-icon">🖥️</div>
+        <h3>Core Components</h3>
+        <p>Study the motherboard, CPU, RAM, power supply, graphics card, and how each part supports the system.</p>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">💾</div>
+        <h3>Storage</h3>
+        <p>Understand HDDs, SSDs, NVMe drives, removable storage, and how data is stored and accessed.</p>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">🔌</div>
+        <h3>Connections</h3>
+        <p>Learn cables, ports, connectors, adapters, and how devices physically communicate with a computer.</p>
+      </div>
+
+      <div class="overview-card">
+        <div class="overview-icon">🛠️</div>
+        <h3>Troubleshooting</h3>
+        <p>Hardware knowledge helps you identify failing parts, upgrade systems, and solve performance or boot problems.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hardwarePaths">
+    <div class="section-header">
+      <h2>Main hardware study paths</h2>
+      <p>Break hardware into clear branches so it becomes easier to revise and remember.</p>
+    </div>
+
+    <div class="paths-grid">
+      <div class="path-card">
+        <span class="path-tag">System Basics</span>
+        <h3>PC Components</h3>
+        <p>Understand the motherboard, CPU, RAM, GPU, PSU, and how the major parts inside a system work together.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Storage</span>
+        <h3>HDD, SSD & NVMe</h3>
+        <p>Learn the difference between spinning drives and solid-state storage, plus speed, form factor, and use cases.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Peripherals</span>
+        <h3>Input & Output Devices</h3>
+        <p>Study monitors, keyboards, mice, printers, webcams, speakers, and how users interact with computer systems.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Connections</span>
+        <h3>Cables, Ports & Connectors</h3>
+        <p>Cover USB types, HDMI, DisplayPort, Ethernet, SATA, power connectors, adapters, and common hardware interfaces.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Mobility</span>
+        <h3>Laptops & Mobile Hardware</h3>
+        <p>Explore batteries, chargers, laptop internals, wireless cards, screens, keyboards, and portable device basics.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+
+      <div class="path-card">
+        <span class="path-tag">Repair</span>
+        <h3>Hardware Troubleshooting</h3>
+        <p>Learn to diagnose power issues, no display, overheating, slow systems, storage failure, and bad components.</p>
+        <div class="path-links">
+          <a href="quiz.html" class="small-link primary">Practice Quiz</a>
+          <a href="flashcards.html" class="small-link secondary">Flashcards</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="split-layout">
+      <div class="split-card">
+        <h3>Why hardware matters</h3>
+        <p>Hardware knowledge is essential because every computer, laptop, server, and device depends on physical components working correctly. If you want to support users, build systems, or troubleshoot machines, you need to understand what the parts do.</p>
+        <p>It also helps you connect performance problems to real causes instead of guessing. Slow boot? Random shutdown? No display? Those problems often make more sense when you understand the hardware underneath.</p>
+
+        <div class="check-list">
+          <div class="check-item">
+            <strong>It builds real support skills</strong>
+            <span>Hardware knowledge helps with setup, upgrades, replacements, and repair work.</span>
+          </div>
+          <div class="check-item">
+            <strong>It improves troubleshooting</strong>
+            <span>You can connect symptoms like overheating or no power to likely failing parts.</span>
+          </div>
+          <div class="check-item">
+            <strong>It supports other IT areas</strong>
+            <span>Even networking, operating systems, and cybersecurity rely on working hardware foundations.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-card">
+        <h3>What to focus on first</h3>
+        <p>If hardware feels too broad, start with the things that appear most often in support work and revision.</p>
+
+        <div class="check-list">
+          <div class="check-item">
+            <strong>Major internal parts</strong>
+            <span>Know what the CPU, RAM, motherboard, PSU, and storage devices actually do.</span>
+          </div>
+          <div class="check-item">
+            <strong>Storage differences</strong>
+            <span>Be clear on HDD vs SSD vs NVMe and why speed and form factor matter.</span>
+          </div>
+          <div class="check-item">
+            <strong>Common ports and cables</strong>
+            <span>USB, HDMI, DisplayPort, Ethernet, SATA, and charging or power connectors show up often.</span>
+          </div>
+          <div class="check-item">
+            <strong>Basic symptoms and failures</strong>
+            <span>Learn the signs of bad RAM, storage problems, overheating, and power issues.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Best way to study hardware here</h2>
+      <p>Use a simple cycle so the physical parts start making sense instead of feeling random.</p>
+    </div>
+
+    <div class="study-grid">
+      <div class="study-step">
+        <div class="step-number">1</div>
+        <h4>Learn the part first</h4>
+        <p>Start with what the component does before worrying about memorizing every detail.</p>
+      </div>
+
+      <div class="study-step">
+        <div class="step-number">2</div>
+        <h4>Link it to symptoms</h4>
+        <p>Think about what happens when that part fails, slows down, disconnects, or overheats.</p>
+      </div>
+
+      <div class="study-step">
+        <div class="step-number">3</div>
+        <h4>Use quiz practice</h4>
+        <p>Answer hardware questions to test whether you actually understand the parts and terms.</p>
+      </div>
+
+      <div class="study-step">
+        <div class="step-number">4</div>
+        <h4>Use flashcards for details</h4>
+        <p>Reinforce ports, component names, cable types, and hardware-specific terminology faster.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2>Start building your hardware knowledge now.</h2>
+        <p>Move from understanding components to answering questions and revising key terms so the physical side of IT feels easier and more practical.</p>
+        <a href="quiz.html" class="btn btn-primary">Practice Hardware Quiz</a>
+      </div>
+
+      <div class="cta-points">
+        <div class="cta-point">
+          <strong>Core components</strong>
+          <div>CPU, RAM, motherboard, storage, and power basics.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Connections</strong>
+          <div>Ports, cables, connectors, and hardware interfaces.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Repair thinking</strong>
+          <div>Useful for support, upgrades, and troubleshooting flow.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>LearnITFast</h3>
+        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>

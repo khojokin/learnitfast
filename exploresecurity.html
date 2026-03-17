@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Explore Security</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:26px;
+      max-width:670px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:760px;
+      margin:0 auto;
+    }
+
+    .topics-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .topic-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+    }
+
+    .topic-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .topic-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:18px;
+      flex:1;
+    }
+
+    .topic-link{
+      font-weight:800;
+      color:#2563eb;
+      font-size:14px;
+    }
+
+    .feature-wrap{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+    }
+
+    .feature-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .feature-box h3{
+      font-size:24px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .feature-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .feature-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .feature-wrap,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner{
+        padding:28px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo" id="siteLogo">
+        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+        <span class="logo-text" id="siteLogoText">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="quiz.html" class="btn btn-primary">Start Studying</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 id="heroTitle">Explore security and understand how to protect systems, networks, and data.</h1>
+        <p id="heroText">Learn the basics of authentication, malware, encryption, firewalls, wireless protection, access control, and security best practices in a simple way.</p>
+        <div class="hero-btns">
+          <a href="quiz.html" class="btn btn-primary" id="heroBtnOne">Start Security Quiz</a>
+          <a href="#topicsSection" class="btn hero-btn-secondary" id="heroBtnTwo">Explore Security Topics</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 id="heroCardTitle">Security Focus</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong id="statOneValue">6</strong>
+            <span id="statOneLabel">Core Areas</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statTwoValue">Safe</strong>
+            <span id="statTwoLabel">Practices</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statThreeValue">Real</strong>
+            <span id="statThreeLabel">Threats</span>
+          </div>
+          <div class="hero-stat">
+            <strong id="statFourValue">24/7</strong>
+            <span id="statFourLabel">Study Access</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="topicsSection">
+    <div class="section-header">
+      <h2 id="topicsHeading">Main Security Topics</h2>
+      <p id="topicsText">Start with the foundations of cybersecurity and learn how common threats work, how protection methods help, and how to reduce risk.</p>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2 id="featuresHeading">How security learning helps you</h2>
+      <p id="featuresText">Security is not only about hackers. It is also about policies, habits, access, awareness, and using the right protection at the right time.</p>
+    </div>
+
+    <div class="feature-wrap">
+      <div class="feature-box">
+        <h3 id="featureBoxOneTitle">Security Fundamentals</h3>
+        <p id="featureBoxOneText">Build a strong base by understanding the most important concepts first before going deeper.</p>
+        <div class="feature-list" id="featureListOne"></div>
+      </div>
+
+      <div class="feature-box">
+        <h3 id="featureBoxTwoTitle">Common Security Risks</h3>
+        <p id="featureBoxTwoText">Study the kinds of threats and mistakes that affect users, devices, and organisations every day.</p>
+        <div class="feature-list" id="featureListTwo"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2 id="ctaTitle">Learn how to secure systems before problems happen.</h2>
+        <p id="ctaText">Use LearnITFast to revise security basics, improve awareness, and get more confident with the concepts used in study, exams, and support work.</p>
+        <a href="quiz.html" class="btn btn-primary" id="ctaBtn">Practice Security Now</a>
+      </div>
+
+      <div class="cta-points" id="ctaPoints"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
+        </div>
+        <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Core Topics</h3>
+        <a href="networking.html">Networking</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="security.html">Security</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p id="footerBottomText">©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const defaultSecurityData = {
+      siteLogo: "LearnITFast",
+      siteLogoImage: "logo.png",
+      heroTitle: "Explore security and understand how to protect systems, networks, and data.",
+      heroText: "Learn the basics of authentication, malware, encryption, firewalls, wireless protection, access control, and security best practices in a simple way.",
+      heroBtnOne: "Start Security Quiz",
+      heroBtnTwo: "Explore Security Topics",
+      heroCardTitle: "Security Focus",
+      stats: [
+        { value: "6", label: "Core Areas" },
+        { value: "Safe", label: "Practices" },
+        { value: "Real", label: "Threats" },
+        { value: "24/7", label: "Study Access" }
+      ],
+      topicsHeading: "Main Security Topics",
+      topicsText: "Start with the foundations of cybersecurity and learn how common threats work, how protection methods help, and how to reduce risk.",
+      topics: [
+        {
+          icon: "🔐",
+          title: "Authentication",
+          text: "Learn about usernames, passwords, biometrics, MFA, and how identity is verified securely.",
+          link: "authentication.html",
+          linkText: "Explore Authentication →"
+        },
+        {
+          icon: "🦠",
+          title: "Malware",
+          text: "Understand viruses, worms, ransomware, spyware, trojans, and how infections spread.",
+          link: "malware.html",
+          linkText: "Explore Malware →"
+        },
+        {
+          icon: "🧱",
+          title: "Firewalls",
+          text: "Study how firewalls filter traffic, block threats, and help protect devices and networks.",
+          link: "firewalls.html",
+          linkText: "Explore Firewalls →"
+        },
+        {
+          icon: "🔒",
+          title: "Encryption",
+          text: "See how data is protected in storage and transit using encryption concepts and keys.",
+          link: "encryption.html",
+          linkText: "Explore Encryption →"
+        },
+        {
+          icon: "📶",
+          title: "Wireless Security",
+          text: "Learn WPA2, WPA3, rogue access points, secure Wi-Fi setup, and wireless risks.",
+          link: "wireless-security.html",
+          linkText: "Explore Wireless Security →"
+        },
+        {
+          icon: "👥",
+          title: "Access Control",
+          text: "Understand permissions, least privilege, user roles, account management, and secure access.",
+          link: "access-control.html",
+          linkText: "Explore Access Control →"
+        }
+      ],
+      featuresHeading: "How security learning helps you",
+      featuresText: "Security is not only about hackers. It is also about policies, habits, access, awareness, and using the right protection at the right time.",
+      featureBoxOneTitle: "Security Fundamentals",
+      featureBoxOneText: "Build a strong base by understanding the most important concepts first before going deeper.",
+      featureListOne: [
+        { title: "Protect identities", text: "Understand passwords, MFA, biometrics, and why secure login matters." },
+        { title: "Protect devices", text: "Learn updates, antivirus, firewalls, and safer device configuration." },
+        { title: "Protect data", text: "Study encryption, permissions, backups, and secure handling of information." }
+      ],
+      featureBoxTwoTitle: "Common Security Risks",
+      featureBoxTwoText: "Study the kinds of threats and mistakes that affect users, devices, and organisations every day.",
+      featureListTwo: [
+        { title: "Phishing and scams", text: "Recognise fake links, suspicious emails, and social engineering tricks." },
+        { title: "Weak passwords", text: "See how poor password habits create easy openings for attackers." },
+        { title: "Unsafe access", text: "Learn how too much permission or poor account control increases risk." }
+      ],
+      ctaTitle: "Learn how to secure systems before problems happen.",
+      ctaText: "Use LearnITFast to revise security basics, improve awareness, and get more confident with the concepts used in study, exams, and support work.",
+      ctaBtn: "Practice Security Now",
+      ctaPoints: [
+        { title: "Clear explanations", text: "Understand the basics without confusion." },
+        { title: "Exam-friendly study", text: "Great for revision and IT certification prep." },
+        { title: "Real-world awareness", text: "Build security habits that actually matter." }
+      ],
+      footerBrand: "LearnITFast",
+      footerDesc: "Simple, focused IT learning for students, career switchers, and tech beginners.",
+      footerBottomText: "©️ 2026 LearnITFast. All rights reserved."
+    };
+
+    function getSecurityData(){
+      const saved = localStorage.getItem("learnitfast_security_data");
+      if(saved){
+        try{
+          const parsed = JSON.parse(saved);
+          return { ...defaultSecurityData, ...parsed };
+        }catch(error){}
+      }
+      return defaultSecurityData;
+    }
+
+    function renderFeatureList(containerId, items){
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      items.forEach(item => {
+        const box = document.createElement("div");
+        box.className = "feature-item";
+        box.innerHTML = `<strong>${item.title}</strong><span>${item.text}</span>`;
+        container.appendChild(box);
+      });
+    }
+
+    function renderTopics(topics){
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      topics.forEach(topic => {
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        card.innerHTML = `
+          <div class="topic-icon">${topic.icon}</div>
+          <h3>${topic.title}</h3>
+          <p>${topic.text}</p>
+          <a href="${topic.link}" class="topic-link">${topic.linkText}</a>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderCtaPoints(points){
+      const container = document.getElementById("ctaPoints");
+      container.innerHTML = "";
+      points.forEach(point => {
+        const box = document.createElement("div");
+        box.className = "cta-point";
+        box.innerHTML = `<strong>${point.title}</strong><div>${point.text}</div>`;
+        container.appendChild(box);
+      });
+    }
+
+    function applySecurityData(){
+      const data = getSecurityData();
+
+      document.title = `${data.siteLogo} | Explore Security`;
+
+      document.getElementById("siteLogoText").textContent = data.siteLogo;
+      document.getElementById("footerBrand").textContent = data.footerBrand || data.siteLogo;
+
+      const headerLogoImg = document.getElementById("siteLogoImg");
+      const footerLogoImg = document.getElementById("footerLogoImg");
+      const logoPath = data.siteLogoImage || "logo.png";
+
+      headerLogoImg.src = logoPath;
+      footerLogoImg.src = logoPath;
+
+      headerLogoImg.alt = `${data.siteLogo} Logo`;
+      footerLogoImg.alt = `${data.footerBrand || data.siteLogo} Logo`;
+
+      document.getElementById("heroTitle").textContent = data.heroTitle;
+      document.getElementById("heroText").textContent = data.heroText;
+      document.getElementById("heroBtnOne").textContent = data.heroBtnOne;
+      document.getElementById("heroBtnTwo").textContent = data.heroBtnTwo;
+      document.getElementById("heroCardTitle").textContent = data.heroCardTitle;
+
+      document.getElementById("statOneValue").textContent = data.stats[0]?.value || "";
+      document.getElementById("statOneLabel").textContent = data.stats[0]?.label || "";
+      document.getElementById("statTwoValue").textContent = data.stats[1]?.value || "";
+      document.getElementById("statTwoLabel").textContent = data.stats[1]?.label || "";
+      document.getElementById("statThreeValue").textContent = data.stats[2]?.value || "";
+      document.getElementById("statThreeLabel").textContent = data.stats[2]?.label || "";
+      document.getElementById("statFourValue").textContent = data.stats[3]?.value || "";
+      document.getElementById("statFourLabel").textContent = data.stats[3]?.label || "";
+
+      document.getElementById("topicsHeading").textContent = data.topicsHeading;
+      document.getElementById("topicsText").textContent = data.topicsText;
+      renderTopics(data.topics);
+
+      document.getElementById("featuresHeading").textContent = data.featuresHeading;
+      document.getElementById("featuresText").textContent = data.featuresText;
+      document.getElementById("featureBoxOneTitle").textContent = data.featureBoxOneTitle;
+      document.getElementById("featureBoxOneText").textContent = data.featureBoxOneText;
+      document.getElementById("featureBoxTwoTitle").textContent = data.featureBoxTwoTitle;
+      document.getElementById("featureBoxTwoText").textContent = data.featureBoxTwoText;
+
+      renderFeatureList("featureListOne", data.featureListOne);
+      renderFeatureList("featureListTwo", data.featureListTwo);
+
+      document.getElementById("ctaTitle").textContent = data.ctaTitle;
+      document.getElementById("ctaText").textContent = data.ctaText;
+      document.getElementById("ctaBtn").textContent = data.ctaBtn;
+      renderCtaPoints(data.ctaPoints);
+
+      document.getElementById("footerDesc").textContent = data.footerDesc;
+      document.getElementById("footerBottomText").textContent = data.footerBottomText;
+    }
+
+    applySecurityData();
+  </script>
+</body>
+</html>
