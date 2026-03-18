@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6723276431169192"
@@ -70,7 +70,7 @@
       flex-shrink:0;
     }
 
-      .logo img{
+    .logo img{
       height:46px;
       width:46px;
       min-width:46px;
@@ -143,6 +143,7 @@
       min-width:240px;
       max-width:280px;
       width:100%;
+      position:relative;
     }
 
     .search-icon{
@@ -159,6 +160,33 @@
       padding:12px 8px;
       font-size:14px;
       color:#111827;
+    }
+
+    #searchDropdown{
+      position:absolute;
+      top:110%;
+      left:0;
+      right:0;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      box-shadow:0 10px 15px rgba(0,0,0,0.1);
+      display:none;
+      z-index:2000;
+      overflow:hidden;
+    }
+
+    .search-result-item{
+      padding:10px 15px;
+      cursor:pointer;
+      font-size:14px;
+      border-bottom:1px solid #f1f5f9;
+      color:#374151;
+    }
+
+    .search-result-item:hover{
+      background:#eff6ff;
+      color:#2563eb;
     }
 
     nav{
@@ -767,8 +795,8 @@
 
   <header>
     <div class="header-inner">
-      <a href="index.html" class="logo" id="siteLogo">
-        <img src="logo.png" alt="LearnITFast Logo" id="siteLogoImg">
+      <a href="/index.html" class="logo" id="siteLogo">
+        <img src="/logo.png" alt="LearnITFast Logo" id="siteLogoImg">
         <span class="logo-text" id="siteLogoText">LearnITFast</span>
       </a>
 
@@ -779,21 +807,22 @@
       <div class="nav-area" id="navArea">
         <div class="search-wrap">
           <span class="search-icon">🔎</span>
-          <input type="text" id="siteSearch" placeholder="Search topics, quizzes, flashcards..." />
+          <input type="text" id="siteSearch" placeholder="Search topics, quizzes, flashcards..." autocomplete="off" />
+          <div id="searchDropdown"></div>
         </div>
 
         <nav id="mainNav">
-          <a href="index.html">Home</a>
-          <a href="quiz.html" class="active">Quiz</a>
-          <a href="flashcards.html">Flashcards</a>
-          <a href="topics.html">Topics</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
+          <a href="/index.html">Home</a>
+          <a href="/quiz.html" class="active">Quiz</a>
+          <a href="/flashcards.html">Flashcards</a>
+          <a href="/topics.html">Topics</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
         </nav>
 
         <div class="nav-actions">
-          <a href="login.html" class="btn-login">Log In</a>
-          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+          <a href="/login.html" class="btn-login">Log In</a>
+          <a href="/signup.html" class="btn btn-primary">Sign Up</a>
         </div>
       </div>
     </div>
@@ -889,7 +918,7 @@
       <div>
         <h2 id="ctaTitle">Study by category and get stronger one area at a time.</h2>
         <p id="ctaText">Sign up to unlock more topic quizzes, flashcards, study tools, and future premium revision packs across the whole platform.</p>
-        <a href="signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
+        <a href="/signup.html" class="btn btn-primary" id="ctaBtn">Create Free Account</a>
       </div>
 
       <div class="cta-points" id="ctaPoints"></div>
@@ -900,7 +929,7 @@
     <div class="footer-inner">
       <div class="footer-col">
         <div class="footer-brand">
-          <img src="logo.png" alt="LearnITFast Logo" id="footerLogoImg">
+          <img src="/logo.png" alt="LearnITFast Logo" id="footerLogoImg">
           <span class="footer-brand-text" id="footerBrand">LearnITFast</span>
         </div>
         <p id="footerDesc">Simple, focused IT learning for students, career switchers, and tech beginners.</p>
@@ -908,25 +937,25 @@
 
       <div class="footer-col">
         <h3>Study</h3>
-        <a href="quiz.html">Quiz</a>
-        <a href="flashcards.html">Flashcards</a>
-        <a href="topics.html">Topics</a>
+        <a href="/quiz.html">Quiz</a>
+        <a href="/flashcards.html">Flashcards</a>
+        <a href="/topics.html">Topics</a>
       </div>
 
       <div class="footer-col">
         <h3>Main Areas</h3>
-        <a href="hardware.html">Hardware</a>
-        <a href="networking.html">Networking</a>
-        <a href="security.html">Security</a>
-        <a href="cloud.html">Cloud</a>
+        <a href="/hardware.html">Hardware</a>
+        <a href="/networking.html">Networking</a>
+        <a href="/security.html">Security</a>
+        <a href="/cloud.html">Cloud</a>
       </div>
 
       <div class="footer-col">
         <h3>Support</h3>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="signup.html">Sign Up</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/signup.html">Sign Up</a>
       </div>
     </div>
 
@@ -939,27 +968,67 @@
     const menuToggle = document.getElementById("menuToggle");
     const navArea = document.getElementById("navArea");
 
+    function closeMobileMenu(){
+      menuToggle.classList.remove("active");
+      navArea.classList.remove("open");
+    }
+
     menuToggle.addEventListener("click", () => {
       menuToggle.classList.toggle("active");
       navArea.classList.toggle("open");
     });
 
     const searchPages = [
-      { name: "Home", url: "index.html", keywords: ["home","main","landing"] },
-      { name: "Quiz", url: "quiz.html", keywords: ["quiz","questions","test","practice"] },
-      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards","cards","revision","memory"] },
-      { name: "Topics", url: "topics.html", keywords: ["topics","subjects","categories"] },
-      { name: "About", url: "about.html", keywords: ["about","story","mission"] },
-      { name: "Contact", url: "contact.html", keywords: ["contact","message","support","help"] },
-      { name: "Security", url: "security.html", keywords: ["security","cybersecurity","protection"] },
-      { name: "Troubleshooting", url: "troubleshooting.html", keywords: ["troubleshooting","support","fix","problems"] },
-      { name: "Hardware", url: "hardware.html", keywords: ["hardware","computer parts","components"] },
-      { name: "Networking", url: "networking.html", keywords: ["networking","router","switch","tcp/ip","dns"] },
-      { name: "Cloud", url: "cloud.html", keywords: ["cloud","aws","azure","google cloud"] },
-      { name: "Operating Systems", url: "os.html", keywords: ["operating systems","os","windows","linux","macos"] }
+      { name: "Home", url: "/index.html", keywords: ["home","main","landing"] },
+      { name: "Quiz", url: "/quiz.html", keywords: ["quiz","questions","test","practice"] },
+      { name: "Flashcards", url: "/flashcards.html", keywords: ["flashcards","cards","revision","memory"] },
+      { name: "Topics", url: "/topics.html", keywords: ["topics","subjects","categories"] },
+      { name: "About", url: "/about.html", keywords: ["about","story","mission"] },
+      { name: "Contact", url: "/contact.html", keywords: ["contact","message","support","help"] },
+      { name: "Security", url: "/security.html", keywords: ["security","cybersecurity","protection"] },
+      { name: "Troubleshooting", url: "/troubleshooting.html", keywords: ["troubleshooting","support","fix","problems"] },
+      { name: "Hardware", url: "/hardware.html", keywords: ["hardware","computer parts","components"] },
+      { name: "Networking", url: "/networking.html", keywords: ["networking","router","switch","tcp/ip","dns"] },
+      { name: "Cloud", url: "/cloud.html", keywords: ["cloud","aws","azure","google cloud"] },
+      { name: "Operating Systems", url: "/os.html", keywords: ["operating systems","os","windows","linux","macos"] }
     ];
 
-    document.getElementById("siteSearch").addEventListener("keydown", function(e){
+    const searchInput = document.getElementById("siteSearch");
+    const searchDropdown = document.getElementById("searchDropdown");
+
+    searchInput.addEventListener("input", function() {
+      const query = this.value.toLowerCase().trim();
+      searchDropdown.innerHTML = "";
+
+      if(query.length < 1){
+        searchDropdown.style.display = "none";
+        return;
+      }
+
+      const matches = searchPages.filter(page =>
+        page.name.toLowerCase().includes(query) ||
+        page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+      );
+
+      if(matches.length > 0){
+        searchDropdown.style.display = "block";
+
+        matches.forEach(match => {
+          const item = document.createElement("div");
+          item.className = "search-result-item";
+          item.innerHTML = `<strong>${match.name}</strong>`;
+          item.addEventListener("click", () => {
+            closeMobileMenu();
+            window.location.href = match.url;
+          });
+          searchDropdown.appendChild(item);
+        });
+      }else{
+        searchDropdown.style.display = "none";
+      }
+    });
+
+    searchInput.addEventListener("keydown", function(e){
       if(e.key === "Enter"){
         const query = this.value.trim().toLowerCase();
         if(!query) return;
@@ -970,6 +1039,7 @@
         );
 
         if(match){
+          closeMobileMenu();
           window.location.href = match.url;
         }else{
           alert("No matching page found yet.");
@@ -977,9 +1047,21 @@
       }
     });
 
+    document.addEventListener("click", (e) => {
+      if(!document.querySelector(".search-wrap").contains(e.target)){
+        searchDropdown.style.display = "none";
+      }
+    });
+
+    document.querySelectorAll("#mainNav a, .nav-actions a").forEach(link => {
+      link.addEventListener("click", () => {
+        closeMobileMenu();
+      });
+    });
+
     const defaultQuizData = {
       siteLogo: "LearnITFast",
-      siteLogoImage: "logo.png",
+      siteLogoImage: "/logo.png",
       heroTitle: "Choose a tech topic and take a quiz built for that exact area.",
       heroText: "Practice IT and tech knowledge through grouped quizzes covering hardware, networking, programming, web development, databases, cybersecurity, cloud, operating systems, DevOps, IT support, analytics, and AI.",
       heroBtnOne: "Choose Quiz Topic",
@@ -1594,10 +1676,10 @@
       document.getElementById("quizContainer").style.display = "block";
       document.getElementById("scoreBox").style.display = "none";
 
-      renderQuestion(data);
+      renderQuestion();
     }
 
-    function renderQuestion(data){
+    function renderQuestion(){
       const questionTitle = document.getElementById("questionTitle");
       const answersContainer = document.getElementById("answersContainer");
       const quizFeedback = document.getElementById("quizFeedback");
@@ -1610,6 +1692,11 @@
       answersContainer.innerHTML = "";
 
       const q = currentQuestions[currentQuestion];
+      if(!q){
+        showFinalScore();
+        return;
+      }
+
       progressText.textContent = `Question ${currentQuestion + 1} of ${currentQuestions.length}`;
       questionTitle.textContent = q.question;
 
@@ -1666,7 +1753,7 @@
 
       const headerLogoImg = document.getElementById("siteLogoImg");
       const footerLogoImg = document.getElementById("footerLogoImg");
-      const logoPath = data.siteLogoImage || "logo.png";
+      const logoPath = data.siteLogoImage || "/logo.png";
 
       headerLogoImg.src = logoPath;
       footerLogoImg.src = logoPath;
@@ -1711,7 +1798,7 @@
       document.getElementById("nextBtn").onclick = () => {
         currentQuestion++;
         if(currentQuestion < currentQuestions.length){
-          renderQuestion(data);
+          renderQuestion();
         }else{
           showFinalScore();
         }
@@ -1726,7 +1813,7 @@
       };
     }
 
-    applyQuizData();
+    document.addEventListener("DOMContentLoaded", applyQuizData);
   </script>
 </body>
 </html>
