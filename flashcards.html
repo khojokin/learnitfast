@@ -1,0 +1,1301 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Flashcards</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    button,
+    input{
+      transition:0.3s;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+   .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+
+    .logo img{
+      height:46px;
+      width:46px;
+      min-width:46px;
+      border-radius:12px;
+      object-fit:contain;
+      background:#ffffff;
+      padding:4px;
+      border:1px solid #dbeafe;
+      box-shadow:0 4px 12px rgba(37,99,235,0.08);
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    .search-box{
+      display:flex;
+      align-items:center;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:999px;
+      padding:0 14px;
+      min-width:220px;
+      max-width:260px;
+      width:100%;
+    }
+
+    .search-box span{
+      color:#6b7280;
+      font-size:14px;
+      flex-shrink:0;
+    }
+
+    .search-box input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:11px 10px;
+      font-size:14px;
+      color:#111827;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .btn-secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .btn-secondary:hover{
+      background:#d1d5db;
+    }
+
+    .hero{
+      padding:90px 6% 70px;
+      background:
+        linear-gradient(rgba(15,23,42,0.76), rgba(30,41,59,0.78)),
+        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color:#fff;
+    }
+
+    .hero-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-text h1{
+      font-size:clamp(38px,5vw,60px);
+      line-height:1.05;
+      margin-bottom:18px;
+      font-weight:800;
+    }
+
+    .hero-text p{
+      font-size:17px;
+      color:#dbeafe;
+      margin-bottom:26px;
+      max-width:680px;
+    }
+
+    .hero-btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn-secondary{
+      background:rgba(255,255,255,0.16);
+      color:#fff;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:24px;
+      padding:28px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      font-size:22px;
+      margin-bottom:18px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .hero-stat{
+      background:rgba(255,255,255,0.08);
+      padding:16px;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .hero-stat strong{
+      display:block;
+      font-size:25px;
+      color:#93c5fd;
+      margin-bottom:5px;
+    }
+
+    .hero-stat span{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:700;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:85px 6%;
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .section-header{
+      text-align:center;
+      margin-bottom:54px;
+    }
+
+    .section-header h2{
+      font-size:36px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:#6b7280;
+      max-width:820px;
+      margin:0 auto;
+    }
+
+    .topics-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+    }
+
+    .topic-card{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+      cursor:pointer;
+    }
+
+    .topic-card:hover{
+      transform:translateY(-7px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.08);
+      border-color:#bfdbfe;
+    }
+
+    .topic-card.active-topic{
+      border-color:#2563eb;
+      box-shadow:0 16px 34px rgba(37,99,235,0.14);
+    }
+
+    .topic-icon{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      background:#dbeafe;
+      margin-bottom:16px;
+    }
+
+    .topic-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#111827;
+    }
+
+    .topic-card p{
+      color:#6b7280;
+      font-size:15px;
+      margin-bottom:14px;
+    }
+
+    .topic-count{
+      display:inline-block;
+      background:#eff6ff;
+      color:#1d4ed8;
+      border:1px solid #bfdbfe;
+      font-size:12px;
+      font-weight:800;
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:16px;
+      width:fit-content;
+    }
+
+    .topic-questions{
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      background:#f8fafc;
+      padding:14px;
+      max-height:260px;
+      overflow-y:auto;
+      margin-bottom:16px;
+    }
+
+    .topic-questions-title{
+      font-size:14px;
+      font-weight:800;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .topic-questions ul{
+      list-style:none;
+      display:grid;
+      gap:8px;
+    }
+
+    .topic-questions li{
+      font-size:13px;
+      color:#4b5563;
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      padding:9px 10px;
+    }
+
+    .topic-link{
+      font-weight:800;
+      color:#2563eb;
+      font-size:14px;
+      margin-top:auto;
+    }
+
+    .flashcards-shell{
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:30px;
+      align-items:start;
+    }
+
+    .flashcards-info,
+    .flashcards-box{
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .flashcards-info h3,
+    .flashcards-box h3{
+      font-size:24px;
+      margin-bottom:12px;
+      color:#111827;
+    }
+
+    .flashcards-info p,
+    .flashcards-box p{
+      color:#6b7280;
+      margin-bottom:18px;
+    }
+
+    .feature-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-item{
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    .feature-item strong{
+      display:block;
+      color:#1d4ed8;
+      margin-bottom:4px;
+    }
+
+    .flashcard-meta{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+
+    .flashcard-badge{
+      background:#dbeafe;
+      color:#1d4ed8;
+      font-weight:800;
+      padding:10px 16px;
+      border-radius:999px;
+      font-size:13px;
+    }
+
+    .progress-text{
+      font-size:14px;
+      color:#6b7280;
+      font-weight:700;
+    }
+
+    .flashcard{
+      min-height:330px;
+      perspective:1000px;
+      margin-bottom:20px;
+      cursor:pointer;
+    }
+
+    .flashcard-inner{
+      position:relative;
+      width:100%;
+      min-height:330px;
+      transition:transform 0.6s;
+      transform-style:preserve-3d;
+    }
+
+    .flashcard.flipped .flashcard-inner{
+      transform:rotateY(180deg);
+    }
+
+    .flashcard-face{
+      position:absolute;
+      width:100%;
+      min-height:330px;
+      backface-visibility:hidden;
+      border:1px solid #dbe3ef;
+      border-radius:24px;
+      padding:32px 28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      background:#f8fafc;
+    }
+
+    .flashcard-back{
+      transform:rotateY(180deg);
+      background:#eff6ff;
+      border-color:#bfdbfe;
+    }
+
+    .flashcard-label{
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-weight:800;
+      color:#2563eb;
+      margin-bottom:14px;
+    }
+
+    .flashcard-title{
+      font-size:30px;
+      line-height:1.25;
+      color:#111827;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+
+    .flashcard-text{
+      color:#4b5563;
+      font-size:16px;
+      max-width:580px;
+    }
+
+    .flashcard-tip{
+      text-align:center;
+      font-size:14px;
+      color:#6b7280;
+      margin-bottom:16px;
+      font-weight:700;
+    }
+
+    .flashcard-controls{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .cta{
+      padding:85px 6%;
+    }
+
+    .cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      border-radius:30px;
+      color:#fff;
+      padding:40px;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .cta-inner h2{
+      font-size:38px;
+      margin-bottom:12px;
+      line-height:1.1;
+    }
+
+    .cta-inner p{
+      color:#dbeafe;
+      margin-bottom:18px;
+    }
+
+    .cta-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .cta-point{
+      background:rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px 16px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:44px;
+      width:44px;
+      min-width:44px;
+      border-radius:12px;
+      object-fit:contain;
+      background:#ffffff;
+      padding:4px;
+      border:1px solid rgba(255,255,255,0.14);
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:950px){
+      .hero-inner,
+      .flashcards-shell,
+      .cta-inner{
+        grid-template-columns:1fr;
+      }
+
+      .hero-text{
+        text-align:center;
+      }
+
+      .hero-text p{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-btns{
+        justify-content:center;
+      }
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      .search-box{
+        width:100%;
+        max-width:none;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .hero,
+      .section,
+      .cta,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .cta-inner,
+      .flashcards-info,
+      .flashcards-box{
+        padding:24px;
+      }
+
+      .section-header h2{
+        font-size:30px;
+      }
+
+      .cta-inner h2{
+        font-size:31px;
+      }
+
+      .flashcard-title{
+        font-size:24px;
+      }
+
+      .flashcard,
+      .flashcard-inner,
+      .flashcard-face{
+        min-height:280px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:40px;
+        width:40px;
+        min-width:40px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+
+      .topics-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="LearnITFast Logo" onerror="this.src='logo.JPG'">
+        <span class="logo-text">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <div class="search-box">
+          <span>🔎</span>
+          <input type="text" id="searchInput" placeholder="Search pages..." />
+        </div>
+
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html" class="active">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>12 Main IT Topics with 100 Questions Under Each</h1>
+        <p>Pick any main IT topic below. Every topic card contains its own 100 questions underneath, and clicking a topic also loads that topic into the flashcard player.</p>
+        <div class="hero-btns">
+          <a href="#flashcardTopics" class="btn btn-primary">View All Topics</a>
+          <a href="#flashcardsSection" class="btn hero-btn-secondary">Start Revising</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Flashcards Dashboard</h3>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>12</strong>
+            <span>Main IT Topics</span>
+          </div>
+          <div class="hero-stat">
+            <strong>100</strong>
+            <span>Questions Each</span>
+          </div>
+          <div class="hero-stat">
+            <strong>1200</strong>
+            <span>Total Questions</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Tap</strong>
+            <span>To Flip</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="flashcardTopics">
+    <div class="section-header">
+      <h2>Choose a Flashcard Group</h2>
+      <p>Each one of the 12 main IT topics has 100 questions shown directly under it.</p>
+    </div>
+
+    <div class="topics-grid" id="topicsGrid"></div>
+  </section>
+
+  <section class="section" id="flashcardsSection">
+    <div class="section-header">
+      <h2>Topic Flashcards</h2>
+      <p>Click the card to flip it, then move through the selected topic with the controls underneath.</p>
+    </div>
+
+    <div class="flashcards-shell">
+      <div class="flashcards-info">
+        <h3>How this page works</h3>
+        <p>The section above shows all 12 topics and their 100 questions under each. The section here lets the learner revise the selected topic one flashcard at a time.</p>
+        <div class="feature-list">
+          <div class="feature-item">
+            <strong>12 full topic blocks</strong>
+            <span>Each topic displays its own question list directly below it.</span>
+          </div>
+          <div class="feature-item">
+            <strong>100 questions each</strong>
+            <span>Every topic gets a full list of 100 questions, not just Hardware.</span>
+          </div>
+          <div class="feature-item">
+            <strong>Flashcard player</strong>
+            <span>When a topic is clicked, the flashcard section loads that topic.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcards-box">
+        <div class="flashcard-meta">
+          <span class="flashcard-badge" id="flashcardTopicLabel">Hardware Flashcards</span>
+          <span class="progress-text" id="progressText">Question 1 of 100</span>
+        </div>
+
+        <div class="flashcard-tip">Tap or click the card to reveal the answer.</div>
+
+        <div class="flashcard" id="flashcard">
+          <div class="flashcard-inner">
+            <div class="flashcard-face flashcard-front">
+              <div class="flashcard-label">Question</div>
+              <div class="flashcard-title" id="flashcardFront">Loading card...</div>
+              <div class="flashcard-text" id="flashcardFrontText">Question side</div>
+            </div>
+
+            <div class="flashcard-face flashcard-back">
+              <div class="flashcard-label">Answer</div>
+              <div class="flashcard-title" id="flashcardBack">Answer</div>
+              <div class="flashcard-text" id="flashcardBackText">Answer side</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard-controls">
+          <button class="btn btn-secondary" id="prevBtn">Previous</button>
+          <button class="btn btn-primary" id="flipBtn">Flip Card</button>
+          <button class="btn btn-secondary" id="nextBtn">Next</button>
+          <button class="btn btn-primary" id="restartBtn">Restart Set</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <div>
+        <h2>Keep revising until the ideas become automatic.</h2>
+        <p>Sign up to unlock more flashcard decks, quizzes, topic notes, and future revision packs across the whole platform.</p>
+        <a href="signup.html" class="btn btn-primary">Create Free Account</a>
+      </div>
+
+      <div class="cta-points">
+        <div class="cta-point">
+          <strong>Big revision sets</strong>
+          <div>Every topic includes a large question list for deeper study.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Better structure</strong>
+          <div>Each topic is organised clearly so students stay focused.</div>
+        </div>
+        <div class="cta-point">
+          <strong>Easy to grow later</strong>
+          <div>You can expand this into premium packs anytime.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo" onerror="this.src='logo.JPG'">
+          <span class="footer-brand-text">LearnITFast</span>
+        </div>
+        <p>Simple, focused IT learning for students, career switchers, and tech beginners.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Main Areas</h3>
+        <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
+        <a href="security.html">Security</a>
+        <a href="cloud.html">Cloud</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+
+    const searchPages = [
+      { name: "Home", url: "index.html", keywords: ["home", "main", "landing"] },
+      { name: "Quiz", url: "quiz.html", keywords: ["quiz", "questions", "test", "practice"] },
+      { name: "Flashcards", url: "flashcards.html", keywords: ["flashcards", "cards", "revision"] },
+      { name: "Topics", url: "topics.html", keywords: ["topics", "subjects", "study"] },
+      { name: "About", url: "about.html", keywords: ["about", "story", "mission"] },
+      { name: "Contact", url: "contact.html", keywords: ["contact", "support", "help"] },
+      { name: "Sign Up", url: "signup.html", keywords: ["signup", "register", "create account"] },
+      { name: "Log In", url: "login.html", keywords: ["login", "sign in", "account"] }
+    ];
+
+    document.getElementById("searchInput").addEventListener("keydown", function(e){
+      if(e.key === "Enter"){
+        const query = this.value.trim().toLowerCase();
+        if(!query) return;
+
+        const match = searchPages.find(page =>
+          page.name.toLowerCase().includes(query) ||
+          page.keywords.some(keyword => keyword.includes(query) || query.includes(keyword))
+        );
+
+        if(match){
+          window.location.href = match.url;
+        }else{
+          alert("No matching page found yet.");
+        }
+      }
+    });
+
+    const topics = [
+      {
+        key: "hardware",
+        icon: "🖥️",
+        title: "Hardware",
+        text: "Study computers, components, storage, memory, servers, and physical equipment.",
+        terms: ["CPU","RAM","SSD","HDD","Motherboard","PSU","GPU","NIC","Cooling Fan","BIOS","ROM","Server"]
+      },
+      {
+        key: "networking",
+        icon: "🌐",
+        title: "Networking",
+        text: "Revise routers, switches, protocols, DNS, addressing, Wi-Fi, and connectivity.",
+        terms: ["IP Address","Router","Switch","DNS","TCP","UDP","DHCP","Subnet Mask","Wi-Fi","Firewall","VPN","Bandwidth"]
+      },
+      {
+        key: "programming",
+        icon: "⌨️",
+        title: "Software Development / Programming",
+        text: "Review coding, logic, testing, debugging, and software building concepts.",
+        terms: ["Algorithm","Variable","Function","Loop","Conditional","Bug","Debugging","Compiler","Interpreter","Library","API","Version Control"]
+      },
+      {
+        key: "webdev",
+        icon: "🌍",
+        title: "Web Development",
+        text: "Revise front-end, back-end, full-stack, HTML, CSS, JavaScript, and web apps.",
+        terms: ["HTML","CSS","JavaScript","Front-End","Back-End","Full-Stack","Responsive Design","DOM","Form","API Fetch","Hosting","Authentication"]
+      },
+      {
+        key: "databases",
+        icon: "🗄️",
+        title: "Databases",
+        text: "Study data storage, tables, queries, models, indexing, and database systems.",
+        terms: ["Database","Table","Row","Column","SQL","Primary Key","Foreign Key","Query","Index","Normalization","PostgreSQL","MongoDB"]
+      },
+      {
+        key: "security",
+        icon: "🔐",
+        title: "Cybersecurity / Information Security",
+        text: "Revise threats, protection, encryption, authentication, and secure practices.",
+        terms: ["Encryption","Authentication","Authorization","MFA","Phishing","Malware","Ransomware","Firewall","VPN","Least Privilege","Patch Management","Penetration Testing"]
+      },
+      {
+        key: "cloud",
+        icon: "☁️",
+        title: "Cloud Computing",
+        text: "Learn on-demand services, providers, deployment models, and scaling concepts.",
+        terms: ["Cloud Computing","AWS","Azure","Google Cloud","SaaS","PaaS","IaaS","Scalability","Region","Availability Zone","Serverless","Object Storage"]
+      },
+      {
+        key: "os",
+        icon: "💻",
+        title: "Operating Systems",
+        text: "Review Windows, Linux, system roles, processes, drivers, and administration basics.",
+        terms: ["Operating System","Windows","Linux","macOS","Kernel","Process","Driver","File System","User Account","Permission","Command Line","Update"]
+      },
+      {
+        key: "devops",
+        icon: "⚙️",
+        title: "DevOps & Deployment",
+        text: "Revise version control, automation, pipelines, containers, and deployments.",
+        terms: ["DevOps","Git","Repository","Branch","CI","CD","Pipeline","Docker","Container","Kubernetes","Deployment","Monitoring"]
+      },
+      {
+        key: "itsupport",
+        icon: "🛠️",
+        title: "IT Support / Systems Administration",
+        text: "Study support tasks, troubleshooting, patching, backups, accounts, and maintenance.",
+        terms: ["Help Desk","Ticket","Backup","Restore","Patch","Asset Management","Account Provisioning","Troubleshooting","Remote Support","Uptime","Maintenance Window","Documentation"]
+      },
+      {
+        key: "analytics",
+        icon: "📊",
+        title: "Data Analytics & Business Intelligence",
+        text: "Review dashboards, KPIs, trends, reports, metrics, and data-driven decisions.",
+        terms: ["Data Analytics","Business Intelligence","Dashboard","KPI","Metric","Trend","Report","Visualization","Data Cleaning","ETL","Forecasting","Segmentation"]
+      },
+      {
+        key: "ai",
+        icon: "🤖",
+        title: "Artificial Intelligence / Machine Learning",
+        text: "Revise AI, ML, models, training data, predictions, and pattern recognition.",
+        terms: ["Artificial Intelligence","Machine Learning","Model","Training Data","Inference","Classification","Regression","Neural Network","Feature","Bias","Overfitting","Pattern Recognition"]
+      }
+    ];
+
+    function generate100Questions(topic){
+      const patterns = [
+        term => `What is ${term}?`,
+        term => `Explain ${term} in simple words.`,
+        term => `Why is ${term} important in ${topic.title}?`,
+        term => `Where is ${term} commonly used?`,
+        term => `How does ${term} help in real IT work?`,
+        term => `What problem does ${term} solve?`,
+        term => `How would you describe ${term} to a beginner?`,
+        term => `What should learners remember about ${term}?`,
+        term => `How is ${term} used in practice?`,
+        term => `What makes ${term} useful?`
+      ];
+
+      const questions = [];
+      let count = 0;
+
+      while(questions.length < 100){
+        const term = topic.terms[count % topic.terms.length];
+        const pattern = patterns[count % patterns.length];
+        questions.push(pattern(term));
+        count++;
+      }
+
+      return questions;
+    }
+
+    const topicQuestionsMap = {};
+    topics.forEach(topic => {
+      topicQuestionsMap[topic.key] = generate100Questions(topic);
+    });
+
+    function renderTopics(selectedKey){
+      const grid = document.getElementById("topicsGrid");
+      grid.innerHTML = "";
+
+      topics.forEach(topic => {
+        const questions = topicQuestionsMap[topic.key];
+
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        if(topic.key === selectedKey){
+          card.classList.add("active-topic");
+        }
+
+        const questionsHtml = questions.map((question, index) => `
+          <li>${index + 1}. ${question}</li>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="topic-icon">${topic.icon}</div>
+          <h3>${topic.title}</h3>
+          <p>${topic.text}</p>
+          <div class="topic-count">100 Questions</div>
+
+          <div class="topic-questions">
+            <div class="topic-questions-title">100 Questions Under ${topic.title}</div>
+            <ul>${questionsHtml}</ul>
+          </div>
+
+          <span class="topic-link">Open ${topic.title} Flashcards →</span>
+        `;
+
+        card.addEventListener("click", () => {
+          loadFlashcardTopic(topic.key);
+          document.getElementById("flashcardsSection").scrollIntoView({ behavior: "smooth" });
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    let currentTopicKey = "hardware";
+    let currentCards = [];
+    let currentCardIndex = 0;
+    let isFlipped = false;
+
+    function buildDeckFromQuestions(topicKey){
+      const topic = topics.find(item => item.key === topicKey);
+      const questions = topicQuestionsMap[topicKey] || [];
+
+      return questions.map((question, index) => ({
+        front: question,
+        frontText: `${topic.title} Question ${index + 1}`,
+        back: topic.title,
+        backText: `This question belongs to the ${topic.title} topic. You can later replace this answer with your own detailed answer or explanation.`
+      }));
+    }
+
+    function loadFlashcardTopic(topicKey){
+      currentTopicKey = topicKey;
+      currentCards = buildDeckFromQuestions(topicKey);
+      currentCardIndex = 0;
+      isFlipped = false;
+
+      const topic = topics.find(item => item.key === topicKey);
+      document.getElementById("flashcardTopicLabel").textContent = `${topic.title} Flashcards`;
+
+      renderTopics(currentTopicKey);
+      renderCurrentCard();
+    }
+
+    function renderCurrentCard(){
+      const flashcard = document.getElementById("flashcard");
+      const card = currentCards[currentCardIndex];
+
+      document.getElementById("progressText").textContent = `Question ${currentCardIndex + 1} of ${currentCards.length}`;
+      document.getElementById("flashcardFront").textContent = card.front;
+      document.getElementById("flashcardFrontText").textContent = card.frontText;
+      document.getElementById("flashcardBack").textContent = card.back;
+      document.getElementById("flashcardBackText").textContent = card.backText;
+
+      flashcard.classList.remove("flipped");
+      isFlipped = false;
+    }
+
+    function flipCurrentCard(){
+      const flashcard = document.getElementById("flashcard");
+      isFlipped = !isFlipped;
+      flashcard.classList.toggle("flipped", isFlipped);
+    }
+
+    function nextCard(){
+      currentCardIndex++;
+      if(currentCardIndex >= currentCards.length){
+        currentCardIndex = 0;
+      }
+      renderCurrentCard();
+    }
+
+    function prevCard(){
+      currentCardIndex--;
+      if(currentCardIndex < 0){
+        currentCardIndex = currentCards.length - 1;
+      }
+      renderCurrentCard();
+    }
+
+    function restartCards(){
+      currentCardIndex = 0;
+      renderCurrentCard();
+    }
+
+    document.getElementById("flashcard").addEventListener("click", flipCurrentCard);
+    document.getElementById("flipBtn").addEventListener("click", flipCurrentCard);
+    document.getElementById("nextBtn").addEventListener("click", nextCard);
+    document.getElementById("prevBtn").addEventListener("click", prevCard);
+    document.getElementById("restartBtn").addEventListener("click", restartCards);
+
+    loadFlashcardTopic("hardware");
+  </script>
+</body>
+</html>
