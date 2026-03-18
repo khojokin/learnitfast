@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6723276431169192"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LearnITFast | Privacy Policy</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f8fafc;
+      color:#1f2937;
+      line-height:1.7;
+      overflow-x:hidden;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      transition:0.3s;
+    }
+
+    button,
+    input{
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    header{
+      padding:14px 6%;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      position:relative;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      flex-shrink:0;
+    }
+
+    .logo img{
+      height:46px;
+      width:46px;
+      min-width:46px;
+      border-radius:12px;
+      object-fit:contain;
+      background:#ffffff;
+      padding:4px;
+      border:1px solid #dbeafe;
+      box-shadow:0 4px 12px rgba(37,99,235,0.08);
+    }
+
+    .logo-text{
+      font-size:28px;
+      font-weight:800;
+      color:#2563eb;
+      letter-spacing:-0.5px;
+      line-height:1;
+    }
+
+    .menu-toggle{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:#eff6ff;
+      border-radius:10px;
+      cursor:pointer;
+      padding:0;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+      flex-shrink:0;
+    }
+
+    .menu-toggle span{
+      width:20px;
+      height:2px;
+      background:#1e3a8a;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2){
+      opacity:0;
+    }
+
+    .menu-toggle.active span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-area{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex:1;
+      justify-content:flex-end;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      color:#4b5563;
+      font-weight:700;
+      padding:9px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    nav a:hover,
+    nav a.active{
+      background:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-left:8px;
+      border-left:1px solid #e5e7eb;
+      padding-left:16px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
+      white-space:nowrap;
+    }
+
+    .btn-login{
+      color:#374151;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:#fff;
+      box-shadow:0 4px 14px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .page-hero{
+      padding:80px 6% 50px;
+      background:linear-gradient(135deg,#1d4ed8 0%,#111827 100%);
+      color:#fff;
+    }
+
+    .page-hero-inner{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .page-hero h1{
+      font-size:clamp(34px,5vw,56px);
+      line-height:1.08;
+      margin-bottom:14px;
+      font-weight:800;
+    }
+
+    .page-hero p{
+      max-width:760px;
+      color:#dbeafe;
+      font-size:17px;
+    }
+
+    .policy-section{
+      padding:70px 6%;
+    }
+
+    .policy-wrap{
+      max-width:1000px;
+      margin:0 auto;
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:28px;
+      padding:38px;
+      box-shadow:0 10px 28px rgba(0,0,0,0.04);
+    }
+
+    .policy-intro{
+      margin-bottom:30px;
+      padding-bottom:24px;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .policy-intro p{
+      color:#6b7280;
+      margin-bottom:10px;
+    }
+
+    .policy-block{
+      margin-bottom:30px;
+    }
+
+    .policy-block h2{
+      font-size:24px;
+      color:#111827;
+      margin-bottom:12px;
+    }
+
+    .policy-block p{
+      color:#4b5563;
+      margin-bottom:12px;
+    }
+
+    .policy-block ul{
+      padding-left:20px;
+      color:#4b5563;
+    }
+
+    .policy-block li{
+      margin-bottom:10px;
+    }
+
+    .policy-note{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:#1e3a8a;
+      margin-top:20px;
+    }
+
+    footer{
+      background:#111827;
+      color:#9ca3af;
+      padding:70px 6% 34px;
+    }
+
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:36px;
+      margin-bottom:44px;
+    }
+
+    .footer-col h3{
+      color:#fff;
+      margin-bottom:16px;
+      font-size:18px;
+    }
+
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .footer-brand img{
+      height:42px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .footer-brand-text{
+      color:#fff;
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+    }
+
+    .footer-col a{
+      display:block;
+      color:#9ca3af;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+
+    .footer-col a:hover{
+      color:#93c5fd;
+    }
+
+    .footer-bottom{
+      max-width:1180px;
+      margin:0 auto;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.06);
+      padding-top:26px;
+      font-size:14px;
+    }
+
+    @media (max-width:860px){
+      .menu-toggle{
+        display:flex;
+      }
+
+      .nav-area{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#fff;
+        flex-direction:column;
+        align-items:stretch;
+        padding:26px;
+        border-bottom:1px solid #e5e7eb;
+        box-shadow:0 10px 20px rgba(0,0,0,0.06);
+      }
+
+      .nav-area.open{
+        display:flex;
+      }
+
+      nav{
+        flex-direction:column;
+        width:100%;
+      }
+
+      nav a{
+        width:100%;
+        text-align:center;
+        padding:12px;
+      }
+
+      .nav-actions{
+        width:100%;
+        margin:0;
+        padding:18px 0 0;
+        border-left:none;
+        border-top:1px solid #e5e7eb;
+        flex-direction:column;
+      }
+
+      .btn-login,
+      .btn-primary{
+        width:100%;
+        text-align:center;
+      }
+    }
+
+    @media (max-width:640px){
+      .page-hero,
+      .policy-section,
+      footer{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .policy-wrap{
+        padding:24px;
+        border-radius:22px;
+      }
+
+      .logo img,
+      .footer-brand img{
+        height:36px;
+      }
+
+      .logo-text{
+        font-size:22px;
+      }
+
+      .footer-brand-text{
+        font-size:22px;
+      }
+
+      .policy-block h2{
+        font-size:21px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="LearnITFast Logo">
+        <span class="logo-text">LearnITFast</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-area" id="navArea">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="quiz.html">Quiz</a>
+          <a href="flashcards.html">Flashcards</a>
+          <a href="topics.html">Topics</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn-login">Log In</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <h1>Privacy Policy</h1>
+      <p>Learn how LearnITFast collects, uses, and protects information when you use the website, quizzes, flashcards, and learning tools.</p>
+    </div>
+  </section>
+
+  <section class="policy-section">
+    <div class="policy-wrap">
+      <div class="policy-intro">
+        <p><strong>Effective Date:</strong> March 18, 2026</p>
+        <p>This Privacy Policy explains how LearnITFast handles visitor information. By using this website, you agree to the terms in this policy.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>1. Information We May Collect</h2>
+        <p>When you use LearnITFast, we may collect certain basic information to improve the platform and support user accounts.</p>
+        <ul>
+          <li>Name and email address when you sign up or contact us</li>
+          <li>Basic account information for login and access</li>
+          <li>Usage data such as pages visited, clicks, and study activity</li>
+          <li>Device or browser information for performance and security</li>
+        </ul>
+      </div>
+
+      <div class="policy-block">
+        <h2>2. How We Use Your Information</h2>
+        <p>We use collected information to keep the platform working properly and improve the learning experience.</p>
+        <ul>
+          <li>To create and manage user accounts</li>
+          <li>To provide quizzes, flashcards, and learning tools</li>
+          <li>To improve website performance, features, and content</li>
+          <li>To respond to support messages or questions</li>
+          <li>To maintain site safety, security, and fraud prevention</li>
+        </ul>
+      </div>
+
+      <div class="policy-block">
+        <h2>3. Cookies and Similar Technologies</h2>
+        <p>LearnITFast may use cookies or similar tools to remember preferences, improve performance, and understand how users interact with the website.</p>
+        <p>These technologies can help with analytics, login sessions, and improving the user experience.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>4. Advertising</h2>
+        <p>We may display advertisements on LearnITFast, including ads served by third-party advertising partners such as Google AdSense.</p>
+        <p>These partners may use cookies to show more relevant ads based on your visit to this and other websites.</p>
+        <div class="policy-note">
+          Third-party vendors, including Google, may use cookies to serve ads based on a user’s prior visits to this website or other websites.
+        </div>
+      </div>
+
+      <div class="policy-block">
+        <h2>5. Third-Party Services</h2>
+        <p>We may use third-party tools for analytics, advertising, hosting, or account-related services. These services may collect information according to their own privacy policies.</p>
+        <p>We recommend that users also review the privacy policies of any third-party services connected to the site.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>6. Data Protection</h2>
+        <p>We take reasonable steps to protect your information from unauthorized access, misuse, or disclosure. However, no website or internet transmission can be guaranteed to be fully secure.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>7. Children’s Privacy</h2>
+        <p>LearnITFast is not intended to knowingly collect personal information from children without appropriate permission where required by law. If you believe personal information has been submitted in error, please contact us.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>8. Your Choices</h2>
+        <p>You may choose not to provide certain personal information, but some features such as account access or saved progress may not work properly.</p>
+        <p>You can also control cookies through your browser settings.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>9. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time as the platform grows. Any updates will be posted on this page with a revised effective date.</p>
+      </div>
+
+      <div class="policy-block">
+        <h2>10. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, you can contact LearnITFast through the website’s contact page.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <img src="logo.png" alt="LearnITFast Logo">
+          <span class="footer-brand-text">LearnITFast</span>
+        </div>
+        <p>Simple, focused tech learning for students, beginners, and career switchers.</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Study</h3>
+        <a href="quiz.html">Quiz</a>
+        <a href="flashcards.html">Flashcards</a>
+        <a href="topics.html">Topics</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Main Areas</h3>
+        <a href="hardware.html">Hardware</a>
+        <a href="networking.html">Networking</a>
+        <a href="security.html">Security</a>
+        <a href="cloud.html">Cloud</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="signup.html">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©️ 2026 LearnITFast. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navArea = document.getElementById("navArea");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      navArea.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>
